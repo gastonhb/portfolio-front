@@ -1,0 +1,35 @@
+#inputFile{
+    display: none;
+}
+
+.uploadImage { 
+    border-style: dashed; 
+    border-width: 2px; 
+    border-color: rgb(202, 200, 200);
+    margin-top: 1%;
+    text-align: center;
+    vertical-align: text-bottom;
+    align-items: center;
+    color: rgb(202, 200, 200);
+}
+
+.uploadImage:hover{
+    background: lightblue;
+    color: rgb(75, 62, 255);
+    font-style: oblique;
+    border-color: blue;
+}
+
+.uploadedImage{ 
+    border-style: solid; 
+    border-width: 1px; 
+    border-color: gray;
+    text-align: center;
+    color: rgb(202, 200, 200);
+}
+
+.form{
+    border-style:solid;
+    border-width: 1px; 
+    border-color: gray;
+}

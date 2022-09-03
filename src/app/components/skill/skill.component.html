@@ -1,0 +1,37 @@
+<div class="card card-body shadow mx-5 my-1">
+    <div class="row">
+        <div class="col col-11">
+            <h2 class="card-title">Soft and Hard skills</h2>
+        </div>
+
+        <div class="col col-1 d-flex justify-content-end" *ngIf="!showAddSkill && hasCurrentUser">
+            <fa-icon [icon]="faPlus" class="btn" (click)="toggleAddSkill()"></fa-icon>
+        </div>
+    </div>
+    
+    <app-skill-add (onAddSkill)="onAddSkill($event)" (closeAddSkill)="closeAddSkill($event)" [showAddSkill]="showAddSkill"></app-skill-add>
+
+    <h3>Hard Skill</h3>
+    <div class="row">
+        <app-skill-item 
+        *ngFor="let skill of hardSkills"
+        [skill]= "skill"
+        (onDeleteSkill) = "onDelete(skill)"
+        (updateSkill) = "updateSkill(skill)"
+        class="col col-6 mb-3"
+        ></app-skill-item> 
+    </div>
+
+    <h3>Soft Skill</h3>
+    <div class="row">
+        <app-skill-item 
+        *ngFor="let skill of softSkills"
+        [skill]= "skill"
+        (onDeleteSkill) = "onDelete(skill)"
+        (updateSkill) = "updateSkill(skill)"
+        class="col col-6 mb-2"
+        ></app-skill-item> 
+    </div>
+    
+    
+</div>

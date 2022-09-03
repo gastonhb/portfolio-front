@@ -1,0 +1,26 @@
+<div *ngIf="showUpdateSkill; else skillItem">
+    <app-skill-update (onUpdateSkill)="onUpdateSkill($event)" (closeUpdateSkill)="closeUpdateSkill($event)" [showUpdateSkill]="showUpdateSkill" [skill]="skill"></app-skill-update>
+</div>
+<ng-template #skillItem>
+    <div class="row">
+        <div class="col col-9">
+            <h3 class="name"> {{skill.name}} </h3>
+        </div>
+        <div class="col col-3 d-flex justify-content-end" *ngIf="hasCurrentUser">
+            <fa-icon class="btn" [icon]="faPen" (click)="toggleUpdateSkill()"></fa-icon>  
+            <fa-icon class="btn" [icon]="faTrashCan" (click)="onDelete(skill)"></fa-icon> 
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-12">
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" [style.width]="skill.grade + '%'" attr.aria-valuenow="{{skill.grade}}" aria-valuemin="0" aria-valuemax="100" *ngIf="skillType(skill.type, 'Hard Skill'); else softSkillBar"></div>
+
+                <ng-template #softSkillBar>
+                    <div class="progress-bar bg-success" role="progressbar" [style.width]="skill.grade + '%'" attr.aria-valuenow="{{skill.grade}}" aria-valuemin="0" aria-valuemax="100"></div>
+                </ng-template>
+            </div>
+            
+        </div>
+    </div>
+</ng-template>

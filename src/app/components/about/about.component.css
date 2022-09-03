@@ -1,0 +1,182 @@
+
+/* TODO REVISAR BORRRAR */
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/* BORRRAR */
+body {
+    color: #404040;
+    font-family: "Arial", Segoe UI, Tahoma, sans-serifl, Helvetica Neue, Helvetica;
+} 
+
+/* TODO REVISAR BORRRAR */
+.section-about {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* .user-profile-header {
+    margin-top: 2200 px;
+    top: 100;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    background: gray;
+    margin-bottom: 24px;
+    margin-top: 12px;
+    display: block;
+    position: relative;
+    height: 272px;
+    border-radius: 20px 20px 0px 0px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, .2);
+} */
+
+/* .perfil-usuario-portada {
+    display: block;
+    position: relative;
+    width: 90%;
+    height: 272px;
+    background-image: blue;
+    border-radius: 0 0 20px 20px;
+    background-position: center;
+    background-image: url('http://localhost/multimedia/png/user-portada-3.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+} */
+
+/* Bien */
+.btnCoverPhoto {
+    position: absolute;
+    right: 20px;
+    top: 8px;
+    border: 0;
+    border-radius: 50%;
+    background-color: white; 
+    cursor: pointer;
+    width: 46px;
+    height: 46px;
+}
+
+/* Bien */
+.imgIcon {
+    position: absolute;
+    right: 15px;
+    top: 11px;
+}
+
+/* Bien */
+.userProfileImage { 
+    display: flex;
+    width: 180px;
+    height: 180px;
+    align-items: center;
+    justify-content: center;
+    border: 7px solid #FFFFFF;
+    background-color: #DFE5F2;
+    border-radius: 50%;
+    box-shadow: 0 0 12px rgba(0, 0, 0, .2);
+    position: absolute;
+    top: 130px;
+    left: 60px;
+    z-index: 1;
+}
+
+/* .userProfileImage img {
+    width: 100%;
+    position: relative;
+    border-radius: 50%;
+} */
+
+/* BIEN */
+.btnProfileImage {
+    position: absolute;
+    right: -2px;
+    top: -2px;
+    border: 0;
+    background-color: #fff;
+    box-shadow: 0 0 12px rgba(0, 0, 0, .2);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/*BORRRAR */
+.user-profile-body {
+    width: 90%;
+    /* position: relative; */
+    /* max-width: 750px; */
+    /* display: flex; */
+    /* flex-wrap: wrap; */
+    /* flex-direction: column; */
+   /*  align-items: center; */
+    /* flex-wrap: wrap; */
+    /* padding: 0px 0px ; */
+    box-shadow: 0 0 12px rgba(0, 0, 0, .2);
+    background-color: #fff;
+    border-radius: 0 0 15px 15px;
+   /*  margin-bottom: 1.25rem; */
+    text-align: center;
+    /* height: fix; */
+   /*  display: flex; */
+}
+
+/* Borrar */
+.user-profile-bio {
+    display: inline-block;
+    position: relative;
+    /* flex-wrap: wrap; */
+   /*  padding: 1.5rem 2rem; */
+    background-color: #fff;
+    margin-top: 65px; 
+    /* top: 50%; */
+    width: 30%;
+  /*float: left; */
+  /*margin-bottom: 1.25rem; */
+    text-align: left;
+    /* flex-basis: 100% */
+}
+
+/* BORRRAR */
+.abstract{
+    display: inline-block;
+    position: relative;
+    /* float: "right"; */
+    text-align: left;
+    /* left: 5%; */
+    width: 60%;
+    /* right: 2%;
+    left: 10%; */
+    margin-top: 65px;
+    /* margin-bottom: 15%; */
+/*     width: 40%;
+    right: 1%;
+     */
+     /* top: 15%; */
+   /*  flex-basis: 100% */
+}
+
+/* Bien */
+.profileImage{
+    display: block;
+    height: 170px;
+    border-radius: 50%;
+}
+
+/* TODO REVISAR BORRRAR */
+/* adactacion a dispositivos  */
+@media (max-width: 768px) {
+
+    .userProfileImage { 
+        left: calc(50% - 90px);
+    }
+
+} 

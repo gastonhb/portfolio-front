@@ -1,0 +1,54 @@
+<form class="form rounded container my-3" (ngSubmit)="save()" *ngIf="showAddSkill">
+    
+    <div class="row mx-auto my-1">
+        <div class="col col-11 my-auto">
+            <h5 class="my-auto">Agregar habilidad: </h5> 
+        </div>
+        <div class="col col-1 d-flex justify-content-end">
+            <fa-icon [icon]="faTimes" class="btn" (click)="close()"></fa-icon>
+        </div>
+    </div>
+
+    <div class="row mx-auto ">
+        <div class="col col-12">
+            <div class="row mb-2 ">
+                <div class="col col-12 my-auto">
+                    <label for="name">Nombre:</label>
+                </div>
+                <div class="col col-12">
+                    <input class="form-control" type="text" name="name" id="name" placeholder="Agregar Nombre" [(ngModel)]="name"/>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col col-12 mx-auto my-auto">
+                    <label for="type">Tipo de habilidad:</label>
+                </div>
+                <div class="col col-12 mx-auto my-auto ">
+                    <select class="form-select form-select-xs" [(ngModel)]="type"  name="type">
+                        <option value="Hard Skill">Hard Skill</option>
+                        <option value="Soft Skill">Soft Skill</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col col-12 mx-auto my-auto">
+                    <label for="grade">Grado de habilidad: </label>
+                </div>
+                <div class="col col-12 mx-auto my-auto" >
+                    <input class="col-12 form-control" type="number" name="grade" id="grade" [(ngModel)]="grade"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-2 d-flex justify-content-end">
+            <div class="col col-3 col-xs-1 col-md-2 col-lg-2">
+                <button type="submit" class="btn btn-secondary" (click)="close()">Cancelar</button> 
+            </div>
+            <div class="col col-3 col-xs-1 col-md-2 col-lg-2">
+                <button type="submit" class="btn btn-primary ">Guardar</button>
+            </div>
+        </div>
+    </div>
+</form>

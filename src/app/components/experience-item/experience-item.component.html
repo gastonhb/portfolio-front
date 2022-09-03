@@ -1,0 +1,39 @@
+<div class="row" *ngIf="showUpdateExperience; else experienceItem">
+    <app-experience-update (onUpdateExperience)="onUpdateExperience($event)" (closeUpdateExperience)="closeUpdateExperience($event)" [showUpdateExperience]="showUpdateExperience" [experience]="experience"></app-experience-update>
+</div>
+<ng-template #experienceItem>
+    <div class="row">
+        <div class="col col-2" >
+            <div *ngIf="experience.urlImage; else withoutImage">
+                <img src="{{experience.urlImage}}" class="img-fluid rounded mx-auto d-block" alt="experience-photo" >
+            </div>
+            <ng-template #withoutImage>
+                <div class="image rounded mx-auto my-autos ">
+                    <fa-icon class="fa-5x"  [icon]="faImage"></fa-icon>
+                </div>
+            </ng-template>
+        </div>
+
+        <div class="col col-10">
+            <div class="row">
+                <div class="col col-10">
+                    <h3 class="title"> {{experience.title}} </h3>
+                </div>
+                <div class="col col-2 d-flex justify-content-end" *ngIf="hasCurrentUser">
+                    <fa-icon class="btn" [icon]="faPen" (click)="toggleUpdateExperience()"></fa-icon>  
+                    <fa-icon class="btn" [icon]="faTrashCan" (click)="onDelete(experience)"></fa-icon> 
+                </div>
+            </div>
+            
+            <h5> {{experience.companyName}} - {{experience.workTime}}</h5>
+            <p *ngIf="experience.endDate; else elseBlock"> 
+                {{ experience.startDate | date : "dd/MM/yyyy" }}  -  
+                {{ experience.endDate | date : "dd/MM/yyyy" }}</p>
+                <ng-template #elseBlock>
+                    {{ experience.startDate | date : "dd/MM/yyyy" }}  - 
+                    Acutalidad</ng-template>
+            <p> {{experience.location}}</p>
+        </div>
+    </div>
+</ng-template>
+

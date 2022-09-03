@@ -1,0 +1,39 @@
+<div class="row" *ngIf="showUpdateProject; else projectItem">
+    <app-project-update (onUpdateProject)="onUpdateProject($event)" (closeUpdateProject)="closeUpdateProject($event)" [showUpdateProject]="showUpdateProject" [project]="project"></app-project-update>
+</div>
+<ng-template #projectItem>
+    <div class="row">
+        <div class="col col-2" >
+            <div *ngIf="project.urlImage; else withoutImage">
+                <a href={{project.link}}><img src="{{project.urlImage}}" class="img-fluid rounded mx-auto d-block" alt="project-photo" title="Ir al sitio"></a>
+                
+            </div>
+            <ng-template #withoutImage>
+                <div class="image rounded mx-auto my-autos ">
+                    <fa-icon class="fa-5x"  [icon]="faImage"></fa-icon>
+                </div>
+            </ng-template>
+        </div>
+
+        <div class="col col-10">
+            <div class="row">
+                <div class="col col-10">
+                    <h3 class="title"><a href={{project.link}}  title="Ir al sitio">{{project.name}}</a></h3>
+                </div>
+                <div class="col col-2 d-flex justify-content-end" *ngIf="hasCurrentUser">
+                    <fa-icon class="btn" [icon]="faPen" (click)="toggleUpdateProject()"></fa-icon>  
+                    <fa-icon class="btn" [icon]="faTrashCan" (click)="onDelete(project)"></fa-icon> 
+                </div>
+            </div>
+            
+            <p> {{project.description}} </p>
+            <h5 class="col col-12 mb-0">Fecha de realización:</h5>
+            <p *ngIf="project.endDate; else elseBlock"> 
+                {{ project.startDate | date : "dd/MM/yyyy" }}  -  
+                {{ project.endDate | date : "dd/MM/yyyy" }}</p>
+                <ng-template #elseBlock>
+                    {{ project.startDate | date : "dd/MM/yyyy" }}  - 
+                    Acutalidad</ng-template>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,207 @@
+/* TODO ver que borrar */
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    padding: 90px 20px 0;
+}
+
+.header {
+    background-color: #0769e9;
+    height: 5%;
+   /*  position: fixed; */
+    width: 100%;
+    top: 0;
+    left: 0;
+    margin-bottom: 10px;
+} 
+
+.nav 
+/* .nav {
+    display: flex;
+    justify-content: space-between;
+    max-width: 95%;
+    margin: 0 auto;
+} */
+
+.nav-link{
+    color: white;
+    text-decoration: none;
+}
+
+.logo {
+    height: 50px;
+     /* font-size: 25px;
+     padding: 0 20px;
+     line-height: 60px;
+     
+     width: fix; */
+ }
+
+.nav-menu{
+    display: flex;
+    margin-right: 40px;
+    list-style: none;
+}
+
+.nav-menu-item{
+    font-size: 18px;
+    margin: 0 10px;
+    line-height: 80px;
+    width: max-content;
+}
+
+.nav-menu-link{
+    padding: 8px 12px;
+    border-radius: 3px;
+}
+
+.nav-menu-link:hover
+.nav-menu-link_active {
+    background-color: #034574;
+    transition: 0.5s;
+}
+
+.nav-toggle {
+    color: white;
+    background-color: none;
+    border: none;
+    font-size: 30px;
+    padding: 0 20px;
+    line-height: 60px;
+    display: none;
+    cursor: pointer;
+}
+
+/* .dropdown {
+    display: inline-block;
+    position: relative;
+  }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    width: 100%;
+    overflow: auto;
+    box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.4);
+  }
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  .dropdown-content a {
+    display: block;
+    color: #000000;
+    padding: 5px;
+    text-decoration: none;
+  }
+  .dropdown-content a:hover {
+    color: #FFFFFF;
+    background-color: #00A4BD;
+  } */
+
+/* .nav-bar-button {
+    background-color: #0769e9;
+    color: white;
+    border: none;
+    font-size: 100%;
+} */
+
+/* @media (max-width: 768px) {
+    body {
+        padding-top: 70px;
+    }
+    
+    .header {
+        height: 60px;
+    }
+    
+    .logo {
+       /*  font-size: 25px;
+        padding: 0 20px;
+        line-height: 60px;
+        height: 50px;
+        width: 50px;
+    }
+    
+    .nav-menu{
+        flex-direction: column;
+        align-items: center;
+        margin-right: 40px;
+        list-style: none;
+        background-color: #2c3e50;
+        position: fixed;
+        left: 0;
+        top: 60px;
+        width: 100%;
+        padding: 20px 0;
+        height: calc(100% - 60px);
+        overflow-y: auto;
+        left: 100%;
+        transition: left 0.3s;
+    }
+    
+    .nav-menu-item{
+        line-height: 60px;
+    }
+    
+    .nav-menu-link:hover,
+    .nav-menu-link_active {
+        background: none;
+        color: #83c5f7;
+    }
+    
+    .nav-toggle {
+        display: block;
+    }
+
+    .nav-menu_visible {
+        left: 0;
+    }
+} */
+
+
+ /* Dropdown Button */
+ .dropbtn {
+    /* background-color: #04AA6D; */
+    /* color: white; */
+    /* padding: 16px;
+    font-size: 16px;
+    border: none; */
+  }
+  
+  /* The container <div> - needed to position the dropdown content */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    right: 25px;
+   /*  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);  *//* Sombra del cubo ver que hacer */
+    z-index: 1; 
+   /*  border-radius: 50%; */
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    color: black;
+    padding: 10px 10px;
+  /*   text-decoration: none; */
+    display: block;
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {background-color: #ddd; }
+  
+  /* Show the dropdown menu on hover */
+  .dropdown:hover .dropdown-content {display: block;}
+  
+  /* Change the background color of the dropdown button when the dropdown content is shown */
+  /* .dropdown:hover .dropbtn {background-color: #0b5ed7;} */

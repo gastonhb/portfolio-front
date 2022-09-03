@@ -1,0 +1,87 @@
+<form class="form rounded container my-3" (ngSubmit)="save()" *ngIf="showAddProject">
+    
+    <div class="row mx-auto my-1">
+        <div class="col col-11 my-auto">
+            <h5 class="my-auto">Agregar nuevo proyecto: </h5> 
+        </div>
+        <div class="col col-1">
+            <fa-icon [icon]="faTimes" class="btn" (click)="close()"></fa-icon>
+        </div>
+    </div>
+
+    <div class="row mx-auto ">
+        <div class="col col-3"> 
+            <div class="row mx-auto mb-2 ">
+                <input type="file" class="form-control" accept=".png, .jpg, .jpeg" (change)="uploadImage($event)" id="inputFile"/>
+                <label for="inputFile" class="uploadImage mx-auto rounded">
+                    <p class=" my-auto"><b>Seleccione una imagen</b></p>
+                </label>
+            </div>
+
+            <div class="row uploadedImage rounded mx-auto my-autos" >
+                <div *ngIf="image; else withoutImage">
+                    <img src="{{image}}" class=" img-fluid rounded mx-auto d-block " alt="project-photo" >
+                </div>
+                <ng-template #withoutImage>
+                    <div class="my-5">
+                        <fa-icon class="fa-3x"  [icon]="faImage"></fa-icon>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+        
+        <div class="col col-9">
+            <div class="row mb-2 ">
+                <div class="col col-12 my-auto">
+                    <label for="name">Nombre:</label>
+                </div>
+                <div class="col col-12">
+                    <input class="form-control" type="text" name="name" id="name" placeholder="Agregar Nombre" [(ngModel)]="name"/>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col col-12 mx-auto my-auto">
+                    <label for="description">Descripción: </label>
+                </div>
+                <div class="col col-12 mx-auto my-auto" >
+                    <input class="col-12 form-control" type="text" name="description" id="description" placeholder="Agregar Descripción" [(ngModel)]="description"/>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <p class="col col-12 mb-0">Fecha de realización:</p>
+                <div class="col col-lg-1 col-12 my-auto">
+                    <label for="startDate">Desde: </label>
+                </div>
+                <div class="col col-lg-5 col-12">
+                    <input class="form-control" type="date" name="startDate" id="startDate" placeholder="Agregar Fecha" [(ngModel)]="startDate"/>
+                </div>
+                <div class="col col-lg-1 col-12 my-auto">
+                    <label for="endDate">Hasta: </label>
+                </div>
+                <div class="col col-lg-5 col-12">
+                    <input class="form-control" type="date" name="endDate" id="endDate" placeholder="Agregar Fecha" [(ngModel)]="endDate" [attr.disabled]="disabledEndDate ? true : null"/>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col col-12 my-auto">
+                    <label for="link">Link: </label>
+                </div>
+                <div class="col col-12">
+                    <input class="col-12 form-control" type="text" name="link" id="link" placeholder="Agregar Link" [(ngModel)]="link"/>
+                </div>                   
+            </div>
+        </div>
+
+        <div class="row mb-2 d-flex flex-row-reverse">
+            <div class="col col-3 col-xs-1 col-md-2 col-lg-2">
+                <button type="submit" class="btn btn-primary ">Guardar</button>
+            </div>
+            <div class="col col-3 col-xs-1 col-md-2 col-lg-2">
+                <button type="submit" class="btn btn-secondary" (click)="close()">Cancelar</button> 
+            </div>
+        </div>
+    </div>
+</form>

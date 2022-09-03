@@ -1,0 +1,53 @@
+<section class="card card-body shadow mx-5 my-1"> 
+    <div class="rounded" style="height: 270px;">
+        <img class="img-fluid vw-100 h-100 rounded-top" src="{{person.urlCoverPhoto}}" alt="cover-photo">
+
+        <div class="btnCoverPhoto" *ngIf="hasCurrentUser">
+            <label for="inputCoverPhoto">
+                <fa-icon [icon]="faImage" class="imgIcon"></fa-icon>
+            </label>
+            <input type="file" class="form-control d-none" accept=".png, .jpg, .jpeg" (change)="saveCoverPhoto($event)" id="inputCoverPhoto"/>
+        </div>
+    </div>
+
+    <div class="userProfileImage">
+        <img class="profileImage" src="{{person.urlImage}}" alt="profileImage">
+        
+        <div class="btnProfileImage" *ngIf="hasCurrentUser">
+            <label for="inputFile">
+                <fa-icon [icon]="faImage" class="imgIcon"></fa-icon>
+            </label>
+            <input type="file" class="form-control d-none" accept=".png, .jpg, .jpeg" (change)="saveProfile($event)" id="inputFile"/>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div *ngIf="showUpdateAbout; else about">
+            <app-about-update (updatePerson)="updatePerson($event)" (closeUpdateAbout)="closeUpdateAbout($event)" [showUpdateAbout]="showUpdateAbout" [person]="person"></app-about-update>
+        </div> 
+    
+        <ng-template #about>
+
+            <div class="row mb-3 mt-5">
+                <div class="col col-xs-12 col-sm-12 col-md-5 col-lg-4">
+                    <div class="row ms-md-4">
+                        <h1 class="text-center text-md-start ms-md-2">{{person.name}} {{person.lastname}}</h1>
+                        <p class="text-center text-md-start ms-md-4">{{person.title}}</p> 
+                    </div>
+                </div>
+                <div class="col col-xs-12 col-sm-12 col-md-7 col-lg-8">
+                    <div class="row">
+                        <h1 class="col col-11 ms-3 ms-md-0">Resumen:</h1>
+                        <div class="col col-1 d-flex justify-content-end">
+                            <fa-icon class="btn me-4" [icon]="faPen" (click)="toggleUpdateAbout()"  *ngIf="hasCurrentUser"></fa-icon>  
+                        </div>
+                    </div>
+                    <p class="ms-3 ms-md-0 me-2">{{person.abstracts}}</p>
+                </div>
+                
+            </div>
+        </ng-template>
+    </div>
+    
+</section>

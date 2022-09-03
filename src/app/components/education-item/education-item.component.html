@@ -1,0 +1,37 @@
+<div class="row" *ngIf="showUpdateEducation; else educationItem">
+    <app-education-update (onUpdateEducation)="onUpdateEducation($event)" (closeUpdateEducation)="closeUpdateEducation($event)" [showUpdateEducation]="showUpdateEducation" [education]="education"></app-education-update>
+</div>
+<ng-template #educationItem>
+    <div class="row">
+        <div class="col col-2" >
+            <div *ngIf="education.urlImage; else withoutImage">
+                <img src="{{education.urlImage}}" class="img-fluid rounded mx-auto d-block" alt="education-photo" >
+            </div>
+            <ng-template #withoutImage>
+                <div class="image rounded mx-auto my-autos ">
+                    <fa-icon class="fa-5x"  [icon]="faImage"></fa-icon>
+                </div>
+            </ng-template>
+        </div>
+
+        <div class="col col-10">
+            <div class="row">
+                <div class="col col-10">
+                    <h3 class="title"> {{education.title}} </h3>
+                </div>
+                <div class="col col-2 d-flex justify-content-end" *ngIf="hasCurrentUser">
+                    <fa-icon class="btn" [icon]="faPen" (click)="toggleUpdateEducation()"></fa-icon>  
+                    <fa-icon class="btn" [icon]="faTrashCan" (click)="onDelete(education)"></fa-icon> 
+                </div>
+            </div>
+            
+            <h5> {{education.institute}} </h5>
+            <p *ngIf="education.endDate; else elseBlock"> 
+                {{ education.startDate}}  -  {{ education.endDate }}
+            </p>
+                <ng-template #elseBlock>
+                    {{ education.startDate }}  - Acutalidad
+                </ng-template>
+        </div>
+    </div>
+</ng-template>

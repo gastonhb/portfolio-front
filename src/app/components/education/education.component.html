@@ -1,0 +1,21 @@
+<div class="card card-body shadow mx-5 my-1">
+    <div class="row">
+        <div class="col col-11">
+            <h2 class="card-title">Educación</h2>
+        </div>
+
+        <div class="col col-1 d-flex justify-content-end" *ngIf="!showAddEducation && hasCurrentUser">
+            <fa-icon [icon]="faPlus" class="btn" (click)="toggleAddEducation()"></fa-icon>
+        </div>
+    </div>
+    
+    <app-education-add (onAddEducation)="onAddEducation($event)" (closeAddEducation)="closeAddEducation($event)" [showAddEducation]="showAddEducation"></app-education-add>
+
+    <app-education-item 
+        *ngFor="let education of educations"
+        [education]= "education"
+        (onDeleteEducation) = "onDelete(education)"
+        (updateEducation) = "updateEducation(education)">
+    </app-education-item> 
+
+</div>
