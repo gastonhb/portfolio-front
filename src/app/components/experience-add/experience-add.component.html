@@ -37,7 +37,7 @@
                     <label for="title">Titulo:</label>
                 </div>
                 <div class="col col-12">
-                    <input class="form-control" type="text" name="title" id="title" placeholder="Agregar Titulo" [(ngModel)]="title"/>
+                    <input class="form-control" type="text" name="title" id="title" placeholder="Agregar Titulo" [(ngModel)]="experience.title"/>
                 </div>
             </div>
 
@@ -46,18 +46,21 @@
                     <label for="companyName">Empresa: </label>
                 </div>
                 <div class="col col-12 mx-auto my-auto" >
-                    <input class="col-12 form-control" type="text" name="companyName" id="companyName" placeholder="Agregar Empresa" [(ngModel)]="companyName"/>
+                    <input class="col-12 form-control" type="text" name="companyName" id="companyName" placeholder="Agregar Empresa" [(ngModel)]="experience.companyName"/>
                 </div>
             </div>
 
             <div class="row mb-2">
                 <div class="col col-12 mx-auto my-auto">
-                    <label for="workTime">Jornada:</label>
+                    <label for="workTimeType">Jornada:</label>
                 </div>
                 <div class="col col-12 mx-auto my-auto ">
-                    <select class="form-select form-select-xs" [(ngModel)]="workTime"  name="workTime">
-                        <option value="Jornada Completa">Jornada Completa</option>
-                        <option value="Jornada Parcial">Jornada Parcial</option>
+                    <select class="form-select form-select-xs" [(ngModel)]="workTimeType"
+                    name="workTimeType">
+                        <option *ngFor="let workTimeType of workTimeTypes"
+                            [ngValue]="workTimeType"
+                           >{{workTimeType.name}}
+                        </option>
                     </select>
                 </div>
             </div>
@@ -77,13 +80,13 @@
                     <label for="startDate">Desde: </label>
                 </div>
                 <div class="col col-lg-5 col-12">
-                    <input class="form-control" type="date" name="startDate" id="startDate" placeholder="Agregar Fecha" [(ngModel)]="startDate"/>
+                    <input class="form-control" type="date" name="startDate" id="startDate" placeholder="Agregar Fecha" [(ngModel)]="experience.startDate" [ngModel]="experience.startDate | date:'yyyy-MM-dd'" (ngModelChange)="experience.startDate = $event"/>
                 </div>
                 <div class="col col-lg-1 col-12 my-auto">
                     <label for="endDate">Hasta: </label>
                 </div>
                 <div class="col col-lg-5 col-12">
-                    <input class="form-control" type="date" name="endDate" id="endDate" placeholder="Agregar Fecha" [(ngModel)]="endDate" [attr.disabled]="disabledEndDate ? true : null"/>
+                    <input class="form-control" type="date" name="endDate" id="endDate" placeholder="Agregar Fecha" [(ngModel)]="experience.endDate" [attr.disabled]="disabledEndDate ? true : null"/>
                 </div>
             </div>
 
@@ -92,7 +95,7 @@
                     <label for="location">Locación: </label>
                 </div>
                 <div class="col col-12">
-                    <input class="col-12 form-control" type="text" name="location" id="location" placeholder="Agregar Locacion" [(ngModel)]="location"/>
+                    <input class="col-12 form-control" type="text" name="location" id="location" placeholder="Agregar Locacion" [(ngModel)]="experience.location"/>
                 </div>                   
             </div>
         </div>

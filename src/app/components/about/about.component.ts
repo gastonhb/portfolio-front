@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { faImage, faPen } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { Person } from 'src/app/models/person.interface';
 import { PersonService } from 'src/app/services/person.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { UserService } from 'src/app/services/user.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -14,38 +13,45 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class AboutComponent implements OnInit {
 
+  @Input() personId: string = "";
+
   image: any;
   showUpdateAbout: boolean = false;
   hasCurrentUser: boolean = false;
   subscription?: Subscription
 
-  personId: string = "";
-  person: Person = {id: "", name: "", lastname: "", title: "", abstracts: "", urlImage: "", urlCoverPhoto: "" };
+  person: Person = {
+    id: "", 
+    name: "", 
+    lastname: "", 
+    title: "", 
+    abstracts: "", 
+    urlImage: "", 
+    urlCoverPhoto: "" };
 
   faImage = faImage;
   faPen = faPen;
 
   constructor(private personService: PersonService, private storageService: StorageService, 
-  private authenticationService: AuthenticationService, private userService: UserService) { 
+  private authenticationService: AuthenticationService) { 
 
     this.hasCurrentUser = authenticationService.hasCurrentUser;
     this.subscription = this.authenticationService.onToggle().subscribe(value => {
       this.hasCurrentUser = value
     });
-
-    if (this.hasCurrentUser) {
-      this.personId = this.authenticationService.personId;
-    } else {
-      this.userService.getByUsername("GastonHb").subscribe(user => {
-        this.personId = user.person.id;
-      });
-    }
   }
 
   ngOnInit(): void {
-    this.personService.get(this.personId).subscribe(person => {
-      this.person = person;
-    })
+    
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.personId = changes['personId'].currentValue;
+    if (this.personId != '') {
+      this.personService.get(this.personId).subscribe(person => {
+        this.person = person;
+      })
+    }
   }
 
   // Guardar imagen de perfil del usuario

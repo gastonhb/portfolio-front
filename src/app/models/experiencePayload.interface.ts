@@ -1,7 +1,4 @@
-import { Person } from "./person.interface";
-import { WorkTimeType } from "./workTimeType.interface";
-
-export interface Experience {
+export interface ExperiencePayload {
     id?: string;
     title: string 
     companyName: string;
@@ -11,6 +8,4 @@ export interface Experience {
     urlImage: string | null;
     personId: string;
     workTimeTypeId: string;
-    person?: Person;
-    workTimeType: WorkTimeType;
 }

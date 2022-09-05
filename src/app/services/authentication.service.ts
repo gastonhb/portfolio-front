@@ -32,7 +32,6 @@ export class AuthenticationService {
   logout(): void {
     sessionStorage.removeItem('currentUser');
     this._hasCurrentUser = false;
-    console.log(this.hasCurrentUser);
     this.subject.next(this.hasCurrentUser);
   }
 

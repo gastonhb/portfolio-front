@@ -4,8 +4,6 @@ import { Experience } from "../../models/experience.interface";
 import { StorageService } from 'src/app/services/storage.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Subscription } from 'rxjs';
-import { UserService } from 'src/app/services/user.service';
-
 
 @Component({
   selector: 'app-experience-item',
@@ -14,36 +12,40 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ExperienceItemComponent implements OnInit {
   
-  @Input() experience: Experience = {id:"", title:"", companyName:"", startDate: null, endDate: null, workTime:"",location:"", urlImage:"", personId:""};
+  @Input() experience: Experience = { 
+    id:"", 
+    title:"", 
+    companyName:"", 
+    startDate: null, 
+    endDate: null, 
+    location:"", 
+    urlImage:"", 
+    personId:"", 
+    workTimeTypeId:"", 
+    workTimeType: { 
+      id: "", 
+      name: ""
+    }
+  };
+
   @Output() onDeleteExperience: EventEmitter<Experience> = new EventEmitter();
   @Output() updateExperience: EventEmitter<Experience> = new EventEmitter();
 
   showUpdateExperience: boolean = false;
   hasCurrentUser: boolean = false;
   subscription?: Subscription;
-
-  personId: string = "";
-
   faTrashCan = faTrashCan;
   faPen = faPen;
   faImage = faImage;
 
-  constructor(private storageService: StorageService, private authenticationService: AuthenticationService, private userService: UserService) { 
+  constructor(private storageService: StorageService, private authenticationService: AuthenticationService) { 
     this.hasCurrentUser = authenticationService.hasCurrentUser;
     this.subscription = this.authenticationService.onToggle().subscribe(value => {
       this.hasCurrentUser = value
     });
-
-    if (this.hasCurrentUser) {
-      this.personId = this.authenticationService.personId;
-    } else {
-      this.userService.getByUsername("GastonHb").subscribe(user => {
-        this.personId = user.person.id;
-      });
-    }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   // Borrar experiencia
   async onDelete(experience: Experience){

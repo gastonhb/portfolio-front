@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { faPlus, faPen, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { ExperienceService } from 'src/app/services/experience.service';
 import { Experience } from 'src/app/models/experience.interface';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { UserService } from 'src/app/services/user.service';
+import { ExperiencePayload } from 'src/app/models/experiencePayload.interface';
 
 @Component({
   selector: 'app-experience',
@@ -14,36 +14,34 @@ import { UserService } from 'src/app/services/user.service';
 
 export class ExperienceComponent implements OnInit {
 
+  @Input() personId: string = "";
+
   showAddExperience: Boolean = false;
   hasCurrentUser: boolean = false;
   subscription?: Subscription;
 
-  personId: string = "";
   experiences: Experience [] = [];
 
   faPlus = faPlus;
   faPen = faPen;
   faTimes = faTimes;
 
-  constructor(private experienceService: ExperienceService, private authenticationService: AuthenticationService, private userService: UserService) { 
+  constructor(private experienceService: ExperienceService, private authenticationService: AuthenticationService) { 
     this.hasCurrentUser = authenticationService.hasCurrentUser;
     this.subscription = this.authenticationService.onToggle().subscribe(value => {
-      this.hasCurrentUser = value
+      this.hasCurrentUser = value;
     });
-
-    if (this.hasCurrentUser) {
-      this.personId = this.authenticationService.personId;
-    } else {
-      this.userService.getByUsername("GastonHb").subscribe(user => {
-        this.personId = user.person.id;
-      });
-    }
   }
 
-  ngOnInit(): void {
-    this.experienceService.list().subscribe(experiences => {
-      this.experiences = experiences;
-    })
+  ngOnInit(): void { }
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.personId = changes['personId'].currentValue;
+    if (this.personId != '') {
+      this.experienceService.list(this.personId).subscribe(experiences => {
+        this.experiences = experiences;
+      })
+    }
   }
 
   // Mostrar o ocultar add experience
@@ -60,7 +58,7 @@ export class ExperienceComponent implements OnInit {
   }
 
   // Agrega experiencia
-  onAddExperience(experience:Experience){
+  onAddExperience(experience:ExperiencePayload){
     this.showAddExperience = false;
     this.experienceService.create(experience)
     .subscribe((experience) =>{
@@ -69,8 +67,20 @@ export class ExperienceComponent implements OnInit {
   }
 
   // Actualizar experiencia
-  updateExperience(experience:Experience){
-    this.experienceService.update(experience)
+  updateExperience(experience: Experience){
+    const experiencePayload: ExperiencePayload = {
+      id: experience.id, 
+      title: experience.title, 
+      companyName: experience.companyName, 
+      startDate: experience.startDate, 
+      endDate: experience.endDate, 
+      location: experience.location, 
+      urlImage: experience.urlImage, 
+      personId: experience.personId, 
+      workTimeTypeId: experience.workTimeTypeId,
+    };
+
+    this.experienceService.update(experiencePayload)
     .subscribe((experience) =>{
       const index = this.experiences.findIndex(exp => exp.id === experience.id);
       this.experiences[index] = experience;

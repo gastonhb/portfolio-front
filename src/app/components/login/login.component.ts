@@ -38,7 +38,6 @@ export class LogInComponent implements OnInit {
   onEnviar(event: Event){
     event.preventDefault;
     this.autenticacionService.login(this.form.value).subscribe(data=>{
-      console.log("das" + data.username)
       this.ruta.navigate(['/portfolio/' + data.username])
     })
   }

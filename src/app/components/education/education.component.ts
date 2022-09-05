@@ -4,7 +4,6 @@ import { EducationService } from 'src/app/services/education.service';
 import { Education } from 'src/app/models/education.interface';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Subscription } from 'rxjs';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-education',

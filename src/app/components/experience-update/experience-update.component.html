@@ -60,16 +60,19 @@
                     <label for="workTime">Jornada:</label>
                 </div>
                 <div class="col col-12 mx-auto my-auto ">
-                    <select class="form-select form-select-xs" [(ngModel)]="experience.workTime"  name="workTime">
-                        <option value="Jornada Completa">Jornada Completa</option>
-                        <option value="Jornada Parcial">Jornada Parcial</option>
+                    <select class="form-select form-select-xs" [(ngModel)]="experience.workTimeType"
+                    name="workTimeType" [compareWith]="compareNames">
+                        <option *ngFor="let workTimeType of workTimeTypes"
+                            [ngValue]="workTimeType"
+                           >{{workTimeType.name}}
+                        </option>
                     </select>
                 </div>
             </div>
 
             <div class="row mb-2 mx-auto">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="false" id="comboDisabledEndDate"
+                    <input class="form-check-input" type="checkbox" [checked]="disabledEndDate" id="comboDisabledEndDate"
                     (click)="changeDisabledEndDate()">
                     <label class="form-check-label" for="comboDisabledEndDate">
                       Es mi trabajo actual

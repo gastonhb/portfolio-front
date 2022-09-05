@@ -15,7 +15,14 @@ export class AboutUpdateComponent implements OnInit {
   @Input() showUpdateAbout: Boolean = false;
   @Output() closeUpdateAbout = new EventEmitter();
 
-  @Input() person: Person;
+  @Input() person: Person = {
+    id: "", 
+    name: "", 
+    lastname: "", 
+    title: "", 
+    abstracts: "", 
+    urlImage: "", 
+    urlCoverPhoto: "" };
 
   image: any;
   urlImage: string | null = null;
@@ -25,8 +32,7 @@ export class AboutUpdateComponent implements OnInit {
   faImage = faImage;
   faTimes = faTimes;
 
-  constructor(private storageService: StorageService) { 
-    this.person = {id: "", name: "", lastname: "", title: "", abstracts: "", urlImage: "", urlCoverPhoto: "" }
+  constructor() { 
   }
 
   ngOnInit(): void {

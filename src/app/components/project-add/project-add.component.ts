@@ -54,10 +54,7 @@ export class ProjectAddComponent implements OnInit {
     const urlImage =  this.urlImage;
     const newProject = { name, description, startDate, endDate, link, urlImage, personId }
     
-    this.name = this.description = this.link = "";
-    this.startDate =  this.endDate = this.urlImage = null;
-    this.showAddProject = false;
-
+    this.cleanVars();
     this.onAddProject.emit(newProject)
   }
 
@@ -87,10 +84,15 @@ export class ProjectAddComponent implements OnInit {
 
   // Cerrar formulario
   close() {
+    this.cleanVars();
+    this.closeAddProject.emit(this.showAddProject);
+  }
+
+  // Limpiar las variables
+  cleanVars() {
     this.name = this.description = this.link = "";
     this.startDate =  this.endDate = this.urlImage = this.image = null;
     this.showAddProject = false;
-    this.closeAddProject.emit(this.showAddProject);
   }
 
 }
