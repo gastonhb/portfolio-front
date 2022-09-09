@@ -46,6 +46,8 @@ export class AboutComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    console.log(this.showUpdateAbout)
+
     this.personId = changes['personId'].currentValue;
     if (this.personId != '') {
       this.personService.get(this.personId).subscribe(person => {
@@ -96,7 +98,9 @@ export class AboutComponent implements OnInit {
 
   // Actualizar persona
   async updatePerson(person: Person){
-    this.toggleUpdateAbout();
+    if (this.showUpdateAbout) {
+      this.showUpdateAbout = false;
+    }
     await this.personService.update(person)
     .subscribe((person) =>{
       this.person = person;
@@ -110,12 +114,18 @@ export class AboutComponent implements OnInit {
 
   // Mostrar about update
   toggleUpdateAbout(){
+    console.log(this.showUpdateAbout)
     this.showUpdateAbout = !this.showUpdateAbout;
+    console.log(this.showUpdateAbout)
+
   }
 
   // Cerrar update de about
   closeUpdateAbout(showUpdateAbout: boolean){
+    console.log(this.showUpdateAbout)
     this.showUpdateAbout = showUpdateAbout;
+    console.log(this.showUpdateAbout)
+
   }
 
 }

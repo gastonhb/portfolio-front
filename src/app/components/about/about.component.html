@@ -1,5 +1,5 @@
-<section class="card card-body shadow mx-5 my-1"> 
-    <div class="rounded" style="height: 270px;">
+<div class="card card-body shadow mx-5 my-1 px-0 pt-0"> 
+    <div class="rounded " style="height: 270px;">
         <img class="img-fluid vw-100 h-100 rounded-top" src="{{person.urlCoverPhoto}}" alt="cover-photo">
 
         <div class="btnCoverPhoto" *ngIf="hasCurrentUser">
@@ -14,10 +14,10 @@
         <img class="profileImage" src="{{person.urlImage}}" alt="profileImage">
         
         <div class="btnProfileImage" *ngIf="hasCurrentUser">
-            <label for="inputFile">
+            <label for="inputProfile">
                 <fa-icon [icon]="faImage" class="imgIcon"></fa-icon>
             </label>
-            <input type="file" class="form-control d-none" accept=".png, .jpg, .jpeg" (change)="saveProfile($event)" id="inputFile"/>
+            <input type="file" class="form-control d-none" accept=".png, .jpg, .jpeg" (change)="saveProfile($event)" id="inputProfile"/>
         </div>
 
     </div>
@@ -38,9 +38,9 @@
                 </div>
                 <div class="col col-xs-12 col-sm-12 col-md-7 col-lg-8">
                     <div class="row">
-                        <h1 class="col col-11 ms-3 ms-md-0">Resumen:</h1>
-                        <div class="col col-1 d-flex justify-content-end">
-                            <fa-icon class="btn me-4" [icon]="faPen" (click)="toggleUpdateAbout()"  *ngIf="hasCurrentUser"></fa-icon>  
+                        <h1 class="col col-11">Resumen:</h1>
+                        <div class="col col-1 mx-auto my-auto d-flex justify-content-end">
+                            <fa-icon class="btn" [icon]="faPen" (click)="toggleUpdateAbout()"  *ngIf="hasCurrentUser"></fa-icon>  
                         </div>
                     </div>
                     <p class="ms-3 ms-md-0 me-2">{{person.abstracts}}</p>
@@ -50,4 +50,4 @@
         </ng-template>
     </div>
     
-</section>
+</div>
