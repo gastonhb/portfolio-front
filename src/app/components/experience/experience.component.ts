@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { faPlus, faPen, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { ExperienceService } from 'src/app/services/experience.service';

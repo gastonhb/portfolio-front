@@ -1,22 +1,16 @@
- <nav class="navbar navbar-expand navbar-dark bg-primary">
+ <nav class="navbar navbar-expand navbar-dark bg-primary p-0 ">
     <div class="container-fluid">
         <img class="logo" src="../../../assets/arg-prog.png" alt="ArgentinaPrograma">
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a href="https://www.linkedin.com/in/gaston-hernan-herrera-baron/" class="nav-menu-link nav-link nav-menu-link_active">
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse">
-                            <fa-icon [icon]="faLinkedinIn"></fa-icon> 
-                        </button>
-                    </a> 
-                </li>
-                
-                <li class="nav-item">
-                    <a  class="nav-menu-link nav-link nav-menu-link_active">Mail</a>
+                  <app-social-network-item 
+                    *ngFor="let socialNetwork of socialNetworks"
+                    [socialNetwork]= "socialNetwork">
+                  </app-social-network-item> 
                 </li>
             </ul>
         </div>
-
     </div>
 
     <div class="dropdown rounded pe-4">
@@ -24,6 +18,8 @@
         <fa-icon [icon]="faUser"></fa-icon> 
       </button>
       <div class="dropdown-content rounded">
+        <a class="rounded" *ngIf="hasCurrentUser">Modificar redes sociales</a>
+        <a class="rounded">Ayuda</a>
         <a class="rounded" *ngIf="!hasCurrentUser" href="login">Iniciar Sesion</a>
         <a class="rounded" *ngIf="hasCurrentUser" (click)="logout()">Cerrar Sesion</a>
       </div>

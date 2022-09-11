@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { UserService } from 'src/app/services/user.service';
 import { Subscription } from 'rxjs';
+import { SocialNetwork } from 'src/app/models/socialNetwork.interface';
+import { SocialNetworkService } from 'src/app/services/socialNetwork.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -12,31 +12,31 @@ import { Subscription } from 'rxjs';
 })
 export class NavBarComponent implements OnInit {
 
-  faUser = faUser;
-  faLinkedinIn = faLinkedinIn;
+  @Input() personId: string = "";
 
   subscription?: Subscription;
   hasCurrentUser: boolean = false;
 
-  personId: string | null = null;
+  socialNetworks: SocialNetwork[] = [];
 
-  constructor(private authenticationService: AuthenticationService, 
-    private userService: UserService) { 
-      this.hasCurrentUser = authenticationService.hasCurrentUser;
-      this.subscription = this.authenticationService.onToggle().subscribe(value => {
-        this.hasCurrentUser = value
-      });
+  faUser = faUser;
 
-      if (this.hasCurrentUser) {
-        this.personId = this.authenticationService.personId;
-      } else {
-        this.userService.getByUsername("GastonHb").subscribe(user => {
-          this.personId = user.person.id;
-        });
-      }
+  constructor(private socialNetworkService: SocialNetworkService, private authenticationService: AuthenticationService) { 
+    this.hasCurrentUser = authenticationService.hasCurrentUser;
+    this.subscription = this.authenticationService.onToggle().subscribe(value => {
+      this.hasCurrentUser = value;
+    });
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.personId = changes['personId'].currentValue;
+    if (this.personId != '') {
+      this.socialNetworkService.list(this.personId).subscribe(socialNetworks => {
+        this.socialNetworks = socialNetworks;
+      })
+    }
   }
 
   logout(): void {

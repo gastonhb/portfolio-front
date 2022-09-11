@@ -30,6 +30,7 @@ import { SkillItemComponent } from './components/skill-item/skill-item.component
 import { SkillAddComponent } from './components/skill-add/skill-add.component';
 import { SkillUpdateComponent } from './components/skill-update/skill-update.component';
 import { AboutUpdateComponent } from './components/about-update/about-update.component';
+import { SocialNetworkItemComponent } from './components/social-network-item/social-network-item.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { AboutUpdateComponent } from './components/about-update/about-update.com
     SkillItemComponent,
     SkillAddComponent,
     SkillUpdateComponent,
-    AboutUpdateComponent
+    AboutUpdateComponent,
+    SocialNetworkItemComponent
   ],
   imports: [
     BrowserModule,

@@ -27,27 +27,23 @@ export class AboutComponent implements OnInit {
     title: "", 
     abstracts: "", 
     urlImage: "", 
-    urlCoverPhoto: "" };
+    urlCoverPhoto: ""
+  };
 
   faImage = faImage;
   faPen = faPen;
 
   constructor(private personService: PersonService, private storageService: StorageService, 
   private authenticationService: AuthenticationService) { 
-
     this.hasCurrentUser = authenticationService.hasCurrentUser;
     this.subscription = this.authenticationService.onToggle().subscribe(value => {
       this.hasCurrentUser = value
     });
   }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void { }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(this.showUpdateAbout)
-
     this.personId = changes['personId'].currentValue;
     if (this.personId != '') {
       this.personService.get(this.personId).subscribe(person => {
@@ -114,18 +110,12 @@ export class AboutComponent implements OnInit {
 
   // Mostrar about update
   toggleUpdateAbout(){
-    console.log(this.showUpdateAbout)
     this.showUpdateAbout = !this.showUpdateAbout;
-    console.log(this.showUpdateAbout)
-
   }
 
   // Cerrar update de about
   closeUpdateAbout(showUpdateAbout: boolean){
-    console.log(this.showUpdateAbout)
     this.showUpdateAbout = showUpdateAbout;
-    console.log(this.showUpdateAbout)
-
   }
 
 }
