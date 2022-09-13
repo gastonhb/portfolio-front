@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { faLinkedinIn, faInstagram, faFacebook, faYoutube, IconDefinition, faTwitter } from '@fortawesome/free-brands-svg-icons';
-
+import { IconDefinition, faWhatsapp, faTelegram, faGoogle} from '@fortawesome/free-brands-svg-icons';
+import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { SocialNetwork } from 'src/app/models/socialNetwork.interface';
 
 @Component({
@@ -12,47 +12,38 @@ export class SocialNetworkItemComponent implements OnInit {
 
   @Input() socialNetwork: SocialNetwork = {
     id: "",
-    description: "",
+    content: "",
     personId: "",
     socialNetworkTypeId: "",
     socialNetworkType: {
       id: "",
-      name: ""
+      name: "",
+      isLink: false
     }
   };
 
-  icon: IconDefinition = faLinkedinIn;
-  description: string = "";
-  visible: boolean = true;
+  icon: IconDefinition = faEnvelope;
 
   constructor() { }
 
-  ngOnInit(): void {
-    this.description = this.socialNetwork.description;
+  ngOnInit(): void { 
     switch (this.socialNetwork.socialNetworkType.name) {
-      case "YouTube":
-        this.icon = faYoutube;
+      case "Gmail":
+        this.icon = faGoogle;
         break;
-      case "Twitter":
-        this.icon = faTwitter;
+      case "Email":
+        this.icon = faEnvelope;
         break;
-      case "Instagram":
-        this.icon = faInstagram;
+      case "Phone":
+        this.icon = faPhone;
         break;
-      case "Facebook":
-        this.icon = faFacebook;
+      case "Whatsapp":
+        this.icon = faWhatsapp;
         break;
-      case "LinkedinIn":
-        this.icon = faLinkedinIn;
-        break;
-      default:
-        this.visible = false;
+      case "Telegram":
+        this.icon = faTelegram;
         break;
     }
-  }
-
-  goToLink(url: string){
-    window.open(url, "_blank");
   }
 
 }

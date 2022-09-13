@@ -31,6 +31,8 @@ import { SkillAddComponent } from './components/skill-add/skill-add.component';
 import { SkillUpdateComponent } from './components/skill-update/skill-update.component';
 import { AboutUpdateComponent } from './components/about-update/about-update.component';
 import { SocialNetworkItemComponent } from './components/social-network-item/social-network-item.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { SocialNetworkLinkItemComponent } from './components/social-network-link-item/social-network-link-item.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,9 @@ import { SocialNetworkItemComponent } from './components/social-network-item/soc
     SkillAddComponent,
     SkillUpdateComponent,
     AboutUpdateComponent,
-    SocialNetworkItemComponent
+    SocialNetworkItemComponent,
+    FooterComponent,
+    SocialNetworkLinkItemComponent
   ],
   imports: [
     BrowserModule,

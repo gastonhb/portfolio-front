@@ -3,11 +3,11 @@
         <img class="logo" src="../../../assets/arg-prog.png" alt="ArgentinaPrograma">
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                  <app-social-network-item 
-                    *ngFor="let socialNetwork of socialNetworks"
+                <li class="nav-item" *ngFor="let socialNetwork of socialNetworks">
+                  <app-social-network-link-item 
+                    *ngIf="socialNetwork.socialNetworkType.isLink"
                     [socialNetwork]= "socialNetwork">
-                  </app-social-network-item> 
+                  </app-social-network-link-item> 
                 </li>
             </ul>
         </div>

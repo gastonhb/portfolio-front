@@ -1,4 +1,5 @@
 export interface SocialNetworkType {
     id: string;
-    name: string 
+    name: string;
+    isLink: boolean;
 }
