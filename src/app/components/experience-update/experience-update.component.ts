@@ -8,7 +8,7 @@ import { WorkTimeTypeService } from 'src/app/services/workTimeType.service';
 @Component({
   selector: 'app-experience-update',
   templateUrl: './experience-update.component.html',
-  styleUrls: ['./experience-update.component.css']
+  styleUrls: ['./experience-update.component.css', '../../app.component.css']
 })
 
 export class ExperienceUpdateComponent implements OnInit {

@@ -12,9 +12,9 @@
     left: 0;
 } 
 
-/* #inputFile{
+#inputFile{
     display: none;
-} */
+}
 
 .uploadImage { 
     border-style: dashed; 
