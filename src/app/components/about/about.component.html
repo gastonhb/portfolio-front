@@ -22,9 +22,14 @@
 
     </div>
 
-    <div class="row">
+    <div class="row mx-1">
         <div *ngIf="showUpdateAbout; else about">
-            <app-about-update (updatePerson)="updatePerson($event)" (closeUpdateAbout)="closeUpdateAbout($event)" [showUpdateAbout]="showUpdateAbout" [person]="person"></app-about-update>
+            <app-about-update 
+                (updatePerson)="updatePerson($event)" 
+                (closeUpdateAbout)="closeUpdateAbout($event)"
+                [showUpdateAbout]="showUpdateAbout" 
+                [person]="person">
+            </app-about-update>
         </div> 
     
         <ng-template #about>

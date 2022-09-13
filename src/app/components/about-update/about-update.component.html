@@ -4,13 +4,13 @@
         <div class="col col-11 my-auto">
             <h5 class="my-auto">Modificar información: </h5> 
         </div>
-        <div class="col col-1">
+        <div class="col col-1 d-flex justify-content-end">
             <fa-icon [icon]="faTimes" class="btn" (click)="close()"></fa-icon>
         </div>
     </div>
 
-    <div class="row mx-auto ">
-        <div class="col col-4">
+    <div class="row mx-auto">
+        <div class="col col-12 col-md-4">
             <div class="row mb-2 ">
                 <div class="col col-12 my-auto">
                     <label for="abstracts">Nombre:</label>
@@ -39,13 +39,15 @@
             </div>
         </div>
         
-        <div class="col col-8">
+        <div class="col col-12 col-md-8">
             <div class="row mb-2">
                 <div class="col col-12 my-auto">
                     <label for="abstracts">Resumen:</label>
                 </div>
                 <div class="col col-12">
-                    <input class="form-control" type="text" name="abstracts" id="abstracts" placeholder="Agregar Resumen" [(ngModel)]="person.abstracts"/>
+                    <textarea 
+                        class="form-control" type="text" name="abstracts" id="abstracts" placeholder="Agregar Resumen" rows="7" [(ngModel)]="person.abstracts">
+                    </textarea>
                 </div>
             </div>
         </div>
