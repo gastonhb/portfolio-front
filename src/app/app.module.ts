@@ -33,6 +33,7 @@ import { AboutUpdateComponent } from './components/about-update/about-update.com
 import { SocialNetworkItemComponent } from './components/social-network-item/social-network-item.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SocialNetworkLinkItemComponent } from './components/social-network-link-item/social-network-link-item.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { SocialNetworkLinkItemComponent } from './components/social-network-link
     AboutUpdateComponent,
     SocialNetworkItemComponent,
     FooterComponent,
-    SocialNetworkLinkItemComponent
+    SocialNetworkLinkItemComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
