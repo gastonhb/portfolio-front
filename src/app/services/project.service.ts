@@ -13,19 +13,19 @@ export class ProjectService {
   
   constructor(private http:HttpClient) {  }
 
-  list():Observable<Project[]>{
-    return this.http.get<Project[]>(this.url)
+  list(personId: String):Observable<Project[]>{
+    return this.http.get<Project[]>(this.url+ `?personId=${personId}`)
   }
 
   delete(project: Project): Observable<Project>{
     return this.http.delete<Project>(this.url + `/${project.id}`)
   }
 
-  create(project:Project): Observable<Project>{
+  create(project: Project): Observable<Project>{
     return this.http.post<Project>(this.url, project)
   }
 
-  update(project:Project): Observable<Project>{
+  update(project: Project): Observable<Project>{
     return this.http.put<Project>(this.url + `/${project.id}`, project)
   }
 

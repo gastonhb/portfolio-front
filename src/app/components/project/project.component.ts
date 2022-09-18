@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { faPlus, faPen, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ProjectService } from 'src/app/services/project.service';
 import { Project } from 'src/app/models/project.interface';
@@ -14,36 +14,35 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ProjectComponent implements OnInit {
 
+  @Input() personId: string = "";
+
   showAddProject: Boolean = false;
   hasCurrentUser: boolean = false;
   subscription?: Subscription;
 
-  personId: string = "";
   projects: Project [] = [];
 
   faPlus = faPlus;
   faPen = faPen;
   faTimes = faTimes;
 
-  constructor(private projectService: ProjectService, private authenticationService: AuthenticationService, private userService: UserService) { 
+  constructor(private projectService: ProjectService,
+    private authenticationService: AuthenticationService) { 
     this.hasCurrentUser = authenticationService.hasCurrentUser;
     this.subscription = this.authenticationService.onToggle().subscribe(value => {
       this.hasCurrentUser = value
     });
-
-    if (this.hasCurrentUser) {
-      this.personId = this.authenticationService.personId;
-    } else {
-      this.userService.getByUsername("GastonHb").subscribe(user => {
-        this.personId = user.person.id;
-      });
-    }
   }
 
-  ngOnInit(): void {
-    this.projectService.list().subscribe(projects => {
-      this.projects = projects;
-    })
+  ngOnInit(): void { }
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.personId = changes['personId'].currentValue;
+    if (this.personId != '') {
+      this.projectService.list(this.personId).subscribe(projects => {
+        this.projects = projects;
+      })
+    }
   }
 
   // Mostrar o ocultar add project
@@ -59,8 +58,8 @@ export class ProjectComponent implements OnInit {
       });
   }
 
-  // Agrega proyecto
-  onAddProject(project:Project){
+  // Agregar proyecto
+  onAddProject(project: Project){
     this.showAddProject = false;
     this.projectService.create(project)
     .subscribe((project) =>{
@@ -69,7 +68,7 @@ export class ProjectComponent implements OnInit {
   }
 
   // Actualizar proyecto
-  updateProject(project:Project){
+  updateProject(project: Project){
     this.projectService.update(project)
     .subscribe((project) =>{
       const index = this.projects.findIndex(pro => pro.id === project.id);

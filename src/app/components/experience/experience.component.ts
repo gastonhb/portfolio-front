@@ -37,7 +37,6 @@ export class ExperienceComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     this.personId = changes['personId'].currentValue;
-    console.log(this.personId);
     if (this.personId != '') {
       this.experienceService.list(this.personId).subscribe(experiences => {
         this.experiences = experiences;
