@@ -12,7 +12,17 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class SkillItemComponent implements OnInit {
 
-  @Input() skill: Skill = {id: "", name: "", type: "", grade: 50, personId: ""};;
+  @Input() skill: Skill = {
+    name: "",
+    grade: 50,
+    personId: "",
+    skillTypeId: "",
+    skillType: { 
+      id: "",
+      name: ""
+    }
+  }
+
   @Output() onDeleteSkill: EventEmitter<Skill> = new EventEmitter();
   @Output() updateSkill: EventEmitter<Skill> = new EventEmitter();
 
@@ -26,19 +36,11 @@ export class SkillItemComponent implements OnInit {
   faPen = faPen;
   faImage = faImage;
 
-  constructor(private authenticationService: AuthenticationService, private userService: UserService) { 
+  constructor(private authenticationService: AuthenticationService) { 
     this.hasCurrentUser = authenticationService.hasCurrentUser;
     this.subscription = this.authenticationService.onToggle().subscribe(value => {
       this.hasCurrentUser = value
     });
-
-    if (this.hasCurrentUser) {
-      this.personId = this.authenticationService.personId;
-    } else {
-      this.userService.getByUsername("GastonHb").subscribe(user => {
-        this.personId = user.person.id;
-      });
-    }
   }
 
   ngOnInit(): void {}
@@ -65,11 +67,7 @@ export class SkillItemComponent implements OnInit {
   }
 
   skillType(skillType: string, type: string){
-    if (skillType === type) {
-      return true;
-    } else {
-      return false;
-    }
+    return skillType === type ? true : false;
   }
   
 }

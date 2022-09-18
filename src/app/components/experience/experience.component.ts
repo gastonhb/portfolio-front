@@ -37,6 +37,7 @@ export class ExperienceComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     this.personId = changes['personId'].currentValue;
+    console.log(this.personId);
     if (this.personId != '') {
       this.experienceService.list(this.personId).subscribe(experiences => {
         this.experiences = experiences;
@@ -58,7 +59,7 @@ export class ExperienceComponent implements OnInit {
   }
 
   // Agrega experiencia
-  onAddExperience(experience:ExperiencePayload){
+  onAddExperience(experience: ExperiencePayload){
     this.showAddExperience = false;
     this.experienceService.create(experience)
     .subscribe((experience) =>{

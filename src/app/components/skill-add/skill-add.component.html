@@ -16,7 +16,7 @@
                     <label for="name">Nombre:</label>
                 </div>
                 <div class="col col-12">
-                    <input class="form-control" type="text" name="name" id="name" placeholder="Agregar Nombre" [(ngModel)]="name"/>
+                    <input class="form-control" type="text" name="name" id="name" placeholder="Agregar Nombre" [(ngModel)]="skill.name"/>
                 </div>
             </div>
 
@@ -25,9 +25,12 @@
                     <label for="type">Tipo de habilidad:</label>
                 </div>
                 <div class="col col-12 mx-auto my-auto ">
-                    <select class="form-select form-select-xs" [(ngModel)]="type"  name="type">
-                        <option value="Hard Skill">Hard Skill</option>
-                        <option value="Soft Skill">Soft Skill</option>
+                    <select class="form-select form-select-xs" [(ngModel)]="skillType"
+                    name="skillType">
+                        <option *ngFor="let skillType of skillTypes"
+                            [ngValue]="skillType"
+                           >{{skillType.name}}
+                        </option>
                     </select>
                 </div>
             </div>
@@ -37,7 +40,7 @@
                     <label for="grade">Grado de habilidad: </label>
                 </div>
                 <div class="col col-12 mx-auto my-auto" >
-                    <input class="col-12 form-control" type="number" name="grade" id="grade" [(ngModel)]="grade"/>
+                    <input class="col-12 form-control" type="number" name="grade" id="grade" [(ngModel)]="skill.grade"/>
                 </div>
             </div>
         </div>

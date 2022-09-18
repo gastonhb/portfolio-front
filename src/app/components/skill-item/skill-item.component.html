@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col col-12">
             <div class="progress">
-                <div class="progress-bar" role="progressbar" [style.width]="skill.grade + '%'" attr.aria-valuenow="{{skill.grade}}" aria-valuemin="0" aria-valuemax="100" *ngIf="skillType(skill.type, 'Hard Skill'); else softSkillBar"></div>
+                <div class="progress-bar" role="progressbar" [style.width]="skill.grade + '%'" attr.aria-valuenow="{{skill.grade}}" aria-valuemin="0" aria-valuemax="100" *ngIf="skillType(skill.skillType.name, 'Hard skill'); else softSkillBar"></div>
 
                 <ng-template #softSkillBar>
                     <div class="progress-bar bg-success" role="progressbar" [style.width]="skill.grade + '%'" attr.aria-valuenow="{{skill.grade}}" aria-valuemin="0" aria-valuemax="100"></div>

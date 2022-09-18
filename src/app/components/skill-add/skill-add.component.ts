@@ -1,7 +1,10 @@
 import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { faPlus, faImage, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Skill } from 'src/app/models/skill.interface';
+import { SkillPayload } from 'src/app/models/skillPayload.interface';
+import { SkillType } from 'src/app/models/skillType.interface';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { SkillTypeService } from 'src/app/services/skillType.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -11,53 +14,71 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class SkillAddComponent implements OnInit {
 
-  @Output() onAddSkill: EventEmitter<Skill> = new EventEmitter();
+  @Output() onAddSkill: EventEmitter<SkillPayload> = new EventEmitter();
   @Input() showAddSkill: Boolean = false;
   @Output() closeAddSkill = new EventEmitter();
 
-  name: string = "";
-  type: string = "Hard Skill";
-  grade: number = 50;
-  personId: string;
+  skill: SkillPayload = {
+    name: "",
+    grade: 50,
+    personId: "",
+    skillTypeId: ""
+  }
 
   image: any;
   disabledEndDate: boolean = false;
+  skillTypes: SkillType[] = [];
+  skillType: SkillType = { id: "", name: "" };
 
   faPlus = faPlus;
   faImage = faImage;
   faTimes = faTimes;
 
-  constructor(private storageService: StorageService,
+  constructor(private skillTypeService: SkillTypeService,
     private authenticationService: AuthenticationService) { 
-    this.personId = this.authenticationService.personId;
+      //TODO ver personId
+    this.skill.personId = this.authenticationService.personId;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.skillTypeService.list().subscribe(skillTypes => {
+      this.skillTypes = skillTypes;
+      this.skillType = skillTypes.find(type => type.name === "Hard skill") || skillTypes[0];
+    })
+  }
 
   // Envia la nueva experiencia a la clase padre
   async save(){
-    const { name, type, grade, personId } = this;
-    if (name.length === 0 || type.length === 0 ) {
+    if (this.skill.name.length === 0) {
       return;
     }
 
-    const newSkill = { name, type, grade, personId}
-    
-    this.name = "";
-    this.type = "Hard Skill";
-    this.grade = 50;
-    this.showAddSkill = false;
+    this.skill.skillTypeId = this.skillType.id;
 
-    this.onAddSkill.emit(newSkill)
+    this.onAddSkill.emit(this.skill)
   }
 
   // Cerrar formulario
   close() {
-    this.name = this.type = "";
-    this.type = "Hard Skill";
-    this.grade = 50;
-    this.showAddSkill = false;
+    this.cleanVars();
     this.closeAddSkill.emit(this.showAddSkill);
+  }
+
+
+  // Comparar nombres de tipos de jornadas
+  compareNames(skillType1: SkillType, skillType2: SkillType) {
+    return skillType1.name === skillType2.name;
+  }
+
+  // Limpiar las variables
+  cleanVars() {
+    this.skill = {
+      name: "",
+      grade: 50,
+      personId: "",
+      skillTypeId: ""
+    };
+    this.showAddSkill = false;
   }
 
 }

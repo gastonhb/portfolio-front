@@ -2,6 +2,8 @@ import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { faImage, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { Skill } from 'src/app/models/skill.interface';
+import { SkillType } from 'src/app/models/skillType.interface';
+import { SkillTypeService } from 'src/app/services/skillType.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -15,32 +17,40 @@ export class SkillUpdateComponent implements OnInit {
   @Input() showUpdateSkill: Boolean = false;
   @Output() closeUpdateSkill = new EventEmitter();
 
-  @Input() skill: Skill;
+  @Input() skill: Skill = {
+    name: "",
+    grade: 50,
+    personId: "",
+    skillTypeId: "",
+    skillType: { 
+      id: "",
+      name: ""
+    }
+  }
 
   image: any;
   urlImage: string | null = null;
   disabledEndDate: boolean = false;
-  subscription?: Subscription;
+  skillTypes: SkillType[] = [];
 
   faImage = faImage;
   faTimes = faTimes;
 
-  constructor(private storageService: StorageService) { 
-    this.skill = {id: "", name: "", type: "", grade: 50, personId: ""};
-  }
+  constructor(private skillTypeService: SkillTypeService) { }
 
   ngOnInit(): void {
+    this.skillTypeService.list().subscribe(skillTypes => {
+      this.skillTypes = skillTypes;
+    });
   }
 
   // Envia la experiencia actualizada a la clase padre
   async save(){
-    if (this.skill.name.length === 0 || this.skill.type.length === 0 ) {
+    if (this.skill.name.length === 0) {
       return;
     }
 
-    if(this.skill.person){
-      this.skill.personId = this.skill.person.id;
-    }
+    this.skill.skillTypeId =  this.skill.skillType.id;
     
     this.onUpdateSkill.emit(this.skill)
   }
@@ -49,6 +59,11 @@ export class SkillUpdateComponent implements OnInit {
   close() {
     this.showUpdateSkill = false;
     this.closeUpdateSkill.emit(this.showUpdateSkill);
+  }
+
+  // Comparar nombres de tipos de jornadas
+  compareNames(work1: SkillType, work2: SkillType) {
+    return work1.name === work2.name;
   }
 
 }

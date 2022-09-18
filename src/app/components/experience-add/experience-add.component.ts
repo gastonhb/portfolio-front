@@ -48,7 +48,7 @@ export class ExperienceAddComponent implements OnInit {
     this.workTimeTypeService.list().subscribe(workTimeTypes => {
       this.workTimeTypes = workTimeTypes;
       this.workTimeType = workTimeTypes.find(type => type.name === "Jornada Completa") || workTimeTypes[0];
-    })
+    });
   }
 
   // Envia la nueva experiencia a la clase padre
@@ -102,8 +102,8 @@ export class ExperienceAddComponent implements OnInit {
   }
 
   // Comparar nombres de tipos de jornadas
-  compareNames(work1:WorkTimeType, work2:WorkTimeType) {
-    return work1.name===work2.name;
+  compareNames(work1: WorkTimeType, work2: WorkTimeType) {
+    return work1.name === work2.name;
   }
 
   // Limpiar las variables

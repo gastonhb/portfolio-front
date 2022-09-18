@@ -109,8 +109,8 @@ export class ExperienceUpdateComponent implements OnInit {
   }
 
   // Comparar nombres de tipos de jornadas
-  compareNames(work1:WorkTimeType, work2:WorkTimeType) {
-    return work1.name===work2.name;
+  compareNames(work1: WorkTimeType, work2: WorkTimeType) {
+    return work1.name === work2.name;
   }
 
 }

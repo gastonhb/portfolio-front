@@ -26,9 +26,12 @@
                     <label for="type">Tipo de habilidad:</label>
                 </div>
                 <div class="col col-12 mx-auto my-auto ">
-                    <select class="form-select form-select-xs" [(ngModel)]="skill.type"  name="type">
-                        <option value="Hard Skill">Hard Skill</option>
-                        <option value="Soft Skill">Soft Skill</option>
+                    <select class="form-select form-select-xs" [(ngModel)]="skill.skillType"
+                    name="skillType" [compareWith]="compareNames">
+                        <option *ngFor="let skillType of skillTypes"
+                            [ngValue]="skillType"
+                           >{{skillType.name}}
+                        </option>
                     </select>
                 </div>
             </div>
