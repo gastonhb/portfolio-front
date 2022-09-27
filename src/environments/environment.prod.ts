@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
+  api: "https://ghb-portfolio-back.herokuapp.com/",
   firebaseConfig: {
     apiKey: "AIzaSyD5NpOW_-LYboOH3SQozgJ0szBz3dTRfLU",
     authDomain: "portfolio-92aa8.firebaseapp.com",
