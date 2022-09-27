@@ -9,7 +9,7 @@ import { WorkTimeTypeService } from 'src/app/services/workTimeType.service';
 @Component({
   selector: 'app-experience-add',
   templateUrl: './experience-add.component.html',
-  styleUrls: ['./experience-add.component.css']
+  styleUrls: ['./experience-add.component.css', '../../app.component.css']
 })
 
 export class ExperienceAddComponent implements OnInit {

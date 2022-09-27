@@ -5,17 +5,31 @@
         </div>
 
         <div class="col col-1 d-flex justify-content-end" *ngIf="!showAddEducation && hasCurrentUser">
-            <fa-icon [icon]="faPlus" class="btn" (click)="toggleAddEducation()"></fa-icon>
+            <fa-icon 
+                [icon]="faPlus" 
+                class="btn" 
+                (click)="toggleAddEducation()">
+            </fa-icon>
         </div>
     </div>
+
+    <div class="row" *ngIf="!educations?.length; else itemComponent">
+        <h5>No hay registros académicos.</h5>
+    </div>
+
+    <ng-template #itemComponent>
+        <app-education-add 
+            [showAddEducation]="showAddEducation"
+            (onAddEducation)="onAddEducation($event)" 
+            (closeAddEducation)="closeAddEducation($event)">
+        </app-education-add>
     
-    <app-education-add (onAddEducation)="onAddEducation($event)" (closeAddEducation)="closeAddEducation($event)" [showAddEducation]="showAddEducation"></app-education-add>
-
-    <app-education-item 
-        *ngFor="let education of educations"
-        [education]= "education"
-        (onDeleteEducation) = "onDelete(education)"
-        (updateEducation) = "updateEducation(education)">
-    </app-education-item> 
-
+        <app-education-item 
+            *ngFor="let education of educations"
+            [education]= "education"
+            (onDeleteEducation) = "onDelete(education)"
+            (updateEducation) = "updateEducation(education)">
+        </app-education-item> 
+    </ng-template>
+   
 </div>

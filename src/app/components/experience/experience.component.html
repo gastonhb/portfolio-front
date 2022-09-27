@@ -6,16 +6,30 @@
         </div>
 
         <div class="col col-1 d-flex justify-content-end" *ngIf="!showAddExperience && hasCurrentUser">
-            <fa-icon [icon]="faPlus" class="btn" (click)="toggleAddExperience()"></fa-icon>
+            <fa-icon 
+                [icon]="faPlus" 
+                class="btn" 
+                (click)="toggleAddExperience()">
+            </fa-icon>
         </div>
     </div>
-    
-    <app-experience-add (onAddExperience)="onAddExperience($event)" (closeAddExperience)="closeAddExperience($event)" [showAddExperience]="showAddExperience"></app-experience-add>
 
-    <app-experience-item 
-        *ngFor="let experience of experiences"
-        [experience]= "experience"
-        (onDeleteExperience) = "onDelete(experience)"
-        (updateExperience) = "updateExperience(experience)">
-    </app-experience-item> 
+    <div class="row" *ngIf="!experiences?.length; else itemComponent">
+        <h5>No hay experiencias registradas.</h5>
+    </div>
+
+    <ng-template #itemComponent>
+        <app-experience-add 
+            [showAddExperience]="showAddExperience"
+            (onAddExperience)="onAddExperience($event)" 
+            (closeAddExperience)="closeAddExperience($event)">
+        </app-experience-add>
+
+        <app-experience-item 
+            *ngFor="let experience of experiences"
+            [experience]= "experience"
+            (onDeleteExperience) = "onDelete(experience)"
+            (updateExperience) = "updateExperience(experience)">
+        </app-experience-item> 
+    </ng-template>
 </div>

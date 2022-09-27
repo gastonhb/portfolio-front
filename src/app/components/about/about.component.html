@@ -1,6 +1,14 @@
 <div class="card card-body shadow mx-5 my-1 px-0 pt-0"> 
-    <div class="rounded " style="height: 270px;">
-        <img class="img-fluid vw-100 h-100 rounded-top" src="{{person.urlCoverPhoto}}" alt="cover-photo">
+    <div class="rounded bg-secondary">
+        <div class="coverPhoto" *ngIf="person.urlCoverPhoto; else emptyCoverPhoto">
+            <img class="img-fluid vw-100 h-100 rounded-top" src="{{person.urlCoverPhoto}}">
+        </div>
+        <ng-template #emptyCoverPhoto>
+            <div class="coverPhoto">
+                <img class="img-fluid vw-100 h-100 rounded-top" src="../../../assets/cover-photo.png">
+            </div>
+        </ng-template>
+        
 
         <div class="btnCoverPhoto" *ngIf="hasCurrentUser">
             <label for="inputCoverPhoto">
@@ -11,7 +19,14 @@
     </div>
 
     <div class="userProfileImage">
-        <img class="profileImage" src="{{person.urlImage}}" alt="profileImage">
+        <div *ngIf="person.urlCoverPhoto; else emptyProfile">
+            <img class="profileImage" src="{{person.urlImage}}">
+        </div>
+        <ng-template #emptyProfile>
+            <img class="emptyProfile" src="../../../assets/profile-image.png">
+        </ng-template>
+
+        
         
         <div class="btnProfileImage" *ngIf="hasCurrentUser">
             <label for="inputProfile">
@@ -35,24 +50,45 @@
         <ng-template #about>
 
             <div class="row mb-3 mt-5">
-                <div class="col col-xs-12 col-sm-12 col-md-5 col-lg-4">
-                    <div class="row ms-md-4">
-                        <h1 class="text-center text-md-start ms-md-2">{{person.name}} {{person.lastname}}</h1>
-                        <p class="text-center text-md-start ms-md-4">{{person.title}}</p> 
+                <div class="col col-12 col-xs-12 col-sm-12 col-md-5 col-lg-4">
+                    <div class="row">
+                        <h1 class="text-center text-md-start ms-md-2">
+                            {{person.name}} {{person.lastname}}
+                        </h1>
+                        <div class="row" *ngIf="person.abstracts; else withoutTitle">
+                            <p class="text-center text-md-start ms-md-3">{{person.title}}</p>
+                        </div>
+                        <ng-template #withoutTitle>
+                            <div class="row">
+                                <h5 class="text-center text-md-start ms-md-3">Sin título</h5>
+                            </div>
+                        </ng-template>
+                         
                     </div>
                 </div>
-                <div class="col col-xs-12 col-sm-12 col-md-7 col-lg-8">
+                <div class="col col-12col-xs-12 col-sm-12 col-md-7 col-lg-8">
                     <div class="row">
-                        <h1 class="col col-11">Resumen:</h1>
+                        <h1 class="col col-11 text-center text-md-start">Sobre mí</h1>
                         <div class="col col-1 mx-auto my-auto d-flex justify-content-end">
-                            <fa-icon class="btn" [icon]="faPen" (click)="toggleUpdateAbout()"  *ngIf="hasCurrentUser"></fa-icon>  
+                            <fa-icon 
+                                [icon]="faPen"
+                                class="btn"
+                                (click)="toggleUpdateAbout()"  
+                                *ngIf="hasCurrentUser">
+                            </fa-icon>  
                         </div>
                     </div>
-                    <p class="ms-3 ms-md-0 me-2">{{person.abstracts}}</p>
+                    
+                    <div class="row" *ngIf="person.abstracts; else withoutAbstract">
+                        <p class="ms-3 ms-md-2 me-2">{{person.abstracts}}</p>
+                    </div>
+                    <ng-template #withoutAbstract>
+                        <div class="row">
+                            <h5 class=" ms-3 ms-md-1 me-2">Sin descripción</h5>
+                        </div>
+                    </ng-template>
                 </div>
-                
             </div>
         </ng-template>
     </div>
-    
 </div>

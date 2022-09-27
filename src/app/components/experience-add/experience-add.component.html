@@ -19,13 +19,13 @@
                 </label>
             </div>
 
-            <div class="row uploadedImage rounded mx-auto my-autos" >
+            <div class="row uploadedImage rounded mx-auto my-auto" >
                 <div *ngIf="image; else withoutImage">
-                    <img src="{{image}}" class=" img-fluid rounded mx-auto d-block " alt="experience-photo" >
+                    <img src="{{image}}" class=" img-fluid rounded mx-auto d-block">
                 </div>
                 <ng-template #withoutImage>
                     <div class="my-5">
-                        <fa-icon class="fa-3x"  [icon]="faImage"></fa-icon>
+                        <fa-icon class="fa-3x" [icon]="faImage"></fa-icon>
                     </div>
                 </ng-template>
             </div>

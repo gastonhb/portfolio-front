@@ -1,21 +1,35 @@
 <div class="card card-body shadow mx-5 my-1">
     <div class="row">
         <div class="col col-11">
-            <h2 class="card-title">Proyecto</h2>
+            <h2 class="card-title">Proyectos</h2>
         </div>
 
         <div class="col col-1 d-flex justify-content-end" *ngIf="!showAddProject && hasCurrentUser">
-            <fa-icon [icon]="faPlus" class="btn" (click)="toggleAddProject()"></fa-icon>
+            <fa-icon 
+                [icon]="faPlus" 
+                class="btn" 
+                (click)="toggleAddProject()">
+            </fa-icon>
         </div>
     </div>
-    
-    <app-project-add (onAddProject)="onAddProject($event)" (closeAddProject)="closeAddProject($event)" [showAddProject]="showAddProject"></app-project-add>
 
-    <app-project-item 
-        *ngFor="let project of projects"
-        [project]= "project"
-        (onDeleteProject) = "onDelete(project)"
-        (updateProject) = "updateProject(project)">
-    </app-project-item> 
+    <div class="row" *ngIf="!projects?.length; else itemComponent">
+        <h5>No hay proyectos registrados.</h5>
+    </div>
+
+    <ng-template #itemComponent>
+        <app-project-add 
+            [showAddProject]="showAddProject"
+            (onAddProject)="onAddProject($event)" 
+            (closeAddProject)="closeAddProject($event)">
+        </app-project-add>
+
+        <app-project-item 
+            *ngFor="let project of projects"
+            [project]= "project"
+            (onDeleteProject) = "onDelete(project)"
+            (updateProject) = "updateProject(project)">
+        </app-project-item> 
+    </ng-template>
 </div>
 
