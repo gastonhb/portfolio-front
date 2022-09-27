@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { WorkTimeType } from "../models/workTimeType.interface";
+import { environment } from "../../environments/environment"
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,7 @@ import { WorkTimeType } from "../models/workTimeType.interface";
 
 export class WorkTimeTypeService {
 
-  //TODO change entorno variable
-  private url: string = "http://localhost:8080/work-time-types"
+  private url: string = environment.api + "work-time-types"
   
   constructor(private http:HttpClient) {  }
 

@@ -2,16 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable, Subject } from "rxjs";
 import { map } from "rxjs/operators";
+import { environment } from "../../environments/environment"
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthenticationService {
-  // TODO cambiar url por cariable de entorno
-  // url = "https://ghb-portfolio-back.herokuapp.com/auth/login"
-  url = "http://localhost:8080/auth/login"
-  currentUserSubject: BehaviorSubject<any>;
+  
+  private url = environment.api + "auth/login"
+  private currentUserSubject: BehaviorSubject<any>;
   private _hasCurrentUser: boolean = false;
   private subject = new Subject<boolean>();
 

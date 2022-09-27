@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { SkillType } from "../models/skillType.interface";
+import { environment } from "../../environments/environment"
 
 @Injectable({
   providedIn: 'root'
 })
 export class SkillTypeService {
 
-  //TODO change entorno variable
-  private url: string = "http://localhost:8080/skill-types"
+  private url: string = environment.api + "skill-types"
 
   constructor(private http:HttpClient) {  }
 

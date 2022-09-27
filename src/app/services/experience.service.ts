@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Experience } from "../models/experience.interface";
 import { ExperiencePayload } from '../models/experiencePayload.interface';
+import { environment } from "../../environments/environment"
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,7 @@ import { ExperiencePayload } from '../models/experiencePayload.interface';
 
 export class ExperienceService {
 
-  //TODO change entorno variable
-  private url: string = "http://localhost:8080/work-experiences"
+  private url: string = environment.api + "work-experiences"
   
   constructor(private http:HttpClient) {  }
 

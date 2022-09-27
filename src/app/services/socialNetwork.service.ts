@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { SocialNetwork } from "../models/socialNetwork.interface";
+import { environment } from "../../environments/environment"
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocialNetworkService {
 
-  //TODO change entorno variable
-  private url: string = "http://localhost:8080/social-networks"
+  private url: string = environment.api + "social-networks"
 
   constructor(private http:HttpClient) {  }
 
