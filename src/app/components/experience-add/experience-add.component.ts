@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faPlus, faImage, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ExperiencePayload } from 'src/app/models/experiencePayload.interface';
 import { WorkTimeType } from 'src/app/models/workTimeType.interface';
@@ -21,7 +22,7 @@ export class ExperienceAddComponent implements OnInit {
   experience: ExperiencePayload =  {
     title: "", 
     companyName: "", 
-    startDate: new Date(), 
+    startDate: null, 
     endDate: null,  
     location: "", 
     urlImage: null, 
@@ -30,43 +31,56 @@ export class ExperienceAddComponent implements OnInit {
   }
 
   image: any;
-  disabledEndDate: boolean = false;
+  form: FormGroup = new FormGroup({});
+  disabledEndDate: Boolean = false;
   workTimeTypes: WorkTimeType[] = [];
-  workTimeType: WorkTimeType = { id: "", name: "" };
+  selectedWorkTimeType: WorkTimeType = { id: "", name: "" };
 
   faPlus = faPlus;
   faImage = faImage;
   faTimes = faTimes;
 
-  constructor(private workTimeTypeService: WorkTimeTypeService, private storageService: StorageService,
-    private authenticationService: AuthenticationService) { 
-      //TODO ver personId
-    this.experience.personId = this.authenticationService.personId;
-  }
+  constructor(private workTimeTypeService: WorkTimeTypeService, 
+    private storageService: StorageService,
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.workTimeTypeService.list().subscribe(workTimeTypes => {
       this.workTimeTypes = workTimeTypes;
-      this.workTimeType = workTimeTypes.find(type => type.name === "Jornada Completa") || workTimeTypes[0];
+      this.selectedWorkTimeType = workTimeTypes.find(type => type.name === "Jornada Completa") || workTimeTypes[0];
+
+      this.form = new FormGroup({
+        title: new FormControl('', [Validators.required]), 
+        companyName: new FormControl('', [Validators.required]), 
+        workTimeType: new FormControl(this.selectedWorkTimeType, [Validators.required]),
+        startDate: new FormControl(null, [Validators.required]),
+        endDate: new FormControl(null, []),
+        location: new FormControl(null, []),
+      });
     });
   }
 
   // Envia la nueva experiencia a la clase padre
-  async save(){
-    if (this.experience.title.length === 0 || this.experience.companyName.length === 0 || 
-      this.experience.startDate === null || this.experience.location.length === 0 ) {
-      return;
+  async onSubmit(){
+    if (this.form.valid){
+      this.experience.title = this.form.value.title;
+      this.experience.companyName =  this.form.value.companyName;
+      this.experience.location = this.form.value.location;
+      this.experience.personId = this.authenticationService.personId;
+      this.experience.workTimeTypeId =  this.form.value.workTimeType.id;
+      this.experience.startDate = new Date(this.form.value.startDate.toString() + "-01")
+  
+      if(this.image){
+        await this.saveImage();
+      }
+  
+      if (this.form.value.endDate != null) {
+        this.experience.endDate = new Date(this.form.value.endDate.toString() + "-01")
+      }
+  
+      this.onAddExperience.emit(this.experience)
+      this.cleanVars();
     }
-
-    this.experience.workTimeTypeId = this.workTimeType.id;
-
-    if(this.image){
-      await this.saveImage();
-      this.image = null;
-    }
-
-    this.onAddExperience.emit(this.experience)
-    this.cleanVars();
   }
 
   // Guarda una imagen subida por un usuario
@@ -83,7 +97,7 @@ export class ExperienceAddComponent implements OnInit {
   async saveImage() {
     await this.storageService.uploadImage("persons/" + this.experience.personId + "/workExperiences/" + (new Date()).toString() , this.image)
     .then(urlImage =>{
-      this.experience.urlImage =  urlImage;
+      this.experience.urlImage = urlImage;
    })
   }
 
@@ -108,17 +122,35 @@ export class ExperienceAddComponent implements OnInit {
 
   // Limpiar las variables
   cleanVars() {
-    this.experience = {
-      title: "", 
-      companyName: "", 
-      startDate: null, 
-      endDate: null,  
-      location: "", 
-      urlImage: null, 
-      personId: "", 
-      workTimeTypeId: ""
-    };
+    this.experience.title = "";
+    this.experience.companyName = "";
+    this.experience.startDate = null; 
+    this.experience.endDate = null;
+    this.experience.location = "";
+    this.experience.urlImage = null; 
+    this.experience.workTimeTypeId = "";
+
+    this.form.reset();
+
+    this.form.patchValue({
+      workTimeType: this.selectedWorkTimeType,
+    });
+
     this.showAddExperience = false;
+    this.disabledEndDate = false;
+    this.image = null;
   }
+
+  get title() { return this.form.get('title'); }
+
+  get companyName() { return this.form.get('companyName'); }
+
+  get workTimeType() { return this.form.get('workTimeType'); }
+
+  get startDate() { return this.form.get('startDate'); }
+
+  get endDate() { return this.form.get('endDate'); }
+
+  get location() { return this.form.get('location'); }
 
 }

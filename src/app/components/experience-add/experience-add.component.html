@@ -1,112 +1,201 @@
-<form class="form rounded container my-3" (ngSubmit)="save()" *ngIf="showAddExperience">
-    
-    <div class="row mx-auto my-1">
-        <div class="col col-11 my-auto">
-            <h5 class="my-auto">Agregar nueva experiencia laboral: </h5> 
-           
-        </div>
-        <div class="col col-1 d-flex justify-content-end">
-            <fa-icon [icon]="faTimes" class="btn" (click)="close()"></fa-icon>
-        </div>
-    </div>
-
-    <div class="row mx-auto ">
-        <div class="col col-3"> 
-            <div class="row mx-auto mb-2 ">
-                <input type="file" class="form-control" accept=".png, .jpg, .jpeg" (change)="uploadImage($event)" id="inputFile"/>
-                <label for="inputFile" class="uploadImage mx-auto rounded">
-                    <p class=" my-auto"><b>Seleccione una imagen</b></p>
-                </label>
+<div class="modal" style="display: block;" *ngIf="showAddExperience">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    Agregar experiencia laboral
+                </h4>
             </div>
-
-            <div class="row uploadedImage rounded mx-auto my-auto" >
-                <div *ngIf="image; else withoutImage">
-                    <img src="{{image}}" class=" img-fluid rounded mx-auto d-block">
-                </div>
-                <ng-template #withoutImage>
-                    <div class="my-5">
-                        <fa-icon class="fa-3x" [icon]="faImage"></fa-icon>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">   
+                <div class="modal-body">       
+                    <div class="row mb-2">
+                        <div class="col col-12 my-auto">
+                            <label for="title">
+                                Titulo:
+                            </label>
+                        </div>
+                        <div class="col col-12">
+                            <input class="form-control" 
+                                type="text" 
+                                name="title" 
+                                id="title" 
+                                formControlName="title"
+                                placeholder="Agregar Titulo" 
+                                [ngClass]="{'is-invalid': title?.errors && title?.touched,
+                                'is-valid': !title?.errors && title?.touched}"
+                            />
+                        </div>
+                        <div *ngIf="title?.errors && title?.touched">
+                            <p class="text-danger mb-0" 
+                                *ngIf="title?.hasError('required')">
+                                    El titulo es requerido.
+                            </p>
+                        </div>
                     </div>
-                </ng-template>
-            </div>
-        </div>
-        
-        <div class="col col-9">
-            <div class="row mb-2 ">
-                <div class="col col-12 my-auto">
-                    <label for="title">Titulo:</label>
-                </div>
-                <div class="col col-12">
-                    <input class="form-control" type="text" name="title" id="title" placeholder="Agregar Titulo" [(ngModel)]="experience.title"/>
-                </div>
-            </div>
+                    
+                    <div class="row mb-2">
+                        <div class="col col-12 mx-auto my-auto">
+                            <label for="companyName">
+                                Empresa:
+                            </label>
+                        </div>
+                        <div class="col col-12 mx-auto my-auto" >
+                            <input class="col-12 form-control" 
+                                type="text" 
+                                name="companyName" 
+                                id="companyName" 
+                                formControlName="companyName"
+                                placeholder="Agregar Empresa" 
+                                [ngClass]="{'is-invalid': companyName?.errors && companyName?.touched,
+                                'is-valid': !companyName?.errors && companyName?.touched}"
+                            />
+                        </div>
+                        <div *ngIf="companyName?.errors && companyName?.touched">
+                            <p class="text-danger mb-0" 
+                                *ngIf="companyName?.hasError('required')">
+                                    La empresa es requerida.
+                            </p>
+                        </div>
+                    </div>
 
-            <div class="row mb-2">
-                <div class="col col-12 mx-auto my-auto">
-                    <label for="companyName">Empresa: </label>
-                </div>
-                <div class="col col-12 mx-auto my-auto" >
-                    <input class="col-12 form-control" type="text" name="companyName" id="companyName" placeholder="Agregar Empresa" [(ngModel)]="experience.companyName"/>
-                </div>
-            </div>
+                    <div class="row mb-2">
+                        <div class="col col-12 mx-auto my-auto">
+                            <label for="workTimeType">
+                                Jornada:
+                            </label>
+                        </div>
+                        <div class="col col-12 mx-auto my-auto ">
+                            <select class="form-select form-select-xs" 
+                                formControlName="workTimeType"
+                                name="workTimeType">
+                                <option *ngFor="let workTimeType of workTimeTypes"
+                                    [ngValue]="workTimeType">
+                                        {{workTimeType.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
 
-            <div class="row mb-2">
-                <div class="col col-12 mx-auto my-auto">
-                    <label for="workTimeType">Jornada:</label>
-                </div>
-                <div class="col col-12 mx-auto my-auto ">
-                    <select class="form-select form-select-xs" [(ngModel)]="workTimeType"
-                    name="workTimeType">
-                        <option *ngFor="let workTimeType of workTimeTypes"
-                            [ngValue]="workTimeType"
-                           >{{workTimeType.name}}
-                        </option>
-                    </select>
-                </div>
-            </div>
+                    <div class="row mb-2 mx-auto">
+                        <div class="form-check">
+                            <input class="form-check-input" 
+                                type="checkbox" 
+                                value="disabledEndDate" 
+                                id="comboDisabledEndDate"
+                                (click)="changeDisabledEndDate()"
+                            />                  
+                            <label class="form-check-label" 
+                                for="comboDisabledEndDate">
+                                    Es mi trabajo actual
+                            </label>
+                        </div>
+                    </div>
 
-            <div class="row mb-2 mx-auto">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="false" id="comboDisabledEndDate"
-                    (click)="changeDisabledEndDate()">
-                    <label class="form-check-label" for="comboDisabledEndDate">
-                      Es mi trabajo actual
-                    </label>
-                </div>
-            </div>
+                    <div class="row mb-2">
+                        <div class="col col-lg-1 col-12 my-auto">
+                            <label for="startDate">
+                                Desde: 
+                            </label>
+                        </div>
+                        <div class="col col-lg-5 col-12">
+                            <input class="form-control" 
+                                type="month" 
+                                name="startDate" 
+                                id="startDate" 
+                                formControlName="startDate"
+                            />
+                        </div>
 
-            <div class="row mb-2">
-                <div class="col col-lg-1 col-12 my-auto">
-                    <label for="startDate">Desde: </label>
-                </div>
-                <div class="col col-lg-5 col-12">
-                    <input class="form-control" type="date" name="startDate" id="startDate" placeholder="Agregar Fecha" [(ngModel)]="experience.startDate" [ngModel]="experience.startDate | date:'yyyy-MM-dd'" (ngModelChange)="experience.startDate = $event"/>
-                </div>
-                <div class="col col-lg-1 col-12 my-auto">
-                    <label for="endDate">Hasta: </label>
-                </div>
-                <div class="col col-lg-5 col-12">
-                    <input class="form-control" type="date" name="endDate" id="endDate" placeholder="Agregar Fecha" [(ngModel)]="experience.endDate" [attr.disabled]="disabledEndDate ? true : null"/>
-                </div>
-            </div>
+                        <div class="col col-lg-1 col-12 my-auto">
+                            <label for="endDate">
+                                Hasta:
+                            </label>
+                        </div>
+                        <div class="col col-lg-5 col-12">
+                            <input class="form-control" 
+                                type="month" 
+                                name="endDate" 
+                                id="endDate" 
+                                formControlName="endDate"
+                                [attr.disabled]="disabledEndDate ? true : null"
+                            />
+                        </div>
 
-            <div class="row mb-2">
-                <div class="col col-12 my-auto">
-                    <label for="location">Locación: </label>
-                </div>
-                <div class="col col-12">
-                    <input class="col-12 form-control" type="text" name="location" id="location" placeholder="Agregar Locacion" [(ngModel)]="experience.location"/>
-                </div>                   
-            </div>
-        </div>
+                        <div *ngIf="startDate?.errors && startDate?.touched">
+                            <p class="text-danger mb-0"
+                                *ngIf="startDate?.hasError('required')">
+                                    La fecha de inicio es requerida.
+                            </p>
+                        </div>
+                    </div>
 
-        <div class="row mb-2 d-flex flex-row-reverse">
-            <div class="col col-3 col-xs-1 col-md-2 col-lg-2">
-                <button type="submit" class="btn btn-primary ">Guardar</button>
-            </div>
-            <div class="col col-3 col-xs-1 col-md-2 col-lg-2">
-                <button type="submit" class="btn btn-secondary" (click)="close()">Cancelar</button> 
-            </div>
-        </div>
-    </div>
-</form>
+                    <div class="row mb-2">
+                        <div class="col col-12 my-auto">
+                            <label for="location">
+                                Locación:
+                            </label>
+                        </div>
+                        <div class="col col-12">
+                            <input class="col-12 form-control" 
+                                type="text" 
+                                name="location" 
+                                id="location" 
+                                placeholder="Agregar Locacion" 
+                                formControlName="location"
+                            />
+                        </div>    
+                        <div *ngIf="location?.errors && location?.touched">
+                            <p class="text-danger mb-0"
+                                *ngIf="location?.hasError('required')">
+                                    La fecha de inicio es requerida.
+                            </p>
+                        </div>               
+                    </div>
+
+                    <div class="row mx-auto mb-2">
+                        <div class="col col-12 my-auto">
+                            <label for="logo">
+                                Logo:
+                            </label>
+                        </div>
+                        <input 
+                            type="file" 
+                            class="form-control" 
+                            accept=".png, .jpg, .jpeg" 
+                            (change)="uploadImage($event)" 
+                            id="inputFile"
+                        />
+                        <label for="inputFile" 
+                            class="uploadImage mx-auto rounded">
+                            <p class="my-auto" 
+                                *ngIf="!image; else updateLogo">
+                                    <b>Añadir logo</b>
+                            </p>
+                        </label> 
+                        <ng-template #updateLogo>
+                            <p class="my-auto">
+                                <b>Modificar logo</b>
+                            </p>
+                        </ng-template>
+                    </div>
+
+                    <div class="row uploadedImage rounded mx-auto my-auto col-6 mb-2" *ngIf="image">
+                        <img src="{{image}}" class=" img-fluid rounded mx-auto d-block">
+                    </div>
+                
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary"
+                        type="submit"  
+                        (click)="close()">
+                            Cancelar
+                    </button>
+                    <button class="btn btn-primary" 
+                        type="submit">
+                            Guardar
+                    </button>
+                </div>
+            </form>           
+        </div>   
+    </div>   
+</div>
