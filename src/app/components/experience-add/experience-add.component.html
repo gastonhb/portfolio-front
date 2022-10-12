@@ -64,7 +64,7 @@
                                 Jornada:
                             </label>
                         </div>
-                        <div class="col col-12 mx-auto my-auto ">
+                        <div class="col col-12 mx-auto my-auto">
                             <select class="form-select form-select-xs" 
                                 formControlName="workTimeType"
                                 name="workTimeType">
@@ -91,8 +91,8 @@
                         </div>
                     </div>
 
-                    <div class="row mb-2">
-                        <div class="col col-lg-1 col-12 my-auto">
+                    <div class="row">
+                        <div class="col col-lg-1 col-12 mt-lg-2">
                             <label for="startDate">
                                 Desde: 
                             </label>
@@ -104,9 +104,20 @@
                                 id="startDate" 
                                 formControlName="startDate"
                             />
+
+                            <div *ngIf="startDate?.errors && startDate?.touched">
+                                <p class="text-danger mb-0"
+                                    *ngIf="startDate?.hasError('required')">
+                                        La fecha de inicio es requerida.
+                                </p>
+                                <p class="text-danger mb-0"
+                                    *ngIf="startDate?.hasError('futureDate')">
+                                        Fecha invalida.
+                                </p>
+                            </div>
                         </div>
 
-                        <div class="col col-lg-1 col-12 my-auto">
+                        <div class="col col-lg-1 col-12 mt-lg-2">
                             <label for="endDate">
                                 Hasta:
                             </label>
@@ -119,13 +130,13 @@
                                 formControlName="endDate"
                                 [attr.disabled]="disabledEndDate ? true : null"
                             />
-                        </div>
 
-                        <div *ngIf="startDate?.errors && startDate?.touched">
-                            <p class="text-danger mb-0"
-                                *ngIf="startDate?.hasError('required')">
-                                    La fecha de inicio es requerida.
-                            </p>
+                            <div *ngIf="(form.errors?.['dateLessThenDate'] && (form.touched || form.dirty)) ||
+                                (endDate?.errors && endDate?.touched && endDate?.hasError('futureDate'))">
+                                <p class="text-danger mb-0">
+                                    Fecha invalida.
+                                </p>
+                            </div>
                         </div>
                     </div>
 
@@ -154,8 +165,8 @@
 
                     <div class="row mx-auto mb-2">
                         <div class="col col-12 my-auto">
-                            <label for="logo">
-                                Logo:
+                            <label for="imagen">
+                                Imagen:
                             </label>
                         </div>
                         <input 
@@ -165,16 +176,16 @@
                             (change)="uploadImage($event)" 
                             id="inputFile"
                         />
-                        <label for="inputFile" 
-                            class="uploadImage mx-auto rounded">
+                        <label class="uploadImage mx-auto rounded"
+                            for="inputFile">
                             <p class="my-auto" 
-                                *ngIf="!image; else updateLogo">
-                                    <b>Añadir logo</b>
+                                *ngIf="!image; else updateImagen">
+                                    <b>Añadir imagen</b>
                             </p>
                         </label> 
-                        <ng-template #updateLogo>
+                        <ng-template #updateImagen>
                             <p class="my-auto">
-                                <b>Modificar logo</b>
+                                <b>Modificar imagen</b>
                             </p>
                         </ng-template>
                     </div>
@@ -186,7 +197,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary"
-                        type="submit"  
+                        type="button"  
                         (click)="close()">
                             Cancelar
                     </button>

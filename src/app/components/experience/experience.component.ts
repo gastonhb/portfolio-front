@@ -69,7 +69,6 @@ export class ExperienceComponent implements OnInit {
   // Actualizar experiencia
   updateExperience(experience: Experience){
     const experiencePayload: ExperiencePayload = {
-      id: experience.id, 
       title: experience.title, 
       companyName: experience.companyName, 
       startDate: experience.startDate, 
@@ -80,7 +79,7 @@ export class ExperienceComponent implements OnInit {
       workTimeTypeId: experience.workTimeTypeId,
     };
 
-    this.experienceService.update(experiencePayload)
+    this.experienceService.update(experience.id, experiencePayload)
     .subscribe((experience) =>{
       const index = this.experiences.findIndex(exp => exp.id === experience.id);
       this.experiences[index] = experience;

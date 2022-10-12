@@ -34,6 +34,9 @@ import { SocialNetworkItemComponent } from './components/social-network-item/soc
 import { FooterComponent } from './components/footer/footer.component';
 import { SocialNetworkLinkItemComponent } from './components/social-network-link-item/social-network-link-item.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+//import { SocialNetworkUpdateComponent } from './components/social-network-update/social-network-update.component';
+import { DateInPastDirective } from './validators/date-in-past.directive';
+import { DateLessThenDateDirective } from './validators/date-less-then-date.directive';
 
 @NgModule({
   declarations: [
@@ -62,7 +65,10 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     SocialNetworkItemComponent,
     FooterComponent,
     SocialNetworkLinkItemComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    //SocialNetworkUpdateComponent,
+    DateInPastDirective,
+    DateLessThenDateDirective
   ],
   imports: [
     BrowserModule,

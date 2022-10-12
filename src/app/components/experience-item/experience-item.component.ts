@@ -16,7 +16,7 @@ export class ExperienceItemComponent implements OnInit {
     id:"", 
     title:"", 
     companyName:"", 
-    startDate: null, 
+    startDate: new Date(), 
     endDate: null, 
     location:"", 
     urlImage:"", 

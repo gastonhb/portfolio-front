@@ -6,6 +6,8 @@ import { WorkTimeType } from 'src/app/models/workTimeType.interface';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { WorkTimeTypeService } from 'src/app/services/workTimeType.service';
+import { dateInPastValidator } from 'src/app/validators/date-in-past.directive';
+import { dateLessThenDateValidator } from 'src/app/validators/date-less-then-date.directive';
 
 @Component({
   selector: 'app-experience-add',
@@ -53,10 +55,10 @@ export class ExperienceAddComponent implements OnInit {
         title: new FormControl('', [Validators.required]), 
         companyName: new FormControl('', [Validators.required]), 
         workTimeType: new FormControl(this.selectedWorkTimeType, [Validators.required]),
-        startDate: new FormControl(null, [Validators.required]),
-        endDate: new FormControl(null, []),
+        startDate: new FormControl(null, [Validators.required, dateInPastValidator()]),
+        endDate: new FormControl(null, [dateInPastValidator()]),
         location: new FormControl(null, []),
-      });
+      }, { validators: dateLessThenDateValidator });
     });
   }
 
