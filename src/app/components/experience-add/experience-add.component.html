@@ -1,12 +1,12 @@
 <div class="modal" style="display: block;" *ngIf="showAddExperience">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">
-                    Agregar experiencia laboral
-                </h4>
-            </div>
-            <form [formGroup]="form" (ngSubmit)="onSubmit()">   
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">   
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        Agregar experiencia laboral
+                    </h4>
+                </div>
                 <div class="modal-body">       
                     <div class="row mb-2">
                         <div class="col col-12 my-auto">
@@ -206,7 +206,7 @@
                             Guardar
                     </button>
                 </div>
-            </form>           
-        </div>   
-    </div>   
+            </div>   
+        </div>
+    </form> 
 </div>
