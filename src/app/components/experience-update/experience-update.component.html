@@ -22,7 +22,8 @@
                 <input class="form-control" 
                     type="file" 
                     accept=".png, .jpg, .jpeg" 
-                    (change)="uploadImage($event)" id="inputFile"
+                    (change)="uploadImage($event)" 
+                    id="inputFile"
                 />
                 <label class="uploadImage mx-auto rounded"
                     for="inputFile">
@@ -147,60 +148,6 @@
                 </div>
             </div>
 
-            <!-- <div class="row mb-2">
-                <div class="row">
-                    <div class="col col-lg-1 col-12 my-auto">
-                        <label for="startDate">
-                            Desde: 
-                        </label>
-                    </div>
-                    <div class="col col-lg-5 col-12">
-                        <input class="form-control" 
-                            type="month" 
-                            name="startDate" 
-                            id="startDate" 
-                            formControlName="startDate"
-                        />
-                    </div>
-
-                    <div class="col col-lg-1 col-12 my-auto">
-                        <label for="endDate">
-                            Hasta:
-                        </label>
-                    </div>
-                    <div class="col col-lg-5 col-12">
-                        <input class="form-control" 
-                            type="month" 
-                            name="endDate" 
-                            id="endDate" 
-                            formControlName="endDate"
-                            [attr.disabled]="disabledEndDate ? true : null"
-                        />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col offset-1 col-5">
-                        <div *ngIf="startDate?.errors && startDate?.touched">
-                            <p class="text-danger mb-0"
-                                *ngIf="startDate?.hasError('required')">
-                                    La fecha de inicio es requerida.
-                            </p>
-                            <p class="text-danger mb-0"
-                                *ngIf="startDate?.hasError('futureDate')">
-                                    Fecha invalida.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col offset-1 col-5">
-                        <div *ngIf="(form.errors?.['dateLessThenDate'] && (form.touched || form.dirty)) || (endDate?.errors && endDate?.touched && endDate?.hasError('futureDate'))">
-                            <p class="text-danger mb-0">
-                                Fecha invalida.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
             <div class="row mb-2">
                 <div class="col col-lg-1 col-12 mt-lg-2">
                     <label for="startDate">
@@ -248,12 +195,7 @@
                         </p>
                     </div>
                 </div>
-                
-                
             </div>
-            <!-- <div class="row mb-2">
-               
-            </div> -->
 
             <div class="row mb-2">
                 <div class="col col-12 my-auto">

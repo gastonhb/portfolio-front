@@ -54,6 +54,7 @@ export class ExperienceUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.urlImage = this.experience.urlImage;
     this.disabledEndDate = this.experience.endDate ? false : true;
+
     this.form = new FormGroup({
       title: new FormControl(this.experience.title, [Validators.required]), 
       companyName: new FormControl(this.experience.companyName, [Validators.required]), 
@@ -126,9 +127,15 @@ export class ExperienceUpdateComponent implements OnInit {
   // Bloquear fecha de fin y poner en null
   changeDisabledEndDate() {
     this.disabledEndDate = !this.disabledEndDate;
-    this.form.patchValue({
-      endDate: null,
-    });
+    if (this.disabledEndDate) {
+      this.form.patchValue({
+        endDate: null,
+      });
+    } else {
+      this.form.patchValue({
+        endDate: new Date().toISOString().slice(0,7),
+      });
+    }
   }
 
   // Cerrar formulario

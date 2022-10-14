@@ -1,5 +1,4 @@
-export interface Education {
-    id: string;
+export interface EducationPayload {
     title: string 
     institute: string;
     startDate: number;

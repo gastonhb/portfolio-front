@@ -4,6 +4,7 @@ import { EducationService } from 'src/app/services/education.service';
 import { Education } from 'src/app/models/education.interface';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Subscription } from 'rxjs';
+import { EducationPayload } from 'src/app/models/educationPayload.interface';
 
 @Component({
   selector: 'app-education',
@@ -24,14 +25,15 @@ export class EducationComponent implements OnInit, OnChanges {
   faPen = faPen;
   faTimes = faTimes;
 
-  constructor(private educationService: EducationService, private authenticationService: AuthenticationService) { 
-    this.hasCurrentUser = authenticationService.hasCurrentUser;
+  constructor(private educationService: EducationService, 
+    private authenticationService: AuthenticationService) { }
+
+  ngOnInit(): void { 
+    this.hasCurrentUser = this.authenticationService.hasCurrentUser;
     this.subscription = this.authenticationService.onToggle().subscribe(value => {
       this.hasCurrentUser = value;
     });
   }
-
-  ngOnInit(): void { }
 
   ngOnChanges(changes: SimpleChanges) {
     this.personId = changes['personId'].currentValue;
@@ -56,7 +58,7 @@ export class EducationComponent implements OnInit, OnChanges {
   }
 
   // Agrega educacion
-  onAddEducation(education:Education){
+  onAddEducation(education: EducationPayload){
     this.showAddEducation = false;
     this.educationService.create(education)
     .subscribe((education) =>{
@@ -65,8 +67,16 @@ export class EducationComponent implements OnInit, OnChanges {
   }
 
   // Actualizar educacion
-  updateEducation(education:Education){
-    this.educationService.update(education)
+  updateEducation(education: Education){
+    const educationPayload: EducationPayload = {
+      title: education.title, 
+      institute: education.institute, 
+      startDate: education.startDate, 
+      endDate: education.endDate,  
+      urlImage: education.urlImage, 
+      personId: education.personId
+    };
+    this.educationService.update(education.id, educationPayload)
     .subscribe((education) =>{
       const index = this.educations.findIndex(edu => edu.id === education.id);
       this.educations[index] = education;

@@ -2,11 +2,13 @@
     <form [formGroup]="form" (ngSubmit)="onSubmit()">   
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
+
                 <div class="modal-header">
                     <h4 class="modal-title">
                         Agregar experiencia laboral
                     </h4>
                 </div>
+
                 <div class="modal-body">       
                     <div class="row mb-2">
                         <div class="col col-12 my-auto">
@@ -192,9 +194,9 @@
 
                     <div class="row uploadedImage rounded mx-auto my-auto col-6 mb-2" *ngIf="image">
                         <img src="{{image}}" class=" img-fluid rounded mx-auto d-block">
-                    </div>
-                
+                    </div>           
                 </div>
+
                 <div class="modal-footer">
                     <button class="btn btn-secondary"
                         type="button"  

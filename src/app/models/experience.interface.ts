@@ -1,4 +1,3 @@
-import { Person } from "./person.interface";
 import { WorkTimeType } from "./workTimeType.interface";
 
 export interface Experience {

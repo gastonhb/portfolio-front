@@ -1,5 +1,4 @@
 export interface ExperiencePayload {
-    id?: string;
     title: string 
     companyName: string;
     startDate: Date | null;

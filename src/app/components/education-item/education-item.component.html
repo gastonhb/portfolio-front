@@ -27,7 +27,7 @@
             
             <h5> {{education.institute}} </h5>
             <p *ngIf="education.endDate; else elseBlock"> 
-                {{ education.startDate}}  -  {{ education.endDate }}
+                {{ education.startDate }}  -  {{ education.endDate }}
             </p>
                 <ng-template #elseBlock>
                     {{ education.startDate }}  - Acutalidad

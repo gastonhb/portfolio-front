@@ -1,4 +1,189 @@
-<form class="form rounded container my-3" (ngSubmit)="save()" *ngIf="showAddEducation">
+<div class="modal" style="display: block;" *ngIf="showAddEducation">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">   
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        Agregar educación
+                    </h4>
+                </div>
+
+                <div class="modal-body">  
+                    <div class="row mb-2">
+                        <div class="col col-12 my-auto">
+                            <label for="title">
+                                Titulo:
+                            </label>
+                        </div>
+                        <div class="col col-12">
+                            <input class="form-control" 
+                                type="text" 
+                                name="title" 
+                                id="title" 
+                                formControlName="title"
+                                placeholder="Agregar Titulo" 
+                                [ngClass]="{'is-invalid': title?.errors && title?.touched,
+                                'is-valid': !title?.errors && title?.touched}"
+                            />
+                        </div>
+                        <div *ngIf="title?.errors && title?.touched">
+                            <p class="text-danger mb-0" 
+                                *ngIf="title?.hasError('required')">
+                                    El titulo es requerido.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col col-12 mx-auto my-auto">
+                            <label for="institute">
+                                Institución:
+                            </label>
+                        </div>
+                        <div class="col col-12 mx-auto my-auto" >
+                            <input class="col-12 form-control" 
+                                type="text" 
+                                name="institute" 
+                                id="institute" 
+                                formControlName="institute"
+                                placeholder="Agregar Institución" 
+                                [ngClass]="{'is-invalid': institute?.errors && institute?.touched,
+                                'is-valid': !institute?.errors && institute?.touched}"
+                            />
+                        </div>
+                        <div *ngIf="institute?.errors && institute?.touched">
+                            <p class="text-danger mb-0" 
+                                *ngIf="institute?.hasError('required')">
+                                    La Institución es requerida.
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-2 mx-auto">
+                        <div class="form-check">
+                            <input class="form-check-input" 
+                                type="checkbox" 
+                                value="disabledEndDate" 
+                                id="comboDisabledEndDate"
+                                (click)="changeDisabledEndDate()"
+                            >
+                            <label class="form-check-label" 
+                                for="comboDisabledEndDate">
+                                    Estoy cursando actualmente.
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col col-lg-1 col-12 mt-lg-2">
+                            <label for="startDate">
+                                Desde: 
+                            </label>
+                        </div>
+                        <div class="col col-lg-5 col-12">
+                            <select class="form-select form-select-xs" 
+                                formControlName="startDate"
+                                name="startDate"
+                                [ngClass]="{'is-invalid': startDate?.errors && startDate?.touched,
+                                'is-valid': !startDate?.errors && startDate?.touched}">
+                                    <option disabled selected>
+                                        Año
+                                    </option>
+                                    <option *ngFor="let year of years"
+                                        [ngValue]="year">
+                                            {{year}}
+                                    </option>
+                            </select>
+                            
+                            <div *ngIf="startDate?.errors && startDate?.touched">
+                                <p class="text-danger mb-0"
+                                    *ngIf="startDate?.hasError('required')">
+                                        La fecha de inicio es requerida.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col col-lg-1 col-12 mt-lg-2">
+                            <label for="endDate">
+                                Hasta:
+                            </label>
+                        </div>
+                        <div class="col col-lg-5 col-12">
+                            <select class="form-select form-select-xs" 
+                                formControlName="endDate"
+                                name="endDate"
+                                id="endDate"
+                                [ngClass]="{'is-invalid': endDate?.errors && endDate?.touched,
+                                'is-valid': !endDate?.errors && endDate?.touched}"
+                                [attr.disabled]="disabledEndDate ? true : null">
+                                    <option disabled selected>
+                                        Año
+                                    </option>
+                                    <option *ngFor="let year of years"
+                                        [ngValue]="year">
+                                            {{year}}
+                                    </option>
+                            </select>
+
+                            <div *ngIf="form.errors?.['dateLessThenDate'] && (form.touched || form.dirty)">
+                                <p class="text-danger mb-0">
+                                    Fecha invalida.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mx-auto mb-2">
+                        <div class="col col-12 my-auto">
+                            <label for="imagen">
+                                Imagen:
+                            </label>
+                        </div>
+                        <input 
+                            type="file" 
+                            class="form-control" 
+                            accept=".png, .jpg, .jpeg" 
+                            (change)="uploadImage($event)" 
+                            id="inputFile"
+                        />
+                        <label class="uploadImage mx-auto rounded"
+                            for="inputFile">
+                            <p class="my-auto" 
+                                *ngIf="!image; else updateImagen">
+                                    <b>Añadir imagen</b>
+                            </p>
+                        </label> 
+                        <ng-template #updateImagen>
+                            <p class="my-auto">
+                                <b>Modificar imagen</b>
+                            </p>
+                        </ng-template>
+                    </div>
+
+                    <div class="row uploadedImage rounded mx-auto my-auto col-6 mb-2" *ngIf="image">
+                        <img src="{{image}}" class=" img-fluid rounded mx-auto d-block">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-secondary"
+                        type="button"  
+                        (click)="close()">
+                            Cancelar
+                    </button>
+                    <button class="btn btn-primary" 
+                        type="submit">
+                            Guardar
+                    </button>
+                </div>
+            </div>   
+        </div>
+    </form> 
+</div>
+
+<!-- <form class="form rounded container my-3" (ngSubmit)="save()" *ngIf="showAddEducation">
     
     <div class="row mx-auto my-1">
         <div class="col col-11 my-auto">
@@ -9,7 +194,7 @@
         </div>
     </div>
 
-    <div class="row mx-auto ">
+    <div class="row mx-auto">
         <div class="col col-3"> 
             <div class="row mx-auto mb-2 ">
                 <input type="file" class="form-control" accept=".png, .jpg, .jpeg" (change)="uploadImage($event)" id="inputFile"/>
@@ -86,4 +271,4 @@
             </div>
         </div>
     </div>
-</form>
+</form> -->

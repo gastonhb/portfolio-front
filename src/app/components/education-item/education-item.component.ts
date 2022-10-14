@@ -13,7 +13,15 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class EducationItemComponent implements OnInit {
 
-  @Input() education: Education = {id: "", title: "", institute: "", startDate: null, endDate: null, urlImage: "", personId: ""};
+  @Input() education: Education = {
+    id: "", 
+    title: "", 
+    institute: "", 
+    startDate: 0, 
+    endDate: null, 
+    urlImage: "", 
+    personId: ""
+  };
   @Output() onDeleteEducation: EventEmitter<Education> = new EventEmitter();
   @Output() updateEducation: EventEmitter<Education> = new EventEmitter();
 

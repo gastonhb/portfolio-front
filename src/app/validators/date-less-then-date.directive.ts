@@ -16,7 +16,10 @@ export const dateLessThenDateValidator: ValidatorFn = (control: AbstractControl)
   const startDate = control.get('startDate');
   const endDate = control.get('endDate');
 
-  return endDate === null || 
-    startDate?.value !== null && endDate !== null && startDate?.value > endDate.value
+  if (endDate?.value === null) {
+    return null;
+  }
+
+  return startDate?.value !== null && endDate !== null && startDate?.value > endDate?.value
     ? { dateLessThenDate: true } : null ;
 };
