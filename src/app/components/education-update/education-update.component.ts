@@ -35,8 +35,7 @@ export class EducationUpdateComponent implements OnInit {
   faImage = faImage;
   faTimes = faTimes;
 
-  constructor(private storageService: StorageService) { 
-  }
+  constructor(private storageService: StorageService) { }
 
   ngOnInit(): void {
     this.urlImage = this.education.urlImage;

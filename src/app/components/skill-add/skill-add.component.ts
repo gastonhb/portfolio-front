@@ -1,11 +1,11 @@
 import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faPlus, faImage, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Skill } from 'src/app/models/skill.interface';
 import { SkillPayload } from 'src/app/models/skillPayload.interface';
 import { SkillType } from 'src/app/models/skillType.interface';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { SkillTypeService } from 'src/app/services/skillType.service';
-import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-skill-add',
@@ -26,36 +26,45 @@ export class SkillAddComponent implements OnInit {
   }
 
   image: any;
-  disabledEndDate: boolean = false;
+  form: FormGroup = new FormGroup({});
+  disabledEndDate: Boolean = false;
   skillTypes: SkillType[] = [];
-  skillType: SkillType = { id: "", name: "" };
+  selectedSkillType: SkillType = { 
+    id: "", 
+    name: "" 
+  };
 
   faPlus = faPlus;
   faImage = faImage;
   faTimes = faTimes;
 
   constructor(private skillTypeService: SkillTypeService,
-    private authenticationService: AuthenticationService) { 
-      //TODO ver personId
-    this.skill.personId = this.authenticationService.personId;
-  }
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.skillTypeService.list().subscribe(skillTypes => {
       this.skillTypes = skillTypes;
-      this.skillType = skillTypes.find(type => type.name === "Hard skill") || skillTypes[0];
+      this.selectedSkillType = skillTypes.find(type => type.name === "Hard skill") || skillTypes[0];
+
+      this.form = new FormGroup({
+        name: new FormControl('', [Validators.required]), 
+        grade: new FormControl(50, [Validators.required, Validators.min(0), Validators.max(100)]), 
+        skillType: new FormControl(this.selectedSkillType, [Validators.required]),
+      });
     })
   }
 
   // Envia la nueva experiencia a la clase padre
-  async save(){
-    if (this.skill.name.length === 0) {
-      return;
+  async onSubmit(){
+    if (this.form.valid){
+      this.skill.name =  this.form.value.name;
+      this.skill.grade = this.form.value.grade;
+      this.skill.personId = this.authenticationService.personId;
+      this.skill.skillTypeId =  this.form.value.skillType.id;
+  
+      this.onAddSkill.emit(this.skill)
+      this.cleanVars();
     }
-
-    this.skill.skillTypeId = this.skillType.id;
-
-    this.onAddSkill.emit(this.skill)
   }
 
   // Cerrar formulario
@@ -72,14 +81,21 @@ export class SkillAddComponent implements OnInit {
 
   // Limpiar las variables
   cleanVars() {
-    this.skill = {
-      name: "",
-      grade: 50,
-      personId: "",
-      skillTypeId: ""
-    };
+    this.form.reset();
+
+    this.form.patchValue({
+      skillType: this.selectedSkillType,
+      grade: 50
+    });
+
     this.showAddSkill = false;
   }
+
+  get name() { return this.form.get('name'); }
+
+  get grade() { return this.form.get('grade'); }
+
+  get skillType() { return this.form.get('skillType'); }
 
 }
 

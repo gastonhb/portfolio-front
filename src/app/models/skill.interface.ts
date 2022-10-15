@@ -1,7 +1,7 @@
 import { SkillType } from "./skillType.interface";
 
 export interface Skill {
-    id?: string;
+    id: string;
     name: string
     grade: number;
     personId: string;

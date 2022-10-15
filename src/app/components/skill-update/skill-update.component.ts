@@ -1,10 +1,9 @@
 import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faImage, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { Subscription } from 'rxjs';
 import { Skill } from 'src/app/models/skill.interface';
 import { SkillType } from 'src/app/models/skillType.interface';
 import { SkillTypeService } from 'src/app/services/skillType.service';
-import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-skill-update',
@@ -18,6 +17,7 @@ export class SkillUpdateComponent implements OnInit {
   @Output() closeUpdateSkill = new EventEmitter();
 
   @Input() skill: Skill = {
+    id: "",
     name: "",
     grade: 50,
     personId: "",
@@ -28,9 +28,7 @@ export class SkillUpdateComponent implements OnInit {
     }
   }
 
-  image: any;
-  urlImage: string | null = null;
-  disabledEndDate: boolean = false;
+  form: FormGroup = new FormGroup({});
   skillTypes: SkillType[] = [];
 
   faImage = faImage;
@@ -42,17 +40,25 @@ export class SkillUpdateComponent implements OnInit {
     this.skillTypeService.list().subscribe(skillTypes => {
       this.skillTypes = skillTypes;
     });
+
+    this.form = new FormGroup({
+      name: new FormControl(this.skill.name, [Validators.required]), 
+      grade: new FormControl(this.skill.grade, 
+        [Validators.required, Validators.min(0), Validators.max(100)]), 
+      skillType: new FormControl(this.skill.skillType, [Validators.required]),
+    });
   }
 
   // Envia la experiencia actualizada a la clase padre
-  async save(){
-    if (this.skill.name.length === 0) {
-      return;
+  async onSubmit(){
+    if (this.form.valid){
+      this.skill.name =  this.form.value.name;
+      this.skill.grade = this.form.value.grade;
+      this.skill.personId = this.skill.personId;
+      this.skill.skillTypeId =  this.form.value.skillType.id;
+  
+      this.onUpdateSkill.emit(this.skill)
     }
-
-    this.skill.skillTypeId =  this.skill.skillType.id;
-    
-    this.onUpdateSkill.emit(this.skill)
   }
 
   // Cerrar formulario
@@ -65,5 +71,11 @@ export class SkillUpdateComponent implements OnInit {
   compareNames(work1: SkillType, work2: SkillType) {
     return work1.name === work2.name;
   }
+
+  get name() { return this.form.get('name'); }
+
+  get grade() { return this.form.get('grade'); }
+
+  get skillType() { return this.form.get('skillType'); }
 
 }

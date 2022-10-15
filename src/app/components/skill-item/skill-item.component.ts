@@ -13,6 +13,7 @@ import { UserService } from 'src/app/services/user.service';
 export class SkillItemComponent implements OnInit {
 
   @Input() skill: Skill = {
+    id: "",
     name: "",
     grade: 50,
     personId: "",

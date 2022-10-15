@@ -26,8 +26,8 @@ export class SkillService {
     return this.http.post<Skill>(this.url, skill)
   }
 
-  update(skill: SkillPayload): Observable<Skill>{
-    return this.http.put<Skill>(this.url + `/${skill.id}`, skill)
+  update(id: String, skill: SkillPayload): Observable<Skill>{
+    return this.http.put<Skill>(this.url + `/${id}`, skill)
   }
 
 }

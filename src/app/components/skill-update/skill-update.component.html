@@ -1,57 +1,122 @@
-<form class="form rounded container my-3" (ngSubmit)="save()" *ngIf="showUpdateSkill">
+<form class="form rounded container my-3" 
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()" 
+    *ngIf="showUpdateSkill">
     
     <div class="row mx-auto my-1">
         <div class="col col-11 col-xs-7 col-sm-8 col-md-9 col-lg-10 my-auto">
-            <h5 class="my-auto">Actualizar habilidad:</h5> 
+            <h5 class="my-auto">
+                Actualizar habilidad
+            </h5> 
         </div>
         <div class="col col-1 col-xs-5 col-sm-4 col-md-3 col-lg-2 d-flex justify-content-end">
-            <fa-icon [icon]="faTimes" class="btn" (click)="close()"></fa-icon>
+            <fa-icon class="btn" 
+                [icon]="faTimes" 
+                (click)="close()">
+            </fa-icon>
         </div>
     </div>
 
-    <div class="row mx-auto ">
-        
+    <div class="row mx-auto">
         <div class="col col-12">
-            <div class="row mb-2 ">
+            <div class="row mb-2">
                 <div class="col col-12 my-auto">
-                    <label for="name">Nombre:</label>
+                    <label for="name">
+                        Nombre:
+                    </label>
                 </div>
                 <div class="col col-12">
-                    <input class="form-control" type="text" name="name" id="name" placeholder="Agregar Nombre" [(ngModel)]="skill.name"/>
+                    <input class="form-control" 
+                    type="text" 
+                    name="name" 
+                    id="name" 
+                    formControlName="name"
+                    placeholder="Agregar Nombre" 
+                    [ngClass]="{'is-invalid': name?.errors && name?.touched,
+                    'is-valid': !name?.errors && name?.touched}"
+                    />
+                </div>
+                <div *ngIf="name?.errors && name?.touched">
+                    <p class="text-danger mb-0" 
+                        *ngIf="name?.hasError('required')">
+                            El nombre es requerido.
+                    </p>
                 </div>
             </div>
 
             <div class="row mb-2">
                 <div class="col col-12 mx-auto my-auto">
-                    <label for="type">Tipo de habilidad:</label>
+                    <label for="type">
+                        Tipo de habilidad:
+                    </label>
                 </div>
-                <div class="col col-12 mx-auto my-auto ">
-                    <select class="form-select form-select-xs" [(ngModel)]="skill.skillType"
-                    name="skillType" [compareWith]="compareNames">
+                <div class="col col-12 mx-auto my-auto">
+                    <select class="form-select form-select-xs" 
+                        formControlName="skillType"
+                        name="skillType" 
+                        [compareWith]="compareNames">
                         <option *ngFor="let skillType of skillTypes"
-                            [ngValue]="skillType"
-                           >{{skillType.name}}
+                            [ngValue]="skillType">
+                                {{ skillType.name }}
                         </option>
                     </select>
                 </div>
+                <div *ngIf="skillType?.errors && skillType?.touched">
+                    <p class="text-danger mb-0" 
+                        *ngIf="skillType?.hasError('required')">
+                            Tipo de habilidad es requerido.
+                    </p>
+                </div>
             </div>
 
             <div class="row mb-2">
                 <div class="col col-12 mx-auto my-auto">
-                    <label for="grade">Grado de habilidad: </label>
+                    <label for="grade">
+                        Grado de habilidad: 
+                    </label>
                 </div>
-                <div class="col col-12 mx-auto my-auto" >
-                    <input class="col-12 form-control" type="number" name="grade" id="grade" [(ngModel)]="skill.grade"/>
+                <div class="col col-12 mx-auto my-auto">
+                    <input class="col-12 form-control" 
+                        type="number" 
+                        formControlName="grade"
+                        name="grade" 
+                        id="grade" 
+                        min="0" 
+                        max="100"
+                        [ngClass]="{'is-invalid': grade?.errors && grade?.touched,
+                        'is-valid': !grade?.errors && grade?.touched}"
+                    />
+                </div>
+                <div *ngIf="grade?.errors && grade?.touched">
+                    <p class="text-danger mb-0" 
+                        *ngIf="grade?.hasError('required')">
+                            El grado de habilidad es requerido.
+                    </p>
+                    <p class="text-danger mb-0" 
+                        *ngIf="grade?.hasError('min')">
+                            El grado de habilidad tiene que ser mayor a 0.
+                    </p>
+                    <p class="text-danger mb-0" 
+                        *ngIf="grade?.hasError('max')">
+                            El grado de habilidad tiene que ser menor 100.
+                    </p>
                 </div>
             </div>
         </div>
 
         <div class="row mb-2 d-flex justify-content-end">
             <div class="col col-6 col-sm-7 col-md-5 col-lg-3">
-                <button type="submit" class="btn btn-secondary" (click)="close()">Cancelar</button> 
+                <button class="btn btn-secondary" 
+                    type="button" 
+                    (click)="close()">
+                        Cancelar
+                </button> 
             </div>
             <div class="col col-6 col-sm-5 col-md-3 col-lg-2">
-                <button type="submit" class="btn btn-primary ">Guardar</button>
+                <button class="btn btn-primary" 
+                    type="submit">
+                        Guardar
+                </button>
             </div>
         </div>
     </div>

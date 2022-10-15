@@ -76,6 +76,7 @@ export class EducationComponent implements OnInit, OnChanges {
       urlImage: education.urlImage, 
       personId: education.personId
     };
+    
     this.educationService.update(education.id, educationPayload)
     .subscribe((education) =>{
       const index = this.educations.findIndex(edu => edu.id === education.id);

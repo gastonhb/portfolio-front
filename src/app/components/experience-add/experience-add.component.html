@@ -1,4 +1,4 @@
-<div class="modal" style="display: block;" *ngIf="showAddExperience">
+<div class="modal d-block" *ngIf="showAddExperience">
     <form [formGroup]="form" (ngSubmit)="onSubmit()">   
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -72,7 +72,7 @@
                                 name="workTimeType">
                                 <option *ngFor="let workTimeType of workTimeTypes"
                                     [ngValue]="workTimeType">
-                                        {{workTimeType.name}}
+                                        {{ workTimeType.name }}
                                 </option>
                             </select>
                         </div>

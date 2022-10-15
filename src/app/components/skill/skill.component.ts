@@ -66,7 +66,7 @@ export class SkillComponent implements OnInit {
   onDelete(skill: Skill){
     this.skillService.delete(skill)
       .subscribe(() =>{
-        if (skill.skillType.name === "Hard Skill") {
+        if (skill.skillType.name === "Hard skill") {
           this.hardSkills = this.hardSkills.filter(ski => ski.id !== skill.id);
         } else {
           this.softSkills = this.softSkills.filter(ski => ski.id !== skill.id);
@@ -80,7 +80,7 @@ export class SkillComponent implements OnInit {
     this.showAddSkill = false;
     this.skillService.create(skill)
     .subscribe((skill) =>{
-      if (skill.skillType.name === "Hard Skill") {
+      if (skill.skillType.name === "Hard skill") {
         this.hardSkills.push(skill);
       } else {
         this.softSkills.push(skill);
@@ -89,18 +89,22 @@ export class SkillComponent implements OnInit {
   }
 
   // Actualizar habilidad
-  updateSkill(skill: SkillPayload){
-    this.skillService.update(skill)
+  updateSkill(skill: Skill){
+    const skillPayload: SkillPayload = {
+      name: skill.name, 
+      grade: skill.grade, 
+      skillTypeId: skill.skillTypeId,
+      personId: skill.personId
+    };
+
+    this.skillService.update(skill.id, skillPayload)
     .subscribe((skill) =>{
       let index;
       if (skill.skillType.name === "Hard skill") {
         index = this.hardSkills.findIndex(ski => ski.id === skill.id);
-        console.log("hs" + index);
         if (index != -1) {
-          console.log("hs-1" + index);
           this.hardSkills[index] = skill;
         } else {
-          console.log("hs+1" + index);
           this.softSkills = this.softSkills.filter(ski => ski.id !== skill.id);
           this.hardSkills.push(skill)
         } 
