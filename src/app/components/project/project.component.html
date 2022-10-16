@@ -18,12 +18,6 @@
     </div>
 
     <ng-template #itemComponent>
-        <app-project-add 
-            [showAddProject]="showAddProject"
-            (onAddProject)="onAddProject($event)" 
-            (closeAddProject)="closeAddProject($event)">
-        </app-project-add>
-
         <app-project-item 
             *ngFor="let project of projects"
             [project]= "project"
@@ -31,5 +25,11 @@
             (updateProject) = "updateProject(project)">
         </app-project-item> 
     </ng-template>
+
+    <app-project-add 
+        [showAddProject]="showAddProject"
+        (onAddProject)="onAddProject($event)" 
+        (closeAddProject)="closeAddProject($event)">
+    </app-project-add>
 </div>
 

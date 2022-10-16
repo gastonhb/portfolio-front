@@ -13,7 +13,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ProjectItemComponent implements OnInit {
 
-  @Input() project: Project = { id: "", name: "", description: "", startDate: null, endDate: null, link: "", urlImage: "", personId: "" };
+  @Input() project: Project = { id: "", name: "", description: "", startDate: new Date(), endDate: null, link: "", urlImage: "", personId: "" };
   @Output() onDeleteProject: EventEmitter<Project> = new EventEmitter();
   @Output() updateProject: EventEmitter<Project> = new EventEmitter();
 

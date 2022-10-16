@@ -1,35 +1,64 @@
-<form class="form rounded container my-3 mx-auto" (ngSubmit)="save()" *ngIf="showUpdateProject">
+<form class="form rounded container my-3 mx-auto" 
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()" 
+    *ngIf="showUpdateProject">
     
     <div class="row mx-auto my-1">
         <div class="col col-11 my-auto">
-            <h5 class="my-auto">Actualizar experiencia laboral: </h5> 
+            <h5 class="my-auto">
+                Actualizar experiencia laboral
+            </h5> 
         </div>
         <div class="col col-1 d-flex justify-content-end">
-            <fa-icon [icon]="faTimes" class="btn" (click)="close()"></fa-icon>
+            <fa-icon class="btn" 
+                [icon]="faTimes"
+                (click)="close()">
+            </fa-icon>
         </div>
     </div>
 
-    <div class="row mx-auto ">
+    <div class="row mx-auto">
         <div class="col col-3"> 
             <div class="row mx-auto mb-2 ">
-                <input type="file" class="form-control" accept=".png, .jpg, .jpeg" (change)="uploadImage($event)" id="inputFile"/>
-                <label for="inputFile" class="uploadImage mx-auto rounded">
-                    <p class=" my-auto"><b>Seleccione una imagen</b></p>
-                </label>
+                <input class="form-control" 
+                    type="file" 
+                    accept=".png, .jpg, .jpeg" 
+                    (change)="uploadImage($event)" 
+                    id="inputFile"
+                />
+                <label class="uploadImage mx-auto rounded"
+                    for="inputFile">
+                    <p class=" my-auto"
+                        *ngIf="!urlImage; else updateImgagen">
+                            <b>Añadir imagen</b>
+                    </p>
+                </label> 
+                <ng-template #updateImgagen>
+                    <p class="my-auto">
+                        <b>Modificar imagen</b>
+                    </p>
+                </ng-template>
             </div>
 
             <div class="row uploadedImage rounded mx-auto my-autos">
                 <div *ngIf="image ; else withoutImage">
-                    <img [src]="image" class=" img-fluid rounded mx-auto d-block " 
-                    alt="project-photo">
+                    <img class="img-fluid rounded mx-auto d-block " 
+                        [src]="image"
+                        alt="project-photo"
+                    >
                 </div>    
                 <ng-template #withoutImage>
                     <div *ngIf="project.urlImage; else withoutUrl">
-                        <img src="{{project.urlImage}}" class=" img-fluid rounded mx-auto d-block " alt="project-photo222" >
+                        <img class="img-fluid rounded mx-auto d-block" 
+                            src="{{project.urlImage}}" 
+                            alt="project-photo" 
+                        >
                     </div>
                     <ng-template #withoutUrl>
                         <div class="my-5">
-                            <fa-icon class="fa-3x"  [icon]="faImage"></fa-icon>
+                            <fa-icon class="fa-3x" 
+                                [icon]="faImage">
+                            </fa-icon>
                         </div>
                     </ng-template>
                 </ng-template>
@@ -37,65 +66,165 @@
         </div>
         
         <div class="col col-9">
-            <div class="row mb-2 ">
+            <div class="row mb-2">
                 <div class="col col-12 my-auto">
-                    <label for="name">Nombre:</label>
+                    <label for="name">
+                        Nombre:
+                    </label>
                 </div>
                 <div class="col col-12">
-                    <input class="form-control"  type="text" name="name" id="name" placeholder="Agregar Nombre" [(ngModel)]="project.name"/>
+                    <input class="form-control" 
+                    type="text" 
+                    name="name" 
+                    id="name" 
+                    formControlName="name"
+                    placeholder="Agregar Nombre" 
+                    [ngClass]="{'is-invalid': name?.errors && name?.touched,
+                    'is-valid': !name?.errors && name?.touched}"
+                    />
+                </div>
+                <div *ngIf="name?.errors && name?.touched">
+                    <p class="text-danger mb-0" 
+                        *ngIf="name?.hasError('required')">
+                            El nombre es requerido.
+                    </p>
                 </div>
             </div>
 
             <div class="row mb-2">
                 <div class="col col-12 mx-auto my-auto">
-                    <label for="description">Descripción: </label>
+                    <label for="description">
+                        Descripción:
+                    </label>
                 </div>
                 <div class="col col-12 mx-auto my-auto" >
-                    <input class="col-12 form-control" type="text" name="description" id="description" placeholder="Agregar Descripción" [(ngModel)]="project.description"/>
+                    <input class="col-12 form-control" 
+                        type="text" 
+                        name="description" 
+                        id="description" 
+                        formControlName="description"
+                        placeholder="Agregar Empresa" 
+                        [ngClass]="{'is-invalid': description?.errors && description?.touched,
+                        'is-valid': !description?.errors && description?.touched}"
+                    />
+                </div>
+                <div *ngIf="description?.errors && description?.touched">
+                    <p class="text-danger mb-0" 
+                        *ngIf="description?.hasError('required')">
+                            La descripción es requerida.
+                    </p>
                 </div>
             </div>
 
             <div class="row mb-2 mx-auto">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="false" id="comboDisabledEndDate"
-                    (click)="changeDisabledEndDate()">
-                    <label class="form-check-label" for="comboDisabledEndDate">
-                      Es mi trabajo actual
+                    <input class="form-check-input" 
+                        type="checkbox" 
+                        [checked]="disabledEndDate"
+                        id="comboDisabledEndDate"
+                        (click)="changeDisabledEndDate()"
+                    />                  
+                    <label class="form-check-label" 
+                        for="comboDisabledEndDate">
+                            Es un proyecto actual
                     </label>
                 </div>
             </div>
 
-            <div class="row mb-2">
-                <div class="col col-lg-1 col-12 my-auto">
-                    <label for="startDate">Desde: </label>
+            <div class="row">
+                <div class="col col-lg-1 col-12 mt-lg-2">
+                    <label for="startDate">
+                        Desde: 
+                    </label>
                 </div>
                 <div class="col col-lg-5 col-12">
-                    <input class="form-control" type="date" name="startDate" id="startDate" [ngModel]="project.startDate | date:'yyyy-MM-dd'" (ngModelChange)="project.startDate = $event"/>
+                    <input class="form-control" 
+                        type="month" 
+                        name="startDate" 
+                        id="startDate" 
+                        formControlName="startDate"
+                        [ngClass]="{'is-invalid':startDate?.errors && startDate?.touched,
+                        'is-valid': !startDate?.errors && startDate?.touched}"
+                        (change)="endDateIfFormIsDirty()"
+                    />
+
+                    <div *ngIf="startDate?.errors && startDate?.touched">
+                        <p class="text-danger mb-0"
+                            *ngIf="startDate?.hasError('required')">
+                                La fecha de inicio es requerida.
+                        </p>
+                        <p class="text-danger mb-0"
+                            *ngIf="startDate?.hasError('futureDate')">
+                                Fecha invalida.
+                        </p>
+                    </div>
                 </div>
-                <div class="col col-lg-1 col-12 my-auto">
-                    <label for="endDate">Hasta: </label>
+
+                <div class="col col-lg-1 col-12 mt-lg-2">
+                    <label for="endDate">
+                        Hasta:
+                    </label>
                 </div>
                 <div class="col col-lg-5 col-12">
-                    <input class="form-control" type="date" name="endDate" id="endDate" [ngModel]="project.endDate | date:'yyyy-MM-dd'" (ngModelChange)="project.endDate = $event" [attr.disabled]="disabledEndDate ? true : null"/>
+                    <input class="form-control" 
+                        type="month" 
+                        name="endDate" 
+                        id="endDate" 
+                        formControlName="endDate"
+                        [attr.disabled]="disabledEndDate ? true : null"
+                        [ngClass]="{'is-invalid': endDate?.errors && endDate?.touched,
+                        'is-valid': !endDate?.errors && endDate?.touched}"
+                        (change)="endDateIfFormIsDirty()"
+                    />
+                    <div *ngIf="endDate?.errors && endDate?.touched">
+                        <p class="text-danger mb-0"
+                            *ngIf="endDate?.hasError('futureDate') || 
+                                endDate?.hasError('dateLessThenDate')">
+                                    Fecha invalida
+                        </p>
+                    </div>
                 </div>
             </div>
 
             <div class="row mb-2">
                 <div class="col col-12 my-auto">
-                    <label for="link">Link: </label>
+                    <label for="link">
+                        Link:
+                    </label>
                 </div>
                 <div class="col col-12">
-                    <input class="col-12 form-control" type="text" name="link" id="link" placeholder="Agregar Link" [(ngModel)]="project.link"/>
-                </div>                   
+                    <input class="col-12 form-control" 
+                        type="text" 
+                        name="link" 
+                        id="link"
+                        formControlName="link"
+                        placeholder="Agregar Link" 
+                        [ngClass]="{'is-invalid': link?.errors && link?.touched,
+                        'is-valid': !link?.errors && link?.touched}"
+                    />
+                </div>
+                <div *ngIf="link?.errors && link?.touched">
+                    <p class="text-danger mb-0" 
+                        *ngIf="link?.hasError('required')">
+                            El link es requerido.
+                    </p>
+                </div>                 
             </div>
         </div>
 
         <div class="row mb-2 d-flex flex-row-reverse">
             <div class="col col-3 col-xs-1 col-md-2 col-lg-2">
-                <button type="submit" class="btn btn-primary ">Guardar</button>
+                <button class="btn btn-primary"
+                    type="submit">
+                        Guardar
+                </button>
             </div>
             <div class="col col-3 col-xs-1 col-md-2 col-lg-2">
-                <button type="submit" class="btn btn-secondary" (click)="close()">Cancelar</button> 
+                <button class="btn btn-secondary" 
+                    type="button"
+                    (click)="close()">
+                        Cancelar
+                </button> 
             </div>
         </div>
     </div>

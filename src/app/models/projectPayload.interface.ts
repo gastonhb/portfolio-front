@@ -1,8 +1,7 @@
-export interface Project {
-    id: string;
+export interface ProjectPayload {
     name: string 
     description: string;
-    startDate: Date;
+    startDate: Date | null;
     endDate: Date | null;
     link: string;
     urlImage: string | null;

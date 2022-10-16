@@ -64,7 +64,7 @@ export class ExperienceUpdateComponent implements OnInit {
       endDate: this.experience.endDate ? new FormControl(this.experience.endDate.toString().slice(0,7),
         [Validators.required, dateInPastValidator()]) : 
         new FormControl(null, [Validators.required, dateInPastValidator()]),
-      location: new FormControl(this.experience.location, [Validators.required]),
+      location: new FormControl(this.experience.location, []),
     }, { validators: dateLessThenDateValidator });
 
     this.workTimeTypeService.list().subscribe(workTimeTypes => {

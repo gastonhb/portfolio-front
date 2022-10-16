@@ -18,12 +18,6 @@
     </div>
 
     <ng-template #itemComponent>
-        <app-education-add 
-            [showAddEducation]="showAddEducation"
-            (onAddEducation)="onAddEducation($event)" 
-            (closeAddEducation)="closeAddEducation($event)">
-        </app-education-add>
-    
         <app-education-item 
             *ngFor="let education of educations"
             [education]= "education"
@@ -31,5 +25,11 @@
             (updateEducation) = "updateEducation(education)">
         </app-education-item> 
     </ng-template>
+
+    <app-education-add 
+        [showAddEducation]="showAddEducation"
+        (onAddEducation)="onAddEducation($event)" 
+        (closeAddEducation)="closeAddEducation($event)">
+    </app-education-add>
    
 </div>

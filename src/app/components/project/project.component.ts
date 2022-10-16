@@ -4,8 +4,7 @@ import { ProjectService } from 'src/app/services/project.service';
 import { Project } from 'src/app/models/project.interface';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Subscription } from 'rxjs';
-import { UserService } from 'src/app/services/user.service';
-
+import { ProjectPayload } from 'src/app/models/projectPayload.interface';
 
 @Component({
   selector: 'app-project',
@@ -59,7 +58,7 @@ export class ProjectComponent implements OnInit {
   }
 
   // Agregar proyecto
-  onAddProject(project: Project){
+  onAddProject(project: ProjectPayload){
     this.showAddProject = false;
     this.projectService.create(project)
     .subscribe((project) =>{
@@ -69,7 +68,16 @@ export class ProjectComponent implements OnInit {
 
   // Actualizar proyecto
   updateProject(project: Project){
-    this.projectService.update(project)
+    const projectPayload: ProjectPayload = {
+      name: project.name, 
+      description: project.description, 
+      startDate: project.startDate, 
+      endDate: project.endDate, 
+      link: project.link, 
+      urlImage: project.urlImage, 
+      personId: project.personId
+    };
+    this.projectService.update(project.id, projectPayload)
     .subscribe((project) =>{
       const index = this.projects.findIndex(pro => pro.id === project.id);
       this.projects[index] = project;

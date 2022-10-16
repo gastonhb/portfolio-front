@@ -191,7 +191,7 @@
                     <div *ngIf="(form.errors?.['dateLessThenDate'] && (form.touched || form.dirty)) || 
                         (endDate?.errors && endDate?.touched && endDate?.hasError('futureDate'))">
                         <p class="text-danger mb-0">
-                            Fecha invalida.
+                            La fecha de fin tiene que ser mayor a la fecha de inicio.
                         </p>
                     </div>
                 </div>
@@ -211,13 +211,7 @@
                         placeholder="Agregar Locacion" 
                         formControlName="location"
                     />
-                </div>    
-                <div *ngIf="location?.errors && location?.touched">
-                    <p class="text-danger mb-0"
-                        *ngIf="location?.hasError('required')">
-                            La fecha de inicio es requerida.
-                    </p>
-                </div>               
+                </div>              
             </div>
         </div>
 

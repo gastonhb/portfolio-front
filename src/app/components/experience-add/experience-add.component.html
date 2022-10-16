@@ -105,6 +105,8 @@
                                 name="startDate" 
                                 id="startDate" 
                                 formControlName="startDate"
+                                [ngClass]="{'is-invalid':startDate?.errors && startDate?.touched,
+                                'is-valid': !startDate?.errors && startDate?.touched}"
                             />
 
                             <div *ngIf="startDate?.errors && startDate?.touched">
@@ -131,12 +133,14 @@
                                 id="endDate" 
                                 formControlName="endDate"
                                 [attr.disabled]="disabledEndDate ? true : null"
+                                [ngClass]="{'is-invalid': endDate?.errors && endDate?.touched,
+                                'is-valid': !endDate?.errors && endDate?.touched}"
                             />
 
                             <div *ngIf="(form.errors?.['dateLessThenDate'] && (form.touched || form.dirty)) ||
                                 (endDate?.errors && endDate?.touched && endDate?.hasError('futureDate'))">
                                 <p class="text-danger mb-0">
-                                    Fecha invalida.
+                                    La fecha de fin tiene que ser mayor a la fecha de inicio.
                                 </p>
                             </div>
                         </div>
@@ -165,7 +169,7 @@
                         </div>               
                     </div>
 
-                    <div class="row mx-auto mb-2">
+                    <div class="row mb-2 mx-auto">
                         <div class="col col-12 my-auto">
                             <label for="imagen">
                                 Imagen:

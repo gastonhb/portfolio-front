@@ -18,12 +18,6 @@
     </div>
 
     <ng-template #itemComponent>
-        <app-skill-add 
-            [showAddSkill]="showAddSkill"
-            (onAddSkill)="onAddSkill($event)"
-            (closeAddSkill)="closeAddSkill($event)">
-        </app-skill-add>
-
         <div class="row" *ngIf="hardSkills?.length">
             <h3>Hard Skill</h3>
             <div class="row">
@@ -50,4 +44,10 @@
             </div>
         </div>
     </ng-template>
+
+    <app-skill-add 
+        [showAddSkill]="showAddSkill"
+        (onAddSkill)="onAddSkill($event)"
+        (closeAddSkill)="closeAddSkill($event)">
+    </app-skill-add>
 </div>

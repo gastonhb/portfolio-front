@@ -19,12 +19,6 @@
     </div>
 
     <ng-template #itemComponent>
-        <app-experience-add 
-            [showAddExperience]="showAddExperience"
-            (onAddExperience)="onAddExperience($event)" 
-            (closeAddExperience)="closeAddExperience($event)">
-        </app-experience-add>
-
         <app-experience-item 
             *ngFor="let experience of experiences"
             [experience]= "experience"
@@ -32,4 +26,10 @@
             (updateExperience) = "updateExperience(experience)">
         </app-experience-item> 
     </ng-template>
+
+    <app-experience-add 
+        [showAddExperience]="showAddExperience"
+        (onAddExperience)="onAddExperience($event)" 
+        (closeAddExperience)="closeAddExperience($event)">
+    </app-experience-add>
 </div>
