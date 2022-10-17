@@ -29,11 +29,11 @@
                 <label class="uploadImage mx-auto rounded"
                     for="inputFile">
                     <p class="my-auto"
-                        *ngIf="!urlImage; else updateImgagen">
+                        *ngIf="!urlImage && !image; else updateImagen">
                         <b>Añadir imagen</b>
                     </p>
                 </label>
-                <ng-template #updateImgagen>
+                <ng-template #updateImagen>
                     <p class="my-auto">
                         <b>Modificar imagen</b>
                     </p>

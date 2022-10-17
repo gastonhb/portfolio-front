@@ -143,6 +143,21 @@ export class ExperienceAddComponent implements OnInit {
     this.image = null;
   }
 
+  // Agregar error cuando la fecha de fin sea menor a la fecha de inicio
+  endDateIfFormIsDirty(){
+    let errorsEndDate = this.form.controls['endDate'].errors
+    if (errorsEndDate != null && errorsEndDate['dateLessThenDate']) {
+      delete errorsEndDate['dateLessThenDate']
+      if (Object.keys(errorsEndDate).length === 0) {
+        errorsEndDate = null
+      }
+    }
+  
+    this.form.errors?.['dateLessThenDate'] ? 
+      this.form.controls['endDate'].setErrors({...errorsEndDate,'dateLessThenDate': true}) : 
+      this.form.controls['endDate'].setErrors(errorsEndDate);
+  }
+
   get title() { return this.form.get('title'); }
 
   get companyName() { return this.form.get('companyName'); }
