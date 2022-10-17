@@ -142,7 +142,8 @@
                         formControlName="startDate"
                         name="startDate"
                         [ngClass]="{'is-invalid': startDate?.errors && startDate?.touched,
-                        'is-valid': !startDate?.errors && startDate?.touched}">
+                        'is-valid': !startDate?.errors && startDate?.touched}"
+                        (change)="endDateIfFormIsDirty()">
                             <option disabled selected>
                                 Año
                             </option>
@@ -172,7 +173,8 @@
                         id="endDate"
                         [ngClass]="{'is-invalid': endDate?.errors && endDate?.touched,
                         'is-valid': !endDate?.errors && endDate?.touched}"
-                        [attr.disabled]="disabledEndDate ? true : null">
+                        [attr.disabled]="disabledEndDate ? true : null"
+                        (change)="endDateIfFormIsDirty()">
                             <option disabled selected>
                                 Año
                             </option>
@@ -182,9 +184,11 @@
                             </option>
                     </select>
 
-                    <div *ngIf="form.errors?.['dateLessThenDate'] && (form.touched || form.dirty)">
-                        <p class="text-danger mb-0">
-                            La fecha de fin tiene que ser mayor a la fecha de inicio.
+                    <div *ngIf="endDate?.errors && endDate?.touched">
+                        <p class="text-danger mb-0"
+                            *ngIf="endDate?.hasError('futureDate') || 
+                                endDate?.hasError('dateLessThenDate')">
+                                    Fecha invalida
                         </p>
                     </div>
                 </div>
