@@ -1,10 +1,12 @@
 <div class="card card-body shadow mx-5 my-1">
     <div class="row">
         <div class="col col-11">
-            <h2 class="card-title">Educación</h2>
+            <h2 class="card-title">
+                Educación
+            </h2>
         </div>
 
-        <div class="col col-1 d-flex justify-content-end" *ngIf="!showAddEducation && hasCurrentUser">
+        <div class="col col-1 d-flex justify-content-end my-auto" *ngIf="!showAddEducation && hasCurrentUser">
             <fa-icon 
                 [icon]="faPlus" 
                 class="btn" 
@@ -14,7 +16,9 @@
     </div>
 
     <div class="row" *ngIf="!educations?.length; else itemComponent">
-        <h5>No hay registros académicos.</h5>
+        <h5>
+            No hay registros académicos.
+        </h5>
     </div>
 
     <ng-template #itemComponent>

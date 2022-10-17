@@ -42,15 +42,16 @@
                             </label>
                         </div>
                         <div class="col col-12 mx-auto my-auto">
-                            <input class="col-12 form-control" 
+                            <textarea class="col-12 form-control" 
                                 type="text" 
                                 name="description" 
                                 id="description"
                                 formControlName="description"
                                 placeholder="Agregar Descripción" 
+                                rows="4"
                                 [ngClass]="{'is-invalid': description?.errors && description?.touched,
-                                'is-valid': !description?.errors && description?.touched}"
-                            />
+                                'is-valid': !description?.errors && description?.touched}">
+                            </textarea>
                         </div>
                         <div *ngIf="description?.errors && description?.touched">
                             <p class="text-danger mb-0" 

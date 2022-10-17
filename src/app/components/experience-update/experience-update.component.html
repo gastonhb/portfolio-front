@@ -1,4 +1,4 @@
-<form class="form rounded container my-3 mx-auto" 
+<form class="form rounded container-fluid my-3 mx-auto" 
     [formGroup]="form" 
     (ngSubmit)="onSubmit()" 
     *ngIf="showUpdateExperience">
@@ -8,7 +8,7 @@
                 Actualizar experiencia laboral:
             </h5> 
         </div>
-        <div class="col col-1 d-flex justify-content-end">
+        <div class="col col-1 d-flex justify-content-end my-auto">
             <fa-icon class="btn"
                 [icon]="faTimes" 
                 (click)="close()">
@@ -16,9 +16,9 @@
         </div>
     </div>
 
-    <div class="row mx-auto">
+    <div class="row mx-auto mb-2">
         <div class="col col-3"> 
-            <div class="row mx-auto mb-2 ">
+            <div class="row mx-auto mb-2">
                 <input class="form-control" 
                     type="file" 
                     accept=".png, .jpg, .jpeg" 
@@ -41,7 +41,7 @@
 
             <div class="row uploadedImage rounded mx-auto my-autos">
                 <div *ngIf="image ; else withoutImage">
-                    <img class="img-fluid rounded mx-auto d-block " 
+                    <img class="img-fluid rounded mx-auto d-block" 
                         [src]="image"
                         alt="experience-photo"
                     >
@@ -96,7 +96,7 @@
                         Empresa:
                     </label>
                 </div>
-                <div class="col col-12 mx-auto my-auto" >
+                <div class="col col-12 mx-auto my-auto">
                     <input class="col-12 form-control" 
                         type="text" 
                         name="companyName" 
@@ -148,7 +148,7 @@
                 </div>
             </div>
 
-            <div class="row mb-2">
+            <div class="row">
                 <div class="col col-lg-1 col-12 mt-lg-2">
                     <label for="startDate">
                         Desde: 
@@ -214,21 +214,21 @@
                 </div>              
             </div>
         </div>
+    </div>
 
-        <div class="row mb-2 d-flex flex-row-reverse">
-            <div class="col col-3 col-xs-1 col-md-2 col-lg-2">
-                <button class="btn btn-primary"
-                    type="submit">
-                        Guardar
-                </button>
-            </div>
-            <div class="col col-3 col-xs-1 col-md-2 col-lg-2">
-                <button class="btn btn-secondary" 
-                    type="button"
-                    (click)="close()">
-                        Cancelar
-                </button> 
-            </div>
+    <div class="row mb-2 justify-content-end">
+        <div class="btn-div me-3">
+            <button class="btn btn-secondary" 
+                type="button" 
+                (click)="close()">
+                    Cancelar
+            </button> 
+        </div>
+        <div class="btn-div me-4">
+            <button class="btn btn-primary" 
+                type="submit">
+                    Guardar
+            </button>
         </div>
     </div>
 </form>

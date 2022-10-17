@@ -3,12 +3,12 @@
 </div>
 <ng-template #experienceItem>
     <div class="row">
-        <div class="col col-2" >
+        <div class="col col-2">
             <div *ngIf="experience.urlImage; else withoutImage">
-                <img src="{{experience.urlImage}}" class="img-fluid rounded mx-auto d-block" alt="experience-photo" >
+                <img src="{{experience.urlImage}}" class="img-fluid rounded mx-auto d-block" alt="experience-photo">
             </div>
             <ng-template #withoutImage>
-                <div class="image rounded mx-auto my-autos ">
+                <div class="image rounded mx-auto my-autos">
                     <fa-icon class="fa-5x"  [icon]="faImage"></fa-icon>
                 </div>
             </ng-template>

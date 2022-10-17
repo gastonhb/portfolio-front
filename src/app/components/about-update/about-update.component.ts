@@ -2,7 +2,6 @@ import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { faImage, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { Person } from 'src/app/models/person.interface';
-import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-about-update',

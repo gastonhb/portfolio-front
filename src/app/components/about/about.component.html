@@ -1,40 +1,56 @@
 <div class="card card-body shadow mx-5 my-1 px-0 pt-0"> 
     <div class="rounded bg-secondary">
-        <div class="coverPhoto" *ngIf="person.urlCoverPhoto; else emptyCoverPhoto">
-            <img class="img-fluid vw-100 h-100 rounded-top" src="{{person.urlCoverPhoto}}">
+        <div class="coverPhoto" 
+            *ngIf="person.urlCoverPhoto; else emptyCoverPhoto">
+            <img class="img-fluid vw-100 h-100 rounded-top" 
+                src="{{person.urlCoverPhoto}}"
+            >
         </div>
         <ng-template #emptyCoverPhoto>
             <div class="coverPhoto">
-                <img class="img-fluid vw-100 h-100 rounded-top" src="../../../assets/cover-photo.png">
+                <img class="img-fluid vw-100 h-100 rounded-top" 
+                    src="../../../assets/cover-photo.png"
+                >
             </div>
         </ng-template>
         
-
-        <div class="btnCoverPhoto" *ngIf="hasCurrentUser">
+        <div class="btnCoverPhoto" 
+            *ngIf="hasCurrentUser">
             <label for="inputCoverPhoto">
-                <fa-icon [icon]="faImage" class="imgIcon"></fa-icon>
+                <fa-icon class="imgIcon"
+                    [icon]="faImage">
+                </fa-icon>
             </label>
-            <input type="file" class="form-control d-none" accept=".png, .jpg, .jpeg" (change)="saveCoverPhoto($event)" id="inputCoverPhoto"/>
+            <input class="form-control d-none"  
+                type="file"
+                accept=".png, .jpg, .jpeg" 
+                (change)="saveCoverPhoto($event)" 
+                id="inputCoverPhoto"
+            />
         </div>
     </div>
 
     <div class="userProfileImage">
         <div *ngIf="person.urlCoverPhoto; else emptyProfile">
-            <img class="profileImage" src="{{person.urlImage}}">
+            <img class="profileImage" src="{{ person.urlImage }}">
         </div>
         <ng-template #emptyProfile>
             <img class="emptyProfile" src="../../../assets/profile-image.png">
         </ng-template>
-
-        
         
         <div class="btnProfileImage" *ngIf="hasCurrentUser">
             <label for="inputProfile">
-                <fa-icon [icon]="faImage" class="imgIcon"></fa-icon>
+                <fa-icon class="imgIcon" 
+                    [icon]="faImage">
+                </fa-icon>
             </label>
-            <input type="file" class="form-control d-none" accept=".png, .jpg, .jpeg" (change)="saveProfile($event)" id="inputProfile"/>
+            <input class="form-control d-none" 
+                type="file"
+                accept=".png, .jpg, .jpeg" 
+                (change)="saveProfile($event)" 
+                id="inputProfile"
+            />
         </div>
-
     </div>
 
     <div class="row mx-1">
@@ -48,27 +64,32 @@
         </div> 
     
         <ng-template #about>
-
-            <div class="row mb-3 mt-5">
-                <div class="col col-12 col-xs-12 col-sm-12 col-md-5 col-lg-4">
-                    <div class="row">
-                        <h1 class="text-center text-md-start ms-md-2">
-                            {{person.name}} {{person.lastname}}
+            <div class="row mx-auto mb-3 mt-5"> 
+                <div class="firt-column ps-md-0 col col-12 col-xs-12 col-sm-12 col-md-5 col-lg-4">
+                    <div class="row text-center mx-auto">
+                        <h1 class="text-center">
+                            {{ person.name }} {{ person.lastname }}
                         </h1>
-                        <div class="row" *ngIf="person.abstracts; else withoutTitle">
-                            <p class="text-center text-md-start ms-md-3">{{person.title}}</p>
+                        <div class="row mx-auto" *ngIf="person.abstracts; else withoutTitle">
+                            <p class="text-center mx-auto">
+                                {{ person.title }}
+                            </p>
                         </div>
                         <ng-template #withoutTitle>
-                            <div class="row">
-                                <h5 class="text-center text-md-start ms-md-3">Sin título</h5>
+                            <div class="row text-center mx-auto">
+                                <h5 class="text-center">
+                                    Sin título
+                                </h5>
                             </div>
                         </ng-template>
                          
                     </div>
-                </div>
-                <div class="col col-12col-xs-12 col-sm-12 col-md-7 col-lg-8">
+                </div> 
+                <div class="second-column col col-12col-xs-12 col-sm-12 col-md-7 col-lg-8 col-xl-9">
                     <div class="row">
-                        <h1 class="col col-11 text-center text-md-start">Sobre mí</h1>
+                        <h1 class="col col-11 text-center text-md-start">
+                            Sobre mí
+                        </h1>
                         <div class="col col-1 mx-auto my-auto d-flex justify-content-end">
                             <fa-icon 
                                 [icon]="faPen"
@@ -80,11 +101,15 @@
                     </div>
                     
                     <div class="row" *ngIf="person.abstracts; else withoutAbstract">
-                        <p class="ms-3 ms-md-2 me-2">{{person.abstracts}}</p>
+                        <p class="ms-3 ms-md-2 me-2">
+                            {{ person.abstracts }}
+                        </p>
                     </div>
                     <ng-template #withoutAbstract>
                         <div class="row">
-                            <h5 class=" ms-3 ms-md-1 me-2">Sin descripción</h5>
+                            <h5 class="ms-3 ms-md-1 me-2">
+                                Sin descripción
+                            </h5>
                         </div>
                     </ng-template>
                 </div>

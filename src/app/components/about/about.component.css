@@ -14,6 +14,7 @@
     position: absolute;
     right: 15px;
     top: 11px;
+    cursor: pointer;
 }
 
 .userProfileImage{ 
@@ -25,17 +26,11 @@
     border: 7px solid #FFFFFF;
     background-color: #DFE5F2;
     border-radius: 50%;
-    /* box-shadow: 0 0 12px rgba(0, 0, 0, .2); */
     position: absolute;
     top: 130px;
     left: 50px;
     z-index: 1;
 }
-
-/* .borderWhite{
-    border: 7px solid #FFFFFF;
-} */
-
 
 .btnProfileImage {
     position: absolute;
@@ -43,7 +38,6 @@
     top: -2px;
     border: 0;
     background-color: #fff;
-    /* box-shadow: 0 0 12px rgb(0, 0, 25); */
     width: 45px;
     height: 45px;
     border-radius: 50%;
@@ -66,11 +60,23 @@
     height: 270px;
 }
 
+.firt-column {
+    max-width: 320px;
+}
+
+.second-column {
+    max-width: 875px;
+}
+
 /* adaptacion a dispositivos  */
 @media (max-width: 768px) {
 
     .userProfileImage { 
         left: calc(50% - 90px);
+    }
+
+    .firt-column {
+        max-width: none;
     }
 
 } 

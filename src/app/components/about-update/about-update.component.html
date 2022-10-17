@@ -1,40 +1,71 @@
-<form class="form rounded container mt-5 mb-3 mx-auto" (ngSubmit)="save()" *ngIf="showUpdateAbout">
+<form class="form rounded container-fluid mt-5 mb-3 mx-auto" 
+    (ngSubmit)="save()" 
+    *ngIf="showUpdateAbout">
     
     <div class="row mx-auto my-1">
         <div class="col col-11 my-auto">
-            <h5 class="my-auto">Modificar información: </h5> 
+            <h5 class="my-auto">
+                Modificar información:
+            </h5> 
         </div>
-        <div class="col col-1 d-flex justify-content-end">
-            <fa-icon [icon]="faTimes" class="btn" (click)="close()"></fa-icon>
+        <div class="col col-1 d-flex justify-content-end my-auto">
+            <fa-icon class="btn" 
+                [icon]="faTimes"
+                (click)="close()">
+            </fa-icon>
         </div>
     </div>
 
     <div class="row mx-auto">
         <div class="col col-12 col-md-4">
-            <div class="row mb-2 ">
+            <div class="row mb-2">
                 <div class="col col-12 my-auto">
-                    <label for="abstracts">Nombre:</label>
+                    <label for="abstracts">
+                        Nombre:
+                    </label>
                 </div>
                 <div class="col col-12">
-                    <input class="form-control" type="text" name="name" id="name" placeholder="Agregar Nombre" [(ngModel)]="person.name"/>
+                    <input class="form-control" 
+                        type="text" 
+                        name="name" 
+                        id="name" 
+                        placeholder="Agregar Nombre" 
+                        [(ngModel)]="person.name"
+                    />
                 </div>
             </div> 
 
-            <div class="row mb-2 ">
+            <div class="row mb-2">
                 <div class="col col-12 my-auto">
-                    <label for="abstracts">Apellido:</label>
+                    <label for="abstracts">
+                        Apellido:
+                    </label>
                 </div>
                 <div class="col col-12">
-                    <input class="form-control" type="text" name="lastname" id="lastname" placeholder="Agregar Apellido" [(ngModel)]="person.lastname"/>
+                    <input class="form-control" 
+                        type="text" 
+                        name="lastname" 
+                        id="lastname" 
+                        placeholder="Agregar Apellido" 
+                        [(ngModel)]="person.lastname"
+                    />
                 </div>
             </div> 
 
-            <div class="row mb-2 ">
+            <div class="row mb-2">
                 <div class="col col-12 my-auto">
-                    <label for="abstracts">Titulo:</label>
+                    <label for="abstracts">
+                        Titulo:
+                    </label>
                 </div>
                 <div class="col col-12">
-                    <input class="form-control" type="text" name="title" id="title" placeholder="Agregar Titulo" [(ngModel)]="person.title"/>
+                    <input class="form-control" 
+                        type="text" 
+                        name="title" 
+                        id="title" 
+                        placeholder="Agregar Titulo" 
+                        [(ngModel)]="person.title"
+                    />
                 </div>
             </div>
         </div>
@@ -42,23 +73,37 @@
         <div class="col col-12 col-md-8">
             <div class="row mb-2">
                 <div class="col col-12 my-auto">
-                    <label for="abstracts">Descripción:</label>
+                    <label for="abstracts">
+                        Descripción:
+                    </label>
                 </div>
                 <div class="col col-12">
-                    <textarea 
-                        class="form-control" type="text" name="abstracts" id="abstracts" placeholder="Agregar Resumen" rows="7" [(ngModel)]="person.abstracts">
+                    <textarea class="form-control" 
+                        type="text" 
+                        name="abstracts" 
+                        id="abstracts" 
+                        placeholder="Agregar Resumen" 
+                        rows="7" 
+                        [(ngModel)]="person.abstracts">
                     </textarea>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="row mb-2 d-flex flex-row-reverse">
-            <div class="col col-3 col-xs-1 col-md-2 col-lg-2">
-                <button type="submit" class="btn btn-primary ">Guardar</button>
-            </div>
-            <div class="col col-3 col-xs-1 col-md-2 col-lg-2">
-                <button type="submit" class="btn btn-secondary" (click)="close()">Cancelar</button> 
-            </div>
+    <div class="row mx-auto mb-2 d-flex justify-content-end">
+        <div class="btn-div me-3">
+            <button class="btn btn-secondary" 
+                type="button"
+                (click)="close()">
+                    Cancelar
+            </button>
+        </div>
+        <div class="btn-div me-3">
+            <button class="btn btn-primary"
+                type="submit">
+                    Guardar
+            </button>
         </div>
     </div>
 </form>
