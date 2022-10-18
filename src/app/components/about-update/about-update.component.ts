@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
-import { faImage, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { Subscription } from 'rxjs';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { faImage, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { Person } from 'src/app/models/person.interface';
 
 @Component({
@@ -21,30 +21,35 @@ export class AboutUpdateComponent implements OnInit {
     title: "", 
     abstracts: "", 
     urlImage: "", 
-    urlCoverPhoto: "" };
+    urlCoverPhoto: "" 
+  };
 
-  image: any;
-  urlImage: string | null = null;
-  disabledEndDate: boolean = false;
-  subscription?: Subscription;
+  form: FormGroup = new FormGroup({});
 
   faImage = faImage;
   faTimes = faTimes;
 
-  constructor() { 
-  }
+  constructor() { }
 
   ngOnInit(): void {
-  }
+    this.form = new FormGroup({
+      name: new FormControl(this.person.name, [Validators.required]), 
+      lastname: new FormControl(this.person.lastname, [Validators.required]),
+      title: new FormControl(this.person.title, [Validators.required]),
+      abstracts: new FormControl(this.person.abstracts, [])
+    });
+   }
 
   // Envia la educacion actualizada a la clase padre
-  async save(){
-    if (this.person.name.length === 0 || this.person.lastname.length === 0 || 
-      this.person.title.length === 0 || this.person.abstracts.length === 0) {
-      return;
+  async onSubmit(){
+    if (this.form.valid){
+      this.person.name = this.form.value.name;
+      this.person.lastname =  this.form.value.lastname;
+      this.person.title = this.form.value.title;
+      this.person.abstracts = this.form.value.abstracts;
+
+      this.updatePerson.emit(this.person)
     }
-    
-    this.updatePerson.emit(this.person)
   }
 
   // Cerrar formulario
@@ -52,5 +57,13 @@ export class AboutUpdateComponent implements OnInit {
     this.showUpdateAbout = false;
     this.closeUpdateAbout.emit(this.showUpdateAbout);
   }
+
+  get name() { return this.form.get('name'); }
+  
+  get lastname() { return this.form.get('lastname'); }
+  
+  get title() { return this.form.get('title'); }
+
+  get abstracts() { return this.form.get('abstracts'); }
 
 }

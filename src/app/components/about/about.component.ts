@@ -5,6 +5,7 @@ import { Person } from 'src/app/models/person.interface';
 import { PersonService } from 'src/app/services/person.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { PersonPayload } from 'src/app/models/personPayload.interface';
 
 @Component({
   selector: 'app-about',
@@ -15,9 +16,9 @@ export class AboutComponent implements OnInit {
 
   @Input() personId: string = "";
 
-  image: any;
-  showUpdateAbout: boolean = false;
-  hasCurrentUser: boolean = false;
+  // image: any;
+  showUpdateAbout: Boolean = false;
+  hasCurrentUser: Boolean = false;
   subscription?: Subscription
 
   person: Person = {
@@ -53,40 +54,38 @@ export class AboutComponent implements OnInit {
   }
 
   // Guardar imagen de perfil del usuario
-  async saveProfile(event:any){
-    let archivos = event.target.files;
-    let reader = new FileReader();
-    reader.readAsDataURL(archivos[0]);
-    reader.onloadend = async () => {
-      this.image = reader.result
-      
-      if (this.person.urlImage) {
-        await this.deleteImage(this.person.urlImage);
-      };
-      
-      await this.storageService.uploadImage("persons/" + this.personId + "/profile" , this.image)
-      .then(async urlImage => {
-        this.person.urlImage = urlImage;
-        await this.updatePerson(this.person)
-     })
-    }
+  async saveProfile(event: any){
+    this.readImage(event, "profile")
   }
 
   // Guardar imagen de portada
-  async saveCoverPhoto(event:any){
+  async saveCoverPhoto(event: any){
+    this.readImage(event, "coverPhoto")
+  }
+
+  // Lector de imagenes
+  async readImage(event: any, type: string){
     let archivos = event.target.files;
     let reader = new FileReader();
     reader.readAsDataURL(archivos[0]);
     reader.onloadend = async () => {
-      this.image = reader.result
       
-      if (this.person.urlCoverPhoto) {
+      if (type === "coverPhoto" && this.person.urlCoverPhoto) {
         await this.deleteImage(this.person.urlCoverPhoto);
       };
+
+      if (type === "profile" && this.person.urlImage) {
+        await this.deleteImage(this.person.urlImage);
+      };
       
-      await this.storageService.uploadImage("persons/" + this.personId + "/coverPhoto" , this.image)
-      .then(async urlCoverPhoto => {
-        this.person.urlCoverPhoto =  urlCoverPhoto;
+      await this.storageService.uploadImage("persons/" + this.personId + "/" + type, reader.result)
+      .then(async image => {
+        if (type === "profile") {
+          this.person.urlImage =  image;
+        } else {
+          this.person.urlCoverPhoto =  image;
+        }
+        
         await this.updatePerson(this.person)
      })
     }
@@ -94,10 +93,20 @@ export class AboutComponent implements OnInit {
 
   // Actualizar persona
   async updatePerson(person: Person){
+    const personPayload: PersonPayload = {
+      name: person.name, 
+      lastname: person.lastname, 
+      abstracts: person.abstracts,  
+      title: person.title, 
+      urlImage: person.urlImage,
+      urlCoverPhoto: person.urlCoverPhoto
+    };
+
     if (this.showUpdateAbout) {
       this.showUpdateAbout = false;
     }
-    await this.personService.update(person)
+
+    await this.personService.update(person.id, personPayload)
     .subscribe((person) =>{
       this.person = person;
     });

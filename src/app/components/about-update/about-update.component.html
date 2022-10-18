@@ -1,5 +1,6 @@
-<form class="form rounded container-fluid mt-5 mb-3 mx-auto" 
-    (ngSubmit)="save()" 
+<form class="form rounded container-fluid mt-5 mb-3 mx-auto"
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()" 
     *ngIf="showUpdateAbout">
     
     <div class="row mx-auto my-1">
@@ -28,16 +29,24 @@
                     <input class="form-control" 
                         type="text" 
                         name="name" 
-                        id="name" 
+                        id="name"
+                        formControlName="name"
                         placeholder="Agregar Nombre" 
-                        [(ngModel)]="person.name"
+                        [ngClass]="{'is-invalid': name?.errors && name?.touched,
+                        'is-valid': !name?.errors && name?.touched}"
                     />
+                </div>
+                <div *ngIf="name?.errors && name?.touched">
+                    <p class="text-danger mb-0" 
+                        *ngIf="name?.hasError('required')">
+                            El nombre es requerido.
+                    </p>
                 </div>
             </div> 
 
             <div class="row mb-2">
                 <div class="col col-12 my-auto">
-                    <label for="abstracts">
+                    <label for="lastname">
                         Apellido:
                     </label>
                 </div>
@@ -45,10 +54,18 @@
                     <input class="form-control" 
                         type="text" 
                         name="lastname" 
-                        id="lastname" 
+                        id="lastname"
+                        formControlName="lastname"
                         placeholder="Agregar Apellido" 
-                        [(ngModel)]="person.lastname"
+                        [ngClass]="{'is-invalid': lastname?.errors && lastname?.touched,
+                        'is-valid': !lastname?.errors && lastname?.touched}"
                     />
+                </div>
+                <div *ngIf="lastname?.errors && lastname?.touched">
+                    <p class="text-danger mb-0" 
+                        *ngIf="lastname?.hasError('required')">
+                            El apellido es requerido.
+                    </p>
                 </div>
             </div> 
 
@@ -63,9 +80,17 @@
                         type="text" 
                         name="title" 
                         id="title" 
+                        formControlName="title"
                         placeholder="Agregar Titulo" 
-                        [(ngModel)]="person.title"
+                        [ngClass]="{'is-invalid': title?.errors && title?.touched,
+                        'is-valid': !title?.errors && title?.touched}"
                     />
+                </div>
+                <div *ngIf="title?.errors && title?.touched">
+                    <p class="text-danger mb-0" 
+                        *ngIf="title?.hasError('required')">
+                            El titulo es requerido.
+                    </p>
                 </div>
             </div>
         </div>
@@ -82,9 +107,11 @@
                         type="text" 
                         name="abstracts" 
                         id="abstracts" 
+                        formControlName="abstracts"
                         placeholder="Agregar Resumen" 
                         rows="7" 
-                        [(ngModel)]="person.abstracts">
+                        [ngClass]="{'is-invalid': abstracts?.errors && abstracts?.touched,
+                        'is-valid': !abstracts?.errors && abstracts?.touched}">
                     </textarea>
                 </div>
             </div>

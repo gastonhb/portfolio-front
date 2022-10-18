@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Person } from "../models/person.interface";
 import { environment } from "../../environments/environment"
+import { PersonPayload } from '../models/personPayload.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -21,15 +22,15 @@ export class PersonService {
     return this.http.delete<Person>(this.url + `/${person.id}`)
   }
 
-  create(person:Person): Observable<Person>{
+  create(person: PersonPayload): Observable<Person>{
     return this.http.post<Person>(this.url, person)
   }
 
-  update(person:Person): Observable<Person>{
-    return this.http.put<Person>(this.url + `/${person.id}`, person)
+  update(id: String, person: PersonPayload): Observable<Person>{
+    return this.http.put<Person>(this.url + `/${id}`, person)
   }
 
-  get(personId: string): Observable<Person>{
+  get(personId: String): Observable<Person>{
     return this.http.get<Person>(this.url + `/${personId}`)
   }
 
