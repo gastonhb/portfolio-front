@@ -27,12 +27,12 @@
             </div>
             
             <p> {{project.description}} </p>
-            <h5 class="col col-12 mb-0">Fecha de realización:</h5>
             <p *ngIf="project.endDate; else elseBlock"> 
-                {{ project.startDate | date : "dd/MM/yyyy" }}  -  
-                {{ project.endDate | date : "dd/MM/yyyy" }}</p>
+                <b>Fecha de realización:</b>
+                {{ project.startDate | date : "MM/yyyy" }}  -  
+                {{ project.endDate | date : "MM/yyyy" }}</p>
                 <ng-template #elseBlock>
-                    {{ project.startDate | date : "dd/MM/yyyy" }}  - 
+                    {{ project.startDate | date : "MM/yyyy" }}  - 
                     Acutalidad</ng-template>
         </div>
     </div>

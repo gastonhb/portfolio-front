@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-experience-item',
   templateUrl: './experience-item.component.html',
-  styleUrls: ['./experience-item.component.css']
+  styleUrls: ['./experience-item.component.css', '../../app.component.css']
 })
 export class ExperienceItemComponent implements OnInit {
   

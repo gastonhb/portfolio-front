@@ -1,0 +1,48 @@
+<div class="modal d-block" *ngIf="showSocialNetwork"> 
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    Modificar redes sociales
+                </h4>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="row justify-content-end">
+                    <div class="col col-1 d-flex justify-content-end my-auto"
+                        *ngIf="!showAddSocialNetwork">
+                        <fa-icon 
+                            [icon]="faPlus" 
+                            class="btn my-auto" 
+                            (click)="toggleAddSocialNetwork()">
+                        </fa-icon>
+                    </div>
+                </div>
+                
+                <app-social-network-add 
+                    [showAddSocialNetwork]="showAddSocialNetwork"
+                    (onAddSocialNetwork)="onAddSocialNetwork($event)" 
+                    (closeAddSocialNetwork)="closeAddSocialNetwork($event)">
+                </app-social-network-add>
+
+                <div *ngFor="let socialNetwork of socialNetworks">
+                    <app-social-network-item 
+                        [socialNetwork]= "socialNetwork"
+                        (onDeleteSocialNetwork) = "onDelete(socialNetwork)"
+                        (updateSocialNetwork) = "updateSocialNetwork(socialNetwork)">
+                    </app-social-network-item> 
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-primary"
+                    type="button"  
+                    (click)="close()">
+                        Aceptar
+                </button>
+            </div>
+        </div>   
+    </div> 
+  </div>

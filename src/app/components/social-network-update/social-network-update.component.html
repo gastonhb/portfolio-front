@@ -1,0 +1,80 @@
+<form class="form rounded container-fluid my-3 mx-auto" 
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()" >
+
+    <div class="row mx-auto mb-2">
+
+        <div class="row my-2">
+            <div class="col col-12 mx-auto my-auto">
+                <label for="socialNetworkType">
+                    Tipo de red social:
+                </label>
+            </div>
+            <div class="col col-12 mx-auto my-auto">
+                <select class="form-select form-select-xs" 
+                    formControlName="socialNetworkType"
+                    name="socialNetworkType"
+                    (click)="labelSocialNetwork()"
+                    (change)="contentIfFormIsDirty()">
+                    <option *ngFor="let socialNetworkType of socialNetworkTypes"
+                        [ngValue]="socialNetworkType">
+                            {{ socialNetworkType.name }}
+                    </option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="row mb-2">
+            <div class="col col-12 my-auto">
+                <label for="content">
+                    {{ labelContent }}
+                </label>
+            </div>
+            <div class="col col-12">
+                <input class="form-control" 
+                type="text" 
+                name="content" 
+                id="content" 
+                formControlName="content"
+                placeholder="Agregar {{ labelContent }}" 
+                [ngClass]="{'is-invalid': content?.errors && content?.touched,
+                'is-valid': !content?.errors && content?.touched}"
+                (change)="contentIfFormIsDirty()"
+                />
+            </div>
+            <div *ngIf="content?.errors && content?.touched">
+                <p class="text-danger mb-0" 
+                    *ngIf="content?.hasError('required') && labelContent === 'URL'">
+                        La {{ labelContent }} es requerida.
+                </p>
+                <p class="text-danger mb-0" 
+                    *ngIf="content?.hasError('required') && (labelContent === 'Número' ||
+                    labelContent === 'Correo electrónico')">
+                        El {{ labelContent }} es requerido.
+                </p>
+                <p class="text-danger mb-0" 
+                    *ngIf="content?.hasError('contentInvalid')">
+                        Valor incorrecto.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-2 justify-content-end">
+        <div class="btn-div me-3">
+            <button class="btn btn-secondary" 
+                type="button" 
+                (click)="close()">
+                    Cancelar
+            </button> 
+        </div>
+        <div class="btn-div me-4">
+            <button class="btn btn-primary" 
+                type="submit">
+                    Guardar
+            </button>
+        </div>
+    </div>
+</form>
+
+

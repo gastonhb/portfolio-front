@@ -35,10 +35,10 @@
             </ng-template>
 
             <p *ngIf="experience.endDate; else endDateNull"> 
-                {{ experience.startDate | date : "dd/MM/yyyy" }}  -  
-                {{ experience.endDate | date : "dd/MM/yyyy" }}</p>
+                {{ experience.startDate | date : "MM/yyyy" }}  -  
+                {{ experience.endDate | date : "MM/yyyy" }}</p>
                 <ng-template #endDateNull>
-                    {{ experience.startDate | date : "dd/MM/yyyy" }}  - 
+                    {{ experience.startDate | date : "MM/yyyy" }}  - 
                     Acutalidad
                 </ng-template>
             <p> {{experience.location}}</p>

@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { SocialNetwork } from "../models/socialNetwork.interface";
 import { environment } from "../../environments/environment"
+import { SocialNetworkPayload } from '../models/socialNetworkPayload.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -24,12 +25,12 @@ export class SocialNetworkService {
   }
 
   // Crear redes social
-  create(socialNetwork: SocialNetwork): Observable<SocialNetwork>{
+  create(socialNetwork: SocialNetworkPayload): Observable<SocialNetwork>{
     return this.http.post<SocialNetwork>(this.url, socialNetwork)
   }
 
   // Actualizar redes social
-  update(socialNetwork: SocialNetwork): Observable<SocialNetwork>{
-    return this.http.put<SocialNetwork>(this.url + `/${socialNetwork.id}`, socialNetwork)
+  update(id: String, socialNetwork: SocialNetworkPayload): Observable<SocialNetwork>{
+    return this.http.put<SocialNetwork>(this.url + `/${id}`, socialNetwork)
   }
 }

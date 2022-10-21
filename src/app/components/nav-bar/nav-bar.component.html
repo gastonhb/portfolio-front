@@ -1,4 +1,4 @@
- <nav class="navbar navbar-expand navbar-dark bg-primary p-0 ">
+ <div class="navbar navbar-expand navbar-dark bg-primary p-0 ">
     <div class="container-fluid">
         <img class="logo" src="../../../assets/arg-prog.png" alt="ArgentinaPrograma">
         <div class="collapse navbar-collapse">
@@ -18,10 +18,17 @@
         <fa-icon [icon]="faUser"></fa-icon> 
       </button>
       <div class="dropdown-content rounded">
-        <a class="rounded" *ngIf="hasCurrentUser">Modificar redes sociales</a>
-        <a class="rounded">Ayuda</a>
+        <a class="rounded" *ngIf="hasCurrentUser" (click)="toggleUpdateSocialNetworks()">Modificar redes sociales</a>
+        <!-- <a class="rounded">Ayuda</a> -->
         <a class="rounded" *ngIf="!hasCurrentUser" href="login">Iniciar Sesion</a>
         <a class="rounded" *ngIf="hasCurrentUser" (click)="logout()">Cerrar Sesion</a>
       </div>
     </div>
-  </nav>
+
+    <app-social-network 
+      [socialNetworks]="socialNetworks"
+      [showSocialNetwork]="showSocialNetwork"
+      (closeSocialNetwork)="closeSocialNetwork($event)">
+    </app-social-network>
+    
+  </div>

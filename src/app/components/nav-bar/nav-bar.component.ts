@@ -15,13 +15,15 @@ export class NavBarComponent implements OnInit {
   @Input() personId: string = "";
 
   subscription?: Subscription;
-  hasCurrentUser: boolean = false;
+  hasCurrentUser: Boolean = false;
+  showSocialNetwork: Boolean = false;
 
   socialNetworks: SocialNetwork[] = [];
 
   faUser = faUser;
 
-  constructor(private socialNetworkService: SocialNetworkService, private authenticationService: AuthenticationService) { 
+  constructor(private socialNetworkService: SocialNetworkService, 
+    private authenticationService: AuthenticationService) { 
     this.hasCurrentUser = authenticationService.hasCurrentUser;
     this.subscription = this.authenticationService.onToggle().subscribe(value => {
       this.hasCurrentUser = value;
@@ -41,6 +43,16 @@ export class NavBarComponent implements OnInit {
 
   logout(): void {
     return this.authenticationService.logout();
+  }
+
+  // Mostrar o ocultar update social network
+  toggleUpdateSocialNetworks(){
+    this.showSocialNetwork = !this.showSocialNetwork;
+  }
+
+  // Cerrar update social network
+  closeSocialNetwork(showSocialNetwork: boolean){
+    this.showSocialNetwork = showSocialNetwork;
   }
 
 }

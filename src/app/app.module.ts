@@ -30,13 +30,17 @@ import { SkillItemComponent } from './components/skill-item/skill-item.component
 import { SkillAddComponent } from './components/skill-add/skill-add.component';
 import { SkillUpdateComponent } from './components/skill-update/skill-update.component';
 import { AboutUpdateComponent } from './components/about-update/about-update.component';
-import { SocialNetworkItemComponent } from './components/social-network-item/social-network-item.component';
+import { SocialNetworkContactItemComponent } from './components/social-network-contact-item/social-network-contact-item.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SocialNetworkLinkItemComponent } from './components/social-network-link-item/social-network-link-item.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-//import { SocialNetworkUpdateComponent } from './components/social-network-update/social-network-update.component';
+import { SocialNetworkUpdateComponent } from './components/social-network-update/social-network-update.component';
 import { DateInPastDirective } from './validators/date-in-past.directive';
 import { DateLessThenDateDirective } from './validators/date-less-then-date.directive';
+import { SocialNetworkComponent } from './components/social-network/social-network.component';
+import { SocialNetworkAddComponent } from './components/social-network-add/social-network-add.component';
+import { SocialNetworkItemComponent } from './components/social-network-item/social-network-item.component';
+import { SocialNetworkTypeValidatorDirective } from './validators/social-network-type-validator.directive';
 
 @NgModule({
   declarations: [
@@ -62,13 +66,17 @@ import { DateLessThenDateDirective } from './validators/date-less-then-date.dire
     SkillAddComponent,
     SkillUpdateComponent,
     AboutUpdateComponent,
-    SocialNetworkItemComponent,
+    SocialNetworkContactItemComponent,
     FooterComponent,
     SocialNetworkLinkItemComponent,
     PageNotFoundComponent,
-    //SocialNetworkUpdateComponent,
+    SocialNetworkUpdateComponent,
     DateInPastDirective,
-    DateLessThenDateDirective
+    DateLessThenDateDirective,
+    SocialNetworkComponent,
+    SocialNetworkAddComponent,
+    SocialNetworkItemComponent,
+    SocialNetworkTypeValidatorDirective
   ],
   imports: [
     BrowserModule,

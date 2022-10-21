@@ -53,7 +53,7 @@ export class EducationAddComponent implements OnInit {
     }, { validators: dateLessThenDateValidator });
   }
 
-  // Envia la nueva experiencia a la clase padre
+  // Envia la nueva educacion a la clase padre
   async onSubmit(){
     if (this.form.valid){
       this.education.title = this.form.value.title;
