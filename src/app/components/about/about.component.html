@@ -9,7 +9,8 @@
         <ng-template #emptyCoverPhoto>
             <div class="coverPhoto">
                 <img class="img-fluid vw-100 h-100 rounded-top" 
-                    src="../../../assets/cover-photo.png"
+                    src="https://firebasestorage.googleapis.com/v0/b/portfolio-92aa8.appspot.com/o/assets%2Fcover-photo.png?alt=media&token=25766487-bc08-4ef8-8e63-32effc028e03"
+                    alt="cover-photo"
                 >
             </div>
         </ng-template>
@@ -35,7 +36,10 @@
             <img class="profileImage" src="{{ person.urlImage }}">
         </div>
         <ng-template #emptyProfile>
-            <img class="emptyProfile" src="../../../assets/profile-image.png">
+            <img class="emptyProfile" 
+                src="https://firebasestorage.googleapis.com/v0/b/portfolio-92aa8.appspot.com/o/assets%2Fprofile-image.png?alt=media&token=2ce3130b-fe05-4951-bf71-92fb81e95259"
+                alt="profile-image"
+            >
         </ng-template>
         
         <div class="btnProfileImage" *ngIf="hasCurrentUser">
