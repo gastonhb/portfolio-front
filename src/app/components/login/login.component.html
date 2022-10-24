@@ -1,39 +1,75 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <title>Login</title>
-  </head>
-  <body class="text-center">
-    <div class="card m-auto" style="width: 18rem;">
-      <div class="card-body">
-        <main class="form-login w-100 m-auto">
-          <form [formGroup]="form" (ngSubmit)="onEnviar($event)">
-            <fa-icon [icon]="faCircleUser"  class="fa-5x"></fa-icon> 
-            <h1 class="h3 mb-3 fw-normal">Iniciar sesión</h1>
-            <div class="form-floating">
-              <input type="username" formControlName="username" class="form-control" id="floatingUsername" placeholder="username" [ngClass]="{'is-invalid': Username?.errors && Username?.touched, 'is-valid': !Username?.errors && Username?.touched}">
-              <div *ngIf="Username?.errors && Username?.touched">
-                <p *ngIf="Username?.hasError('required')" class="text-danger">El usuario es requerido.</p>
-              </div>
-              <label for="floatingInput">Nombre de usuario</label>
-              
+<div class="text-center">
+  <div class="card m-auto position-absolute top-50 start-50 translate-middle">
+    <div class="card-body">
+      <form class="form-login m-auto" 
+        [formGroup]="form" 
+        (ngSubmit)="onSend($event)">
+
+          <fa-icon class="fa-5x" 
+            [icon]="faCircleUser">
+          </fa-icon> 
+
+          <h1 class="h3 mb-3 fw-normal">
+            Iniciar sesión
+          </h1>
+
+          <div class="form-floating mb-2">
+            <input class="form-control" 
+              type="username" 
+              formControlName="username"  
+              id="floatingUsername" 
+              placeholder="username" 
+              [ngClass]="{'is-invalid': Username?.errors && Username?.touched, 
+              'is-valid': !Username?.errors && Username?.touched}"
+            >
+            <div *ngIf="Username?.errors && Username?.touched">
+              <p *ngIf="Username?.hasError('required')" class="text-danger">
+                El usuario es requerido.
+              </p>
             </div>
-            <div class="form-floating">
-              <input type="password" formControlName="password" class="form-control" id="floatingPassword" placeholder="Password" [ngClass]="{'is-invalid': Password?.errors && Password?.touched, 'is-valid': !Password?.errors && Password?.touched}">
-              <div *ngIf="Password?.errors && Password?.touched">
-                <p *ngIf="Password?.hasError('required')" class="text-danger">La contraseña es requerida.</p>
-                <p *ngIf="Password?.errors?.['minlength']" class="text-danger">La contraseña debe ser de 8 o más caracteres.</p>
-              </div>
-              <label for="floatingPassword">Contraseña</label>
+            <label for="floatingInput">
+              Nombre de usuario
+            </label>
+          </div>
+
+          <div class="form-floating mb-2">
+            <input class="form-control" 
+              type="password" 
+              formControlName="password"  
+              id="floatingPassword" 
+              placeholder="Password" 
+              [ngClass]="{'is-invalid': Password?.errors && Password?.touched, 
+              'is-valid': !Password?.errors && Password?.touched}"
+            >
+            <div *ngIf="Password?.errors && Password?.touched">
+              <p class="text-danger" 
+                *ngIf="Password?.hasError('required')">
+                  La contraseña es requerida.
+              </p>
+              <p class="text-danger"
+                *ngIf="Password?.errors?.['minlength']">
+                  La contraseña debe ser de 8 o más caracteres.
+              </p>
             </div>
-    
-            <button class="w-100 btn btn-lg btn-primary" type="submit">Acceder</button>
-          </form>
-        </main>
-      </div>
+            <label for="floatingPassword">
+              Contraseña
+            </label>
+          </div>
+  
+          <button class="w-100 btn btn-lg btn-primary" 
+            type="submit">
+              Acceder
+          </button>
+      </form>
     </div>
-  </body>
-</html>
+  </div>
+
+  <app-error-modal
+    [hasError]="hasError"
+    [errorMessage]="errorMessage"
+    (closeErrorModal)="closeErrorModal()">
+  </app-error-modal>
+</div>
+
+
+

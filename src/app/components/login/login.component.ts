@@ -13,7 +13,9 @@ import { faCircleUser } from '@fortawesome/free-solid-svg-icons';
 export class LogInComponent implements OnInit {
 
   faCircleUser = faCircleUser;
-  form:FormGroup;
+  form: FormGroup;
+  hasError: Boolean = false;
+  errorMessage: String = '';
 
   constructor(private formBuilder:FormBuilder, private autenticacionService:AuthenticationService, private ruta:Router) { 
     this.form = this.formBuilder.group(
@@ -35,10 +37,23 @@ export class LogInComponent implements OnInit {
     return this.form.get('password');
   }
 
-  onEnviar(event: Event){
-    event.preventDefault;
-    this.autenticacionService.login(this.form.value).subscribe(data=>{
-      this.ruta.navigate(['/portfolio/' + data.username])
+  // Autenticar
+  onSend(event: Event){
+    event.preventDefault();
+    this.autenticacionService.login(this.form.value).subscribe({
+      next: (res) => {
+        this.ruta.navigate(['/portfolio/' + res.username])},
+      error: (err) => {
+        if(err.status === 401){
+          this.hasError = true;
+          this.errorMessage = "Nombre de usuario o contraseña incorrecta."
+        }
+      }
     })
+  }
+
+  // Cerrar modal de error
+  closeErrorModal(){
+    this.hasError = !this.hasError;
   }
 }

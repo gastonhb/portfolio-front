@@ -1,0 +1,38 @@
+<div class="modal d-block position-absolute top-50 start-50 translate-middle" *ngIf="hasError">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header bg-danger text-start">
+                <div class="row my-auto">
+                    <div class="col col-3 my-auto">
+                        <fa-icon class="text-white"
+                            [icon]="faTriangleExclamation">
+                        </fa-icon>
+                    </div>
+                    <div class="col col-9 my-auto">
+                        <h4 class="modal-title text-white">
+                            Error
+                        </h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <div class="text-start my-auto">
+                    <p class="my-auto">
+                        {{ errorMessage }}
+                    </p>
+                </div>
+            </div>
+
+            <div class="modal-footer py-1">
+                <button class="btn btn-secondary"
+                    type="button"  
+                    (click)="close()">
+                        Aceptar
+                </button>
+            </div>
+        </div>   
+    </div>
+</div>
+

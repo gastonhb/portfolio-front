@@ -41,6 +41,7 @@ import { SocialNetworkComponent } from './components/social-network/social-netwo
 import { SocialNetworkAddComponent } from './components/social-network-add/social-network-add.component';
 import { SocialNetworkItemComponent } from './components/social-network-item/social-network-item.component';
 import { SocialNetworkTypeValidatorDirective } from './validators/social-network-type-validator.directive';
+import { ErrorModalComponent } from './components/error-modal/error-modal.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { SocialNetworkTypeValidatorDirective } from './validators/social-network
     SocialNetworkComponent,
     SocialNetworkAddComponent,
     SocialNetworkItemComponent,
-    SocialNetworkTypeValidatorDirective
+    SocialNetworkTypeValidatorDirective,
+    ErrorModalComponent
   ],
   imports: [
     BrowserModule,

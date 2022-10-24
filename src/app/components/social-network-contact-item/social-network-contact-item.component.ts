@@ -34,7 +34,7 @@ export class SocialNetworkContactItemComponent implements OnInit {
       case "Email":
         this.icon = faEnvelope;
         break;
-      case "Phone":
+      case "Telefono":
         this.icon = faPhone;
         break;
       case "Whatsapp":
