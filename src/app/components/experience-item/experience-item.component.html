@@ -1,15 +1,25 @@
 <div class="row" *ngIf="showUpdateExperience; else experienceItem">
-    <app-experience-update (onUpdateExperience)="onUpdateExperience($event)" (closeUpdateExperience)="closeUpdateExperience($event)" [showUpdateExperience]="showUpdateExperience" [experience]="experience"></app-experience-update>
+    <app-experience-update 
+        (onUpdateExperience)="onUpdateExperience($event)" 
+        (closeUpdateExperience)="closeUpdateExperience($event)" 
+        [showUpdateExperience]="showUpdateExperience" 
+        [experience]="experience">
+    </app-experience-update>
 </div>
 <ng-template #experienceItem>
     <div class="row">
         <div class="col col-2 my-auto">
             <div *ngIf="experience.urlImage; else withoutImage">
-                <img src="{{experience.urlImage}}" class="img-fluid rounded mx-auto d-block" alt="experience-photo">
+                <img class="img-fluid rounded mx-auto d-block" 
+                    src="{{experience.urlImage}}"
+                    alt="experience-photo"
+                >
             </div>
             <ng-template #withoutImage>
                 <div class="image rounded mx-auto my-auto">
-                    <fa-icon class="fa-5x"  [icon]="faImage"></fa-icon>
+                    <fa-icon class="fa-5x" 
+                        [icon]="faImage">
+                    </fa-icon>
                 </div>
             </ng-template>
         </div>
@@ -17,31 +27,42 @@
         <div class="col col-10">
             <div class="row">
                 <div class="col col-10">
-                    <h3 class="title"> {{experience.title}} </h3>
+                    <h3 class="title"> 
+                        {{ experience.title }} 
+                    </h3>
                 </div>
                 <div class="col col-2 d-flex justify-content-end" *ngIf="hasCurrentUser">
-                    <fa-icon class="btn" [icon]="faPen" (click)="toggleUpdateExperience()"></fa-icon>  
-                    <fa-icon class="btn" [icon]="faTrashCan" (click)="onDelete(experience)"></fa-icon> 
+                    <fa-icon class="btn" 
+                        [icon]="faPen" 
+                        (click)="toggleUpdateExperience()">
+                    </fa-icon>  
+                    <fa-icon class="btn" 
+                        [icon]="faTrashCan" 
+                        (click)="onDelete(experience)">
+                    </fa-icon> 
                 </div>
             </div>
 
             <h5 *ngIf="experience.workTimeType != undefined; else workTypeUndefined"> 
-                {{experience.companyName}} - {{experience.workTimeType.name}}   
+                {{ experience.companyName }} - {{ experience.workTimeType.name }}   
             </h5>
             <ng-template #workTypeUndefined>
                 <h5>
-                    {{experience.companyName}}
+                    {{ experience.companyName }}
                 </h5>
             </ng-template>
 
-            <p *ngIf="experience.endDate; else endDateNull"> 
+            <p class="mb-0" *ngIf="experience.endDate; else endDateNull"> 
                 {{ experience.startDate | date : "MM/yyyy" }}  -  
-                {{ experience.endDate | date : "MM/yyyy" }}</p>
-                <ng-template #endDateNull>
-                    {{ experience.startDate | date : "MM/yyyy" }}  - 
-                    Actualidad
-                </ng-template>
-            <p> {{experience.location}}</p>
+                {{ experience.endDate | date : "MM/yyyy" }}
+            </p>
+            <ng-template #endDateNull>
+                {{ experience.startDate | date : "MM/yyyy" }}  - 
+                Actualidad
+            </ng-template>
+            <p> 
+                {{ experience.location }}
+            </p>
         </div>
     </div>
 </ng-template>
