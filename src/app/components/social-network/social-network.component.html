@@ -11,7 +11,17 @@
             <div class="modal-body">
 
                 <div class="row justify-content-end">
-                    <div class="col col-1 d-flex justify-content-end my-auto"
+                    <div class="col col-11 my-auto">
+                        <h5 *ngIf="socialNetworks.length != 0; else emptySocialNetworks">
+                            Redes sociales registradas:
+                        </h5>
+                        <ng-template #emptySocialNetworks>
+                            <h5 class="my-auto">
+                                Sin redes sociales registradas.
+                            </h5>
+                        </ng-template>
+                    </div>
+                    <div class="col col-1 "
                         *ngIf="!showAddSocialNetwork">
                         <fa-icon 
                             [icon]="faPlus" 
