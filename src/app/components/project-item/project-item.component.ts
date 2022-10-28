@@ -5,6 +5,8 @@ import { Project } from "../../models/project.interface";
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
+import { ProjectPayload } from 'src/app/models/projectPayload.interface';
+import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
   selector: 'app-project-item',
@@ -29,6 +31,8 @@ export class ProjectItemComponent implements OnInit {
   showUpdateProject: boolean = false;
   hasCurrentUser: boolean = false;
   subscription?: Subscription;
+  hasError: Boolean = false;
+  errorMessage: String = '';
 
   personId: string = "";
 
@@ -36,7 +40,10 @@ export class ProjectItemComponent implements OnInit {
   faPen = faPen;
   faImage = faImage;
 
-  constructor(private storageService: StorageService, private authenticationService: AuthenticationService, private userService: UserService) {
+  constructor(private storageService: StorageService,
+    private authenticationService: AuthenticationService, 
+    private userService: UserService,
+    private projectService: ProjectService) {
     this.hasCurrentUser = authenticationService.hasCurrentUser;
     this.subscription = this.authenticationService.onToggle().subscribe(value => {
       this.hasCurrentUser = value
@@ -67,9 +74,19 @@ export class ProjectItemComponent implements OnInit {
   }
 
   // Actualizar proyecto
-  onUpdateProject(project: Project) {
+  onUpdateProject(projectPayload: ProjectPayload) {
+    this.projectService.update(this.project.id, projectPayload)
+    .subscribe({
+      next: (project) =>{
+        this.project = project;
+      },
+      error: (err) => {
+        this.hasError = true;
+        this.errorMessage = "Revise la información enviada"
+      }
+    });
     this.toggleUpdateProject();
-    this.updateProject.emit(project);
+    this.updateProject.emit(this.project);
   }
 
   // Mostrar proyecto
@@ -80,6 +97,11 @@ export class ProjectItemComponent implements OnInit {
   // Cerrar update de proyecto
   closeUpdateProject(showUpdateProject: boolean) {
     this.showUpdateProject = showUpdateProject;
+  }
+  
+  // Cerrar modal de error
+  closeErrorModal(){
+    this.hasError = !this.hasError;
   }
 
   // Ir a la pagina web

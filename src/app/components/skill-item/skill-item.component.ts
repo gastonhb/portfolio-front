@@ -3,7 +3,8 @@ import { faTrashCan, faPen, faImage } from '@fortawesome/free-solid-svg-icons';
 import { Skill } from "../../models/skill.interface";
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Subscription } from 'rxjs';
-import { UserService } from 'src/app/services/user.service';
+import { SkillService } from 'src/app/services/skill.service';
+import { SkillPayload } from 'src/app/models/skillPayload.interface';
 
 @Component({
   selector: 'app-skill-item',
@@ -30,6 +31,8 @@ export class SkillItemComponent implements OnInit {
   showUpdateSkill: boolean = false;
   hasCurrentUser: boolean = false;
   subscription?: Subscription;
+  hasError: Boolean = false;
+  errorMessage: String = '';
 
   personId: string = "";
 
@@ -37,7 +40,8 @@ export class SkillItemComponent implements OnInit {
   faPen = faPen;
   faImage = faImage;
 
-  constructor(private authenticationService: AuthenticationService) { 
+  constructor(private authenticationService: AuthenticationService,
+    private skillService: SkillService) { 
     this.hasCurrentUser = authenticationService.hasCurrentUser;
     this.subscription = this.authenticationService.onToggle().subscribe(value => {
       this.hasCurrentUser = value
@@ -52,9 +56,19 @@ export class SkillItemComponent implements OnInit {
   }
 
   // Actualizar habilidad
-  onUpdateSkill(skill: Skill){
+  onUpdateSkill(skillPayload: SkillPayload){
+    this.skillService.update(this.skill.id, skillPayload)
+    .subscribe({
+      next: (skill) =>{
+        this.skill = skill;
+      },
+      error: (err) => {
+        this.hasError = true;
+        this.errorMessage = "Revise la información enviada"
+      }
+    });
     this.toggleUpdateSkill();
-    this.updateSkill.emit(skill);
+    this.updateSkill.emit(this.skill);
   }
 
   // Mostrar habilidad
@@ -69,6 +83,11 @@ export class SkillItemComponent implements OnInit {
 
   skillType(skillType: string, type: string){
     return skillType === type ? true : false;
+  }
+
+  // Cerrar modal de error
+  closeErrorModal(){
+    this.hasError = !this.hasError;
   }
   
 }

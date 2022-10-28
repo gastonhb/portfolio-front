@@ -5,6 +5,8 @@ import { Education } from "../../models/education.interface";
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
+import { EducationService } from 'src/app/services/education.service';
+import { EducationPayload } from 'src/app/models/educationPayload.interface';
 
 @Component({
   selector: 'app-education-item',
@@ -28,6 +30,8 @@ export class EducationItemComponent implements OnInit {
   showUpdateEducation: boolean = false;
   hasCurrentUser: boolean = false;
   subscription?: Subscription;
+  hasError: Boolean = false;
+  errorMessage: String = '';
 
   personId: string = "";
 
@@ -35,7 +39,10 @@ export class EducationItemComponent implements OnInit {
   faPen = faPen;
   faImage = faImage;
 
-  constructor(private storageService: StorageService, private authenticationService: AuthenticationService, private userService: UserService) { 
+  constructor(private storageService: StorageService, 
+    private authenticationService: AuthenticationService, 
+    private userService: UserService,
+    private educationService: EducationService) { 
     this.hasCurrentUser = authenticationService.hasCurrentUser;
     this.subscription = this.authenticationService.onToggle().subscribe(value => {
       this.hasCurrentUser = value
@@ -66,9 +73,19 @@ export class EducationItemComponent implements OnInit {
   }
 
   // Actualizar educación
-  onUpdateEducation(education: Education){
+  onUpdateEducation(educationPayload: EducationPayload){
+    this.educationService.update(this.education.id, educationPayload)
+    .subscribe({
+      next: (education) =>{
+        this.education = education;
+      },
+      error: (err) => {
+        this.hasError = true;
+        this.errorMessage = "Revise la información enviada"
+      }
+    });
     this.toggleUpdateEducation();
-    this.updateEducation.emit(education);
+    this.updateEducation.emit(this.education);
   }
 
   // Mostrar educación
@@ -80,4 +97,10 @@ export class EducationItemComponent implements OnInit {
   closeUpdateEducation(showUpdateEducation: boolean){
     this.showUpdateEducation = showUpdateEducation;
   }
+
+  // Cerrar modal de error
+  closeErrorModal(){
+    this.hasError = !this.hasError;
+  }
+
 }

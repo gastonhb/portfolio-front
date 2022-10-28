@@ -76,20 +76,8 @@ export class EducationComponent implements OnInit, OnChanges {
 
   // Actualizar educacion
   updateEducation(education: Education){
-    const educationPayload: EducationPayload = {
-      title: education.title, 
-      institute: education.institute, 
-      startDate: education.startDate, 
-      endDate: education.endDate,  
-      urlImage: education.urlImage, 
-      personId: education.personId
-    };
-    
-    this.educationService.update(education.id, educationPayload)
-    .subscribe((education) =>{
-      const index = this.educations.findIndex(edu => edu.id === education.id);
-      this.educations[index] = education;
-    });
+    const index = this.educations.findIndex(edu => edu.id === education.id);
+    this.educations[index] = education;
   }
 
   // Cerrar add education

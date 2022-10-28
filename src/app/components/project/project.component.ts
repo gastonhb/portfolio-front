@@ -78,20 +78,8 @@ export class ProjectComponent implements OnInit {
 
   // Actualizar proyecto
   updateProject(project: Project){
-    const projectPayload: ProjectPayload = {
-      name: project.name, 
-      description: project.description, 
-      startDate: project.startDate, 
-      endDate: project.endDate, 
-      link: project.link, 
-      urlImage: project.urlImage, 
-      personId: project.personId
-    };
-    this.projectService.update(project.id, projectPayload)
-    .subscribe((project) =>{
-      const index = this.projects.findIndex(pro => pro.id === project.id);
-      this.projects[index] = project;
-    });
+    const index = this.projects.findIndex(pro => pro.id === project.id);
+    this.projects[index] = project;
   }
 
   // Cerrar add project

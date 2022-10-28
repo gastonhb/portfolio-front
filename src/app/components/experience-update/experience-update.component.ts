@@ -2,7 +2,9 @@ import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faImage, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Experience } from 'src/app/models/experience.interface';
+import { ExperiencePayload } from 'src/app/models/experiencePayload.interface';
 import { WorkTimeType } from 'src/app/models/workTimeType.interface';
+import { ExperienceService } from 'src/app/services/experience.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { WorkTimeTypeService } from 'src/app/services/workTimeType.service';
 import { dateInPastValidator } from 'src/app/validators/date-in-past.directive';
@@ -15,7 +17,7 @@ import { dateLessThenDateValidator } from 'src/app/validators/date-less-then-dat
 })
 
 export class ExperienceUpdateComponent implements OnInit {
-  @Output() onUpdateExperience: EventEmitter<Experience> = new EventEmitter();
+  @Output() onUpdateExperience: EventEmitter<ExperiencePayload> = new EventEmitter();
   @Input() showUpdateExperience: Boolean = false;
   @Output() closeUpdateExperience = new EventEmitter();
 
@@ -61,9 +63,9 @@ export class ExperienceUpdateComponent implements OnInit {
       workTimeType: new FormControl(this.experience.workTimeType, [Validators.required]),
       startDate: new FormControl(this.experience.startDate.toString().slice(0,7), 
         [Validators.required, dateInPastValidator()]),
-      endDate: this.experience.endDate ? new FormControl(this.experience.endDate.toString().slice(0,7),
-        [Validators.required, dateInPastValidator()]) : 
-        new FormControl(null, [Validators.required, dateInPastValidator()]),
+      endDate: this.experience.endDate ? 
+        new FormControl(this.experience.endDate.toString().slice(0,7), [dateInPastValidator()]) : 
+        new FormControl(null, [dateInPastValidator()]),
       location: new FormControl(this.experience.location, []),
     }, { validators: dateLessThenDateValidator });
 
@@ -78,13 +80,6 @@ export class ExperienceUpdateComponent implements OnInit {
   // Envia la experiencia actualizada a la clase padre
   async onSubmit(){
     if (this.form.valid){
-      this.experience.title = this.form.value.title;
-      this.experience.companyName =  this.form.value.companyName;
-      this.experience.location = this.form.value.location;
-      this.experience.personId = this.experience.personId;
-      this.experience.workTimeTypeId =  this.form.value.workTimeType.id;
-      this.experience.startDate = new Date(this.form.value.startDate.toString() + "-01")
-      
       if(this.image){
         if (this.experience.urlImage) {
           await this.deleteImage(this.experience.urlImage);
@@ -93,11 +88,18 @@ export class ExperienceUpdateComponent implements OnInit {
         this.image = null;
       }
 
-      if (this.form.value.endDate != null) {
-        this.experience.endDate = new Date(this.form.value.endDate.toString() + "-01")
-      }
+      const experiencePayload: ExperiencePayload = {
+        title: this.form.value.title, 
+        companyName: this.form.value.companyName, 
+        startDate: new Date(this.form.value.startDate.toString() + "-01"), 
+        endDate: this.form.value.endDate != null ? new Date(this.form.value.endDate.toString() + "-01") : null, 
+        location: this.form.value.location, 
+        urlImage: this.experience.urlImage, 
+        personId: this.experience.personId, 
+        workTimeTypeId: this.form.value.workTimeType.id,
+      };
       
-      this.onUpdateExperience.emit(this.experience)
+      this.onUpdateExperience.emit(experiencePayload)
     }
   }
 

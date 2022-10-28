@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faImage, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Education } from 'src/app/models/education.interface';
+import { EducationPayload } from 'src/app/models/educationPayload.interface';
 import { StorageService } from 'src/app/services/storage.service';
 import { dateLessThenDateValidator } from 'src/app/validators/date-less-then-date.directive';
 
@@ -12,7 +13,7 @@ import { dateLessThenDateValidator } from 'src/app/validators/date-less-then-dat
 })
 export class EducationUpdateComponent implements OnInit {
 
-  @Output() onUpdateEducation: EventEmitter<Education> = new EventEmitter();
+  @Output() onUpdateEducation: EventEmitter<EducationPayload> = new EventEmitter();
   @Input() showUpdateEducation: Boolean = false;
   @Output() closeUpdateEducation = new EventEmitter();
 
@@ -57,12 +58,7 @@ export class EducationUpdateComponent implements OnInit {
   // Envia la educacion actualizada a la clase padre
   async onSubmit(){
     if (this.form.valid){
-      this.education.title = this.form.value.title;
-      this.education.institute =  this.form.value.institute;
-      this.education.personId = this.education.personId;
-      this.education.startDate = this.form.value.startDate;
-      this.education.endDate = this.form.value.endDate
-  
+      
       if(this.image){
         if (this.education.urlImage) {
           await this.deleteImage(this.education.urlImage);
@@ -70,8 +66,17 @@ export class EducationUpdateComponent implements OnInit {
         await this.saveImage();
         this.image = null;
       }
+
+      const educationPayload: EducationPayload = {
+        title: this.form.value.title, 
+        institute: this.form.value.institute, 
+        startDate: this.form.value.startDate, 
+        endDate: this.form.value.endDate,  
+        urlImage: this.education.urlImage, 
+        personId: this.education.personId
+      };
   
-      this.onUpdateEducation.emit(this.education)
+      this.onUpdateEducation.emit(educationPayload)
     }
   }
 

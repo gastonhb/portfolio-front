@@ -4,6 +4,8 @@ import { Experience } from "../../models/experience.interface";
 import { StorageService } from 'src/app/services/storage.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Subscription } from 'rxjs';
+import { ExperiencePayload } from 'src/app/models/experiencePayload.interface';
+import { ExperienceService } from 'src/app/services/experience.service';
 
 @Component({
   selector: 'app-experience-item',
@@ -34,11 +36,16 @@ export class ExperienceItemComponent implements OnInit {
   showUpdateExperience: boolean = false;
   hasCurrentUser: boolean = false;
   subscription?: Subscription;
+  hasError: Boolean = false;
+  errorMessage: String = '';
+
   faTrashCan = faTrashCan;
   faPen = faPen;
   faImage = faImage;
 
-  constructor(private storageService: StorageService, private authenticationService: AuthenticationService) { 
+  constructor(private storageService: StorageService, 
+    private authenticationService: AuthenticationService,
+    private experienceService: ExperienceService) { 
     this.hasCurrentUser = authenticationService.hasCurrentUser;
     this.subscription = this.authenticationService.onToggle().subscribe(value => {
       this.hasCurrentUser = value
@@ -61,9 +68,19 @@ export class ExperienceItemComponent implements OnInit {
   }
 
   // Actualizar experiencia
-  onUpdateExperience(experience: Experience){
+  onUpdateExperience(experiencePayload: ExperiencePayload){
+    this.experienceService.update(this.experience.id, experiencePayload)
+    .subscribe({
+      next: (experience) =>{
+        this.experience = experience;
+      },
+      error: (err) => {
+        this.hasError = true;
+        this.errorMessage = "Revise la información enviada"
+      }
+    });
     this.toggleUpdateExperience();
-    this.updateExperience.emit(experience);
+    this.updateExperience.emit(this.experience);
   }
 
   // Mostrar experiencia
@@ -74,6 +91,11 @@ export class ExperienceItemComponent implements OnInit {
   // Cerrar update de experiencia
   closeUpdateExperience(showUpdateExperience: boolean){
     this.showUpdateExperience = showUpdateExperience;
+  }
+
+  // Cerrar modal de error
+  closeErrorModal(){
+    this.hasError = !this.hasError;
   }
 
 }

@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faImage, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Skill } from 'src/app/models/skill.interface';
+import { SkillPayload } from 'src/app/models/skillPayload.interface';
 import { SkillType } from 'src/app/models/skillType.interface';
 import { SkillTypeService } from 'src/app/services/skillType.service';
 
@@ -12,7 +13,7 @@ import { SkillTypeService } from 'src/app/services/skillType.service';
 })
 export class SkillUpdateComponent implements OnInit {
 
-  @Output() onUpdateSkill: EventEmitter<Skill> = new EventEmitter();
+  @Output() onUpdateSkill: EventEmitter<SkillPayload> = new EventEmitter();
   @Input() showUpdateSkill: Boolean = false;
   @Output() closeUpdateSkill = new EventEmitter();
 
@@ -52,12 +53,15 @@ export class SkillUpdateComponent implements OnInit {
   // Envia la experiencia actualizada a la clase padre
   async onSubmit(){
     if (this.form.valid){
-      this.skill.name =  this.form.value.name;
-      this.skill.grade = this.form.value.grade;
-      this.skill.personId = this.skill.personId;
-      this.skill.skillTypeId =  this.form.value.skillType.id;
-  
-      this.onUpdateSkill.emit(this.skill)
+      
+      const skillPayload: SkillPayload = {
+        name: this.form.value.name, 
+        grade: this.form.value.grade, 
+        skillTypeId: this.form.value.skillType.id,
+        personId: this.skill.personId
+      };
+
+      this.onUpdateSkill.emit(skillPayload)
     }
   }
 

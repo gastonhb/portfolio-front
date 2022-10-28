@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { faImage, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { Project } from 'src/app/models/project.interface';
+import { ProjectPayload } from 'src/app/models/projectPayload.interface';
 import { StorageService } from 'src/app/services/storage.service';
 import { dateInPastValidator } from 'src/app/validators/date-in-past.directive';
 import { dateLessThenDateValidator } from 'src/app/validators/date-less-then-date.directive';
@@ -14,7 +15,7 @@ import { dateLessThenDateValidator } from 'src/app/validators/date-less-then-dat
 })
 export class ProjectUpdateComponent implements OnInit {
 
-  @Output() onUpdateProject: EventEmitter<Project> = new EventEmitter();
+  @Output() onUpdateProject: EventEmitter<ProjectPayload> = new EventEmitter();
   @Input() showUpdateProject: Boolean = false;
   @Output() closeUpdateProject = new EventEmitter();
 
@@ -49,9 +50,9 @@ export class ProjectUpdateComponent implements OnInit {
       link: new FormControl(this.project.link, [Validators.required]),
       startDate: new FormControl(this.project.startDate.toString().slice(0,7), 
         [Validators.required, dateInPastValidator()]),
-      endDate: this.project.endDate ? new FormControl(this.project.endDate.toString().slice(0,7),
-        [dateInPastValidator()]) : 
-        new FormControl(null, [Validators.required, dateInPastValidator()]),
+      endDate: this.project.endDate ? 
+        new FormControl(this.project.endDate.toString().slice(0,7), [dateInPastValidator()]) : 
+        new FormControl(null, [dateInPastValidator()]),
     }, { validators: dateLessThenDateValidator });
   }
 
@@ -71,11 +72,18 @@ export class ProjectUpdateComponent implements OnInit {
         this.image = null;
       }
 
-      if (this.form.value.endDate != null) {
-        this.project.endDate = new Date(this.form.value.endDate.toString() + "-01")
-      }
+      const projectPayload: ProjectPayload = {
+        name: this.form.value.name, 
+        description: this.form.value.description, 
+        startDate: new Date(this.form.value.startDate.toString() + "-01"), 
+        endDate: this.form.value.endDate != null ? 
+          new Date(this.form.value.endDate.toString() + "-01") : null, 
+        link: this.form.value.link, 
+        urlImage: this.project.urlImage, 
+        personId: this.project.personId
+      };
       
-      this.onUpdateProject.emit(this.project)
+      this.onUpdateProject.emit(projectPayload)
     }
   }
 

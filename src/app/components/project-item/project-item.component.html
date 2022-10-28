@@ -62,4 +62,9 @@
             </ng-template>
         </div>
     </div>
+    <app-error-modal
+        [hasError]="hasError"
+        [errorMessage]="errorMessage"
+        (closeErrorModal)="closeErrorModal()">
+    </app-error-modal>
 </ng-template>
