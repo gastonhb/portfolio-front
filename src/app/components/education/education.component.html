@@ -35,5 +35,10 @@
         (onAddEducation)="onAddEducation($event)" 
         (closeAddEducation)="closeAddEducation($event)">
     </app-education-add>
-   
+
+    <app-error-modal
+        [hasError]="hasError"
+        [errorMessage]="errorMessage"
+        (closeErrorModal)="closeErrorModal()">
+    </app-error-modal>
 </div>

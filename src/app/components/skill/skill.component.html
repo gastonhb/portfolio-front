@@ -50,4 +50,10 @@
         (onAddSkill)="onAddSkill($event)"
         (closeAddSkill)="closeAddSkill($event)">
     </app-skill-add>
+    
+    <app-error-modal
+        [hasError]="hasError"
+        [errorMessage]="errorMessage"
+        (closeErrorModal)="closeErrorModal()">
+    </app-error-modal>
 </div>

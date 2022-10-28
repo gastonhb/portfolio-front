@@ -32,4 +32,10 @@
         (onAddExperience)="onAddExperience($event)" 
         (closeAddExperience)="closeAddExperience($event)">
     </app-experience-add>
+
+    <app-error-modal
+        [hasError]="hasError"
+        [errorMessage]="errorMessage"
+        (closeErrorModal)="closeErrorModal()">
+    </app-error-modal>
 </div>

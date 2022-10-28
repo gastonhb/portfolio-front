@@ -20,6 +20,8 @@ export class SkillComponent implements OnInit {
   showAddSkill: Boolean = false;
   hasCurrentUser: boolean = false;
   subscription?: Subscription;
+  hasError: Boolean = false;
+  errorMessage: String = '';
 
   hardSkills: Skill[] = [];
   softSkills: Skill[] = [];
@@ -65,25 +67,30 @@ export class SkillComponent implements OnInit {
   // Borrar habilidad
   onDelete(skill: Skill){
     this.skillService.delete(skill)
-      .subscribe(() =>{
-        if (skill.skillType.name === "Hard skill") {
-          this.hardSkills = this.hardSkills.filter(ski => ski.id !== skill.id);
-        } else {
-          this.softSkills = this.softSkills.filter(ski => ski.id !== skill.id);
-        }
-        
-      });
+    .subscribe(() =>{
+      if (skill.skillType.name === "Hard skill") {
+        this.hardSkills = this.hardSkills.filter(ski => ski.id !== skill.id);
+      } else {
+        this.softSkills = this.softSkills.filter(ski => ski.id !== skill.id);
+      }
+    });
   }
 
   // Agrega habilidad
   onAddSkill(skill: SkillPayload){
     this.showAddSkill = false;
     this.skillService.create(skill)
-    .subscribe((skill) =>{
-      if (skill.skillType.name === "Hard skill") {
-        this.hardSkills.push(skill);
-      } else {
-        this.softSkills.push(skill);
+    .subscribe({
+      next: (skill) =>{
+        if (skill.skillType.name === "Hard skill") {
+          this.hardSkills.push(skill);
+        } else {
+          this.softSkills.push(skill);
+        }
+      },
+      error: (err) => {
+        this.hasError = true;
+        this.errorMessage = "Revise la información enviada"
       }
     });
   }
@@ -125,6 +132,11 @@ export class SkillComponent implements OnInit {
   // Cerrar add skill
   closeAddSkill(showAddSkill: boolean){
     this.showAddSkill = showAddSkill;
+  }
+
+  // Cerrar modal de error
+  closeErrorModal(){
+    this.hasError = !this.hasError;
   }
 
 }

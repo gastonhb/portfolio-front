@@ -18,6 +18,8 @@ export class EducationComponent implements OnInit, OnChanges {
   showAddEducation: Boolean = false;
   hasCurrentUser: boolean = false;
   subscription?: Subscription;
+  hasError: Boolean = false;
+  errorMessage: String = '';
 
   educations: Education [] = [];
 
@@ -61,8 +63,14 @@ export class EducationComponent implements OnInit, OnChanges {
   onAddEducation(education: EducationPayload){
     this.showAddEducation = false;
     this.educationService.create(education)
-    .subscribe((education) =>{
-      this.educations.push(education);
+    .subscribe({
+      next: (education) =>{
+        this.educations.push(education);
+      },
+      error: (err) => {
+        this.hasError = true;
+        this.errorMessage = "Revise la información enviada"
+      }
     });
   }
 
@@ -87,6 +95,11 @@ export class EducationComponent implements OnInit, OnChanges {
   // Cerrar add education
   closeAddEducation(showAddEducation: boolean){
     this.showAddEducation = showAddEducation;
+  }
+
+  // Cerrar modal de error
+  closeErrorModal(){
+    this.hasError = !this.hasError;
   }
 
 }

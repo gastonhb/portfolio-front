@@ -18,6 +18,8 @@ export class ProjectComponent implements OnInit {
   showAddProject: Boolean = false;
   hasCurrentUser: boolean = false;
   subscription?: Subscription;
+  hasError: Boolean = false;
+  errorMessage: String = '';
 
   projects: Project [] = [];
 
@@ -61,8 +63,16 @@ export class ProjectComponent implements OnInit {
   onAddProject(project: ProjectPayload){
     this.showAddProject = false;
     this.projectService.create(project)
-    .subscribe((project) =>{
-      this.projects.push(project);
+    .subscribe({
+      next: (project) =>{
+        console.log(project)
+        this.projects.push(project);
+      },
+      error: (err) => {
+        console.log("d")
+        this.hasError = true;
+        this.errorMessage = "Revise la información enviada"
+      }
     });
   }
 
@@ -87,6 +97,11 @@ export class ProjectComponent implements OnInit {
   // Cerrar add project
   closeAddProject(showAddProject: boolean){
     this.showAddProject = showAddProject;
+  }
+
+  // Cerrar modal de error
+  closeErrorModal(){
+    this.hasError = !this.hasError;
   }
 
 }

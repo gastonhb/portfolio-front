@@ -19,6 +19,8 @@ export class ExperienceComponent implements OnInit {
   showAddExperience: Boolean = false;
   hasCurrentUser: boolean = false;
   subscription?: Subscription;
+  hasError: Boolean = false;
+  errorMessage: String = '';
 
   experiences: Experience [] = [];
 
@@ -61,34 +63,31 @@ export class ExperienceComponent implements OnInit {
   onAddExperience(experience: ExperiencePayload){
     this.showAddExperience = false;
     this.experienceService.create(experience)
-    .subscribe((experience) =>{
-      this.experiences.push(experience);
+    .subscribe({
+      next: (experience) =>{
+        this.experiences.push(experience);
+      },
+      error: (err) => {
+        this.hasError = true;
+        this.errorMessage = "Revise la información enviada"
+      }
     });
   }
 
   // Actualizar experiencia
   updateExperience(experience: Experience){
-    const experiencePayload: ExperiencePayload = {
-      title: experience.title, 
-      companyName: experience.companyName, 
-      startDate: experience.startDate, 
-      endDate: experience.endDate, 
-      location: experience.location, 
-      urlImage: experience.urlImage, 
-      personId: experience.personId, 
-      workTimeTypeId: experience.workTimeTypeId,
-    };
-
-    this.experienceService.update(experience.id, experiencePayload)
-    .subscribe((experience) =>{
-      const index = this.experiences.findIndex(exp => exp.id === experience.id);
-      this.experiences[index] = experience;
-    });
+    const index = this.experiences.findIndex(exp => exp.id === experience.id);
+    this.experiences[index] = experience;
   }
 
   // Cerrar add experience
   closeAddExperience(showAddExperience: boolean){
     this.showAddExperience = showAddExperience;
+  }
+
+  // Cerrar modal de error
+  closeErrorModal(){
+    this.hasError = !this.hasError;
   }
 
 }
