@@ -129,9 +129,12 @@ export class ProjectAddComponent implements OnInit {
       }
     }
   
-    this.form.errors?.['dateLessThenDate'] ? 
-      this.form.controls['endDate'].setErrors({...errorsEndDate,'dateLessThenDate': true}) : 
+    if ( this.form.errors?.['dateLessThenDate']) {
+      this.form.controls['endDate'].markAsTouched();
+      this.form.controls['endDate'].setErrors({...errorsEndDate,'dateLessThenDate': true});
+    } else {
       this.form.controls['endDate'].setErrors(errorsEndDate);
+    }
   }
 
   get name() { return this.form.get('name'); }
