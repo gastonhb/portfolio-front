@@ -70,14 +70,14 @@ export class ExperienceAddComponent implements OnInit {
       this.experience.location = this.form.value.location;
       this.experience.personId = this.authenticationService.personId;
       this.experience.workTimeTypeId =  this.form.value.workTimeType.id;
-      this.experience.startDate = new Date(this.form.value.startDate.toString() + "-01")
+      this.experience.startDate = new Date(this.form.value.startDate.toString() + "-01T00:00:00.000-03:00")
   
       if(this.image){
         await this.saveImage();
       }
   
       if (this.form.value.endDate != null) {
-        this.experience.endDate = new Date(this.form.value.endDate.toString() + "-01")
+        this.experience.endDate = new Date(this.form.value.endDate.toString() + "-01T00:00:00.000-03:00")
       }
   
       this.onAddExperience.emit(this.experience)

@@ -59,10 +59,6 @@ export class ProjectUpdateComponent implements OnInit {
   // Envia la experiencia actualizada a la clase padre
   async onSubmit(){
     if (this.form.valid){
-      this.project.name = this.form.value.name;
-      this.project.description =  this.form.value.description;
-      this.project.link = this.form.value.link;
-      this.project.startDate = new Date(this.form.value.startDate.toString() + "-01")
       
       if(this.image){
         if (this.project.urlImage) {
@@ -75,9 +71,9 @@ export class ProjectUpdateComponent implements OnInit {
       const projectPayload: ProjectPayload = {
         name: this.form.value.name, 
         description: this.form.value.description, 
-        startDate: new Date(this.form.value.startDate.toString() + "-01"), 
+        startDate: new Date(this.form.value.startDate.toString() + "-01T00:00:00.000-03:00"), 
         endDate: this.form.value.endDate != null ? 
-          new Date(this.form.value.endDate.toString() + "-01") : null, 
+          new Date(this.form.value.endDate.toString() + "-01T00:00:00.000-03:00") : null, 
         link: this.form.value.link, 
         urlImage: this.project.urlImage, 
         personId: this.project.personId

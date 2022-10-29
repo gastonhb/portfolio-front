@@ -91,13 +91,14 @@ export class ExperienceUpdateComponent implements OnInit {
       const experiencePayload: ExperiencePayload = {
         title: this.form.value.title, 
         companyName: this.form.value.companyName, 
-        startDate: new Date(this.form.value.startDate.toString() + "-01"), 
-        endDate: this.form.value.endDate != null ? new Date(this.form.value.endDate.toString() + "-01") : null, 
+        startDate: new Date(this.form.value.startDate.toString() + "-01T00:00:00.000-03:00"),
+        endDate: this.form.value.endDate != null ? new Date(this.form.value.endDate.toString() + "-01T00:00:00.000-03:00") : null, 
         location: this.form.value.location, 
         urlImage: this.experience.urlImage, 
         personId: this.experience.personId, 
         workTimeTypeId: this.form.value.workTimeType.id,
       };
+      console.log(experiencePayload.endDate)
       
       this.onUpdateExperience.emit(experiencePayload)
     }

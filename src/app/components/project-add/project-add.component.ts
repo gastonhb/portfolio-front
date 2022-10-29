@@ -56,14 +56,14 @@ export class ProjectAddComponent implements OnInit {
       this.project.description =  this.form.value.description;
       this.project.link = this.form.value.link;
       this.project.personId = this.authenticationService.personId;
-      this.project.startDate = new Date(this.form.value.startDate.toString() + "-01")
+      this.project.startDate = new Date(this.form.value.startDate.toString() + "-01T00:00:00.000-03:00")
   
       if(this.image){
         await this.saveImage();
       }
   
       if (this.form.value.endDate != null) {
-        this.project.endDate = new Date(this.form.value.endDate.toString() + "-01")
+        this.project.endDate = new Date(this.form.value.endDate.toString() + "-01T00:00:00.000-03:00")
       }
   
       this.onAddProject.emit(this.project)
