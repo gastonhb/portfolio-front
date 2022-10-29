@@ -49,7 +49,7 @@ export class ProjectAddComponent implements OnInit {
     }, { validators: dateLessThenDateValidator });
   }
 
-  // Envia la nueva experiencia a la clase padre
+  // Envia la nueva proyecto a la clase padre
   async onSubmit(){
     if (this.form.valid){
       this.project.name = this.form.value.name;

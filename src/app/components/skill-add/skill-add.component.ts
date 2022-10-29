@@ -54,7 +54,7 @@ export class SkillAddComponent implements OnInit {
     })
   }
 
-  // Envia la nueva experiencia a la clase padre
+  // Envia la nueva habilidad a la clase padre
   async onSubmit(){
     if (this.form.valid){
       this.skill.name =  this.form.value.name;
@@ -74,7 +74,7 @@ export class SkillAddComponent implements OnInit {
   }
 
 
-  // Comparar nombres de tipos de jornadas
+  // Comparar nombres de tipos de habilidad
   compareNames(skillType1: SkillType, skillType2: SkillType) {
     return skillType1.name === skillType2.name;
   }

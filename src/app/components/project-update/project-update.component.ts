@@ -56,7 +56,7 @@ export class ProjectUpdateComponent implements OnInit {
     }, { validators: dateLessThenDateValidator });
   }
 
-  // Envia la experiencia actualizada a la clase padre
+  // Envia la proyecto actualizada a la clase padre
   async onSubmit(){
     if (this.form.valid){
       

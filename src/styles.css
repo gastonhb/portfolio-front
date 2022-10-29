@@ -1,53 +1,18 @@
-/* TODO Borrar */
-
-/* body {
-    margin:0;
-    padding:0
-} */
-
-/* .card {
-    width: 90%;
-    box-shadow: 0 0 12px rgba(0, 0, 0, .2);
-    background-color: #fff;
-    border-radius: 15px 15px;
-    text-align: center;
-    height: 200px;
-    margin-left: 5%;
-} */
-
-/* .title {
-    display: relative;
-    font-size: 32px;
-    padding-left: 3%;
-    padding-top: 1%;
-    margin-bottom: 1%;
-    text-align: left;
-} */
-
-/* .text {
-    display: relative;
-    font-size: 16px;
-    margin-left: 3%;
-    text-align: left;
-}
- */
-
- .btn-add {
+.btn-add {
     position: absolute;
     right: 20px;
     top: 8px;
-     /* right: -111px;  */
-     border: 0;
-     border-radius: 50%;
-     /* padding: 12px 25px; */
-     background-color: white; 
-     color: black;
-     cursor: pointer;
- 
-     /* box-shadow: 0 0 12px rgba(0, 0, 0, .2); */
-     width: 45px;
-     height: 45px;
- }
+    border: 0;
+    border-radius: 50%;
+    background-color: white; 
+    color: black;
+    cursor: pointer;
+    width: 45px;
+    height: 45px;
+}
  
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { 
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+}

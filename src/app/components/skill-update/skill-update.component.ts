@@ -50,7 +50,7 @@ export class SkillUpdateComponent implements OnInit {
     });
   }
 
-  // Envia la experiencia actualizada a la clase padre
+  // Envia la habilidad actualizada a la clase padre
   async onSubmit(){
     if (this.form.valid){
       

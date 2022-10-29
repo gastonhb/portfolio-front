@@ -16,7 +16,6 @@ export class AboutComponent implements OnInit {
 
   @Input() personId: string = "";
 
-  // image: any;
   showUpdateAbout: Boolean = false;
   hasCurrentUser: Boolean = false;
   subscription?: Subscription
