@@ -96,26 +96,19 @@ export class SkillComponent implements OnInit {
   }
 
   // Actualizar habilidad
-  updateSkill(skill: Skill){
-    let index;
-    if (skill.skillType.name === "Hard skill") {
-      index = this.hardSkills.findIndex(ski => ski.id === skill.id);
-      if (index != -1) {
-        this.hardSkills[index] = skill;
-      } else {
-        this.softSkills = this.softSkills.filter(ski => ski.id !== skill.id);
-        this.hardSkills.push(skill)
-      } 
-    }
-
-    if (skill.skillType.name === "Soft skill") {
-      index = this.softSkills.findIndex(ski => ski.id === skill.id);
-      if (index  != -1) {
-        this.softSkills[index] = skill;
-      } else {
-        this.hardSkills = this.hardSkills.filter(ski => ski.id !== skill.id);
-        this.softSkills.push(skill)
-      } 
+  updateSkill(){
+    this.hardSkills = [];
+    this.softSkills = [];
+    if (this.personId != '') {
+      this.skillService.list(this.personId).subscribe(skills => {
+        skills.forEach(skill => {
+          if (skill.skillType.name === "Hard skill") {
+            this.hardSkills.push(skill);
+          } else {
+            this.softSkills.push(skill);
+          }
+        });
+      })
     }
   }
 

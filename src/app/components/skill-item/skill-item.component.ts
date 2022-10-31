@@ -26,7 +26,7 @@ export class SkillItemComponent implements OnInit {
   }
 
   @Output() onDeleteSkill: EventEmitter<Skill> = new EventEmitter();
-  @Output() updateSkill: EventEmitter<Skill> = new EventEmitter();
+  @Output() updateSkill: EventEmitter<Boolean> = new EventEmitter();
 
   showUpdateSkill: boolean = false;
   hasCurrentUser: boolean = false;
@@ -59,16 +59,17 @@ export class SkillItemComponent implements OnInit {
   onUpdateSkill(skillPayload: SkillPayload){
     this.skillService.update(this.skill.id, skillPayload)
     .subscribe({
-      next: (skill) =>{
+      next: (skill) => {
         this.skill = skill;
+        this.toggleUpdateSkill();
+        this.updateSkill.emit();
       },
       error: (err) => {
         this.hasError = true;
-        this.errorMessage = "Revise la información enviada"
+        this.errorMessage = "Revise la información enviada";
       }
     });
-    this.toggleUpdateSkill();
-    this.updateSkill.emit(this.skill);
+    
   }
 
   // Mostrar habilidad
